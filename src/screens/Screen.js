@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MaterialMapView from "../components/MaterialMapView";
 import Button from "../components/Button";
 
 function Screen(props) {
-  const [showPath, setShowPath] = useState(false);
+  const [path, setPath] = useState();
 
   return (
     <View style={styles.container}>
-      <MaterialMapView style={styles.materialMapView} showPath={showPath} />
-      <Button
-        style={styles.button}
-        title="Show Path"
-        onPress={() => {
-          setShowPath(true);
-        }}
-      />
+      <MaterialMapView style={styles.materialMapView} path={path} />
+      <Button style={styles.button} title="Show Path" setPath={setPath} />
     </View>
   );
 }

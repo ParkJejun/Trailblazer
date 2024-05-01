@@ -6,7 +6,6 @@ function MaterialMapView(props) {
   return (
     <View style={[styles.container, props.style]}>
       <MapView
-        customMapStyle={"undefined"}
         style={styles.MapView1}
         region={{
           latitude: 36.3703,
@@ -15,13 +14,9 @@ function MaterialMapView(props) {
           longitudeDelta: 0.004,
         }}
       >
-        {props.showPath ? (
+        {props.path ? (
           <Polyline
-            coordinates={[
-              { latitude: 36.3703, longitude: 127.36251 },
-              { latitude: 36.3709, longitude: 127.36251 },
-              { latitude: 36.3707, longitude: 127.36309 },
-            ]}
+            coordinates={props.path}
             strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
             strokeColors={[
               "#7F0000",
