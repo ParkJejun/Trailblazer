@@ -405,7 +405,30 @@ export const places = [
   },
   {
     "id": 45,
-    "name": "갈릴레이사"
+    "name": "갈릴레이관",
+    "englishName": "Galilei Hall",
+    "buildingNum": "W3",
+    "latitude": 36.36757,
+    "longitude": 127.35811,
+    "tags": "기숙사, Dormitory"
+  },
+  {
+    "id": 46,
+    "name": "생활관지원실 서측",
+    "englishName": "West Dormitory Support Center",
+    "buildingNum": "W4",
+    "latitude": 36.36745,
+    "longitude": 127.35717,
+    "tags": "매점, Store"
+  },
+  {
+    "id": 47,
+    "name": "여울관",
+    "englishName": "Yeoul Hall",
+    "buildingNum": "W4-1",
+    "latitude": 36.36689,
+    "longitude": 127.35753,
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 48,
