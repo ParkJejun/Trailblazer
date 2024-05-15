@@ -6,6 +6,14 @@
 // longitude: longitude of the place
 // tags: tags for the place
 
+// Types of tags: 
+// 식당 (Restaurant)
+// 매점 (Store)
+// 카페 (Cafe)
+// 잡화점 (Variety Store)
+// 기숙사 (Dormitory)
+// 학습공간 (Study) (추가예정)
+
 export const places = [
   {
     "id": 1,
