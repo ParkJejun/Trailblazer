@@ -104,7 +104,7 @@ export const places = [
     "buildingNum": "E4",
     "latitude": 36.36841,
     "longitude": 127.36385,
-    "tags": "카페, 그라지에"
+    "tags": "카페, 그라지에, Cafe, Grazie"
   },
   {
     "id": 12,
@@ -113,7 +113,7 @@ export const places = [
     "buildingNum": "E5",
     "latitude": 36.36916,
     "longitude": 127.36373,
-    "tags": "식당, 매점, 동맛"
+    "tags": "식당, 매점, 동맛골, Restaurant, Store"
   },
   {
     "id": 13,
@@ -122,7 +122,7 @@ export const places = [
     "buildingNum": "E6",
     "latitude": 36.36990,
     "longitude": 127.36460,
-    "tags": "카페, 캘리포니아"
+    "tags": "카페, 캘리포니아, Cafe, California"
   },
   {
     "id": 14,
@@ -194,7 +194,7 @@ export const places = [
     "buildingNum": "E8",
     "latitude": 36.37123,
     "longitude": 127.36715,
-    "tags": "매점"
+    "tags": "매점, Store"
   },
   {
     "id": 22,
@@ -203,7 +203,7 @@ export const places = [
     "buildingNum": "E9",
     "latitude": 36.36933,
     "longitude": 127.36277,
-    "tags": "카페, 오가다"
+    "tags": "카페, 오가다, Cafe, Ogada"
   },
   {
     "id": 23,
@@ -284,7 +284,7 @@ export const places = [
     "buildingNum": "E16-1",
     "latitude": 36.37111,
     "longitude": 127.36236,
-    "tags": "식당, 서브웨이, SUBWAY"
+    "tags": "식당, 서브웨이, Restaurant, SUBWAY"
   },
   {
     "id": 32,
@@ -356,7 +356,7 @@ export const places = [
     "buildingNum": "W1",
     "latitude": 36.36939,
     "longitude": 127.36982,
-    "tags": "카페, 스무디킹"
+    "tags": "카페, 스무디킹, Cafe, Smoothie king"
   },
   {
     "id": 40,
@@ -392,7 +392,7 @@ export const places = [
     "buildingNum": "W2",
     "latitude": 36.36717,
     "longitude": 127.36089,
-    "tags": "식당, 더큰도시락, 대덕동네피자, 서맛골, BBQ"
+    "tags": "식당, 더큰도시락, 대덕동네피자, 서맛골, BBQ, Restaurant"
   },
   {
     "id": 44,
@@ -401,7 +401,7 @@ export const places = [
     "buildingNum": "W2-1",
     "latitude": 36.36751,
     "longitude": 127.36012,
-    "tags": "카페, 잇"
+    "tags": "카페, 잇, Cafe"
   },
   {
     "id": 45,
@@ -414,7 +414,7 @@ export const places = [
     "buildingNum": "W4-2",
     "latitude": 36.36710,
     "longitude": 127.35728,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 49,
@@ -423,7 +423,7 @@ export const places = [
     "buildingNum": "W4-3",
     "latitude": 36.36809,
     "longitude": 127.35715,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 50,
@@ -432,7 +432,7 @@ export const places = [
     "buildingNum": "W4-4",
     "latitude": 36.36846,
     "longitude": 127.35690,
-    "tags": "기숙사, 매점"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 51,
@@ -441,7 +441,7 @@ export const places = [
     "buildingNum": "W5-1",
     "latitude": 36.36909,
     "longitude": 127.35671,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 52,
@@ -486,7 +486,7 @@ export const places = [
     "buildingNum": "W6",
     "latitude": 36.37043,
     "longitude": 127.35566,
-    "tags": "기숙사, 매점"
+    "tags": "기숙사, 매점, Dormitory, Store"
   },
   {
     "id": 57,
@@ -504,7 +504,7 @@ export const places = [
     "buildingNum": "W8",
     "latitude": 36.37010,
     "longitude": 127.35990,
-    "tags": "카페, 드롭탑"
+    "tags": "카페, 드롭탑, Cafe, Droptop"
   },
   {
     "id": 59,
@@ -603,7 +603,7 @@ export const places = [
     "buildingNum": "N1",
     "latitude": 36.3742862,
     "longitude": 127.3649988,
-    "tags": "카페, 탐앤탐스"
+    "tags": "카페, 탐앤탐스, Cafe, TOM N TOMS"
   },
   {
     "id": 70,
@@ -648,7 +648,7 @@ export const places = [
     "buildingNum": "N6",
     "latitude": 36.37463,
     "longitude": 127.36479,
-    "tags": "식당, 교수회관"
+    "tags": "식당, 교수회관, Restaurant"
   },
   {
     "id": 75,
@@ -657,7 +657,7 @@ export const places = [
     "buildingNum": "N7",
     "latitude": 36.37233,
     "longitude": 127.35874,
-    "tags": "카페, 카페드림"
+    "tags": "카페, 카페드림, Cafe"
   },
   {
     "id": 76,
@@ -666,7 +666,7 @@ export const places = [
     "buildingNum": "N7-1",
     "latitude": 36.37195,
     "longitude": 127.35887,
-    "tags": "식당, 오샐러드"
+    "tags": "식당, 오샐러드, Restaurant"
   },
   {
     "id": 77,
@@ -720,7 +720,7 @@ export const places = [
     "buildingNum": "N11",
     "latitude": 36.37374,
     "longitude": 127.35920,
-    "tags": "식당, 카페, 카이마루, 쥬스킹, 오늘도든든, 휴김밥전문점, 리틀하노이, 캠토, 웰차이, KAIMARU, JUICEKING"
+    "tags": "식당, 카페, 카이마루, 쥬스킹, 오늘도든든, 휴김밥전문점, 리틀하노이, 캠토, 웰차이, Restaurant, Cafe, KAIMARU, JUICEKING, Little Hanoi, Camto"
   },
   {
     "id": 83,
@@ -729,7 +729,7 @@ export const places = [
     "buildingNum": "N12",
     "latitude": 36.37412,
     "longitude": 127.35985,
-    "tags": "식당, 매점, 풀빛마루"
+    "tags": "식당, 매점, 풀빛마루, Restaurant, Store"
   },
   {
     "id": 84,
@@ -747,7 +747,7 @@ export const places = [
     "buildingNum": "N13",
     "latitude": 36.37309,
     "longitude": 127.36007,
-    "tags": "식당, 인생설렁탕, 제순식당, 역전우동"
+    "tags": "식당, 잡화점, 인생설렁탕, 제순식당, 역전우동, Restaurant, Variety store"
   },
   {
     "id": 86,
@@ -756,7 +756,7 @@ export const places = [
     "buildingNum": "N13-1",
     "latitude": 36.37318,
     "longitude": 127.36045,
-    "tags": "식당, 퀴즈노스"
+    "tags": "식당, 카페, 퀴즈노스, 엔제리너스, Restaurant, Cafe, Quiznos, ANGELINUS "
   },
   {
     "id": 87,
@@ -783,7 +783,7 @@ export const places = [
     "buildingNum": "N16",
     "latitude": 36.37372,
     "longitude": 127.35759,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 90,
@@ -792,7 +792,7 @@ export const places = [
     "buildingNum": "N17",
     "latitude": 36.37420,
     "longitude": 127.35872,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 91,
@@ -801,7 +801,7 @@ export const places = [
     "buildingNum": "N18",
     "latitude": 36.37467,
     "longitude": 127.35917,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 92,
@@ -810,7 +810,7 @@ export const places = [
     "buildingNum": "N19",
     "latitude": 36.37403,
     "longitude": 127.35703,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 93,
@@ -819,7 +819,7 @@ export const places = [
     "buildingNum": "N20",
     "latitude": 36.37522,
     "longitude": 127.35904,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 94,
@@ -828,7 +828,7 @@ export const places = [
     "buildingNum": "N21",
     "latitude": 36.37588,
     "longitude": 127.35863,
-    "tags": "기숙사"
+    "tags": "기숙사, Dormitory"
   },
   {
     "id": 95,
