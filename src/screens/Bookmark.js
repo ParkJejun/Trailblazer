@@ -16,12 +16,12 @@ for (let i = 1; i <= 20; i++) {
 }
 
 const ListItem = ({ item }) => (
-  <View style={styles.listItemRow}>
+  <View style={GlobalStyles.listItemRow}>
     <View>
-      <Text style={styles.listText}>{item.departure}</Text>
-      <Text style={styles.listText}>{" →   " + item.destination}</Text>
+      <Text style={GlobalStyles.listText}>{item.departure}</Text>
+      <Text style={GlobalStyles.listText}>{" →   " + item.destination}</Text>
     </View>
-    <FontAwesomeIcon name="star" style={styles.icon2}></FontAwesomeIcon>
+    <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>
   </View>
 );
 
@@ -33,31 +33,16 @@ function Bookmark(props) {
         renderItem={({ item }) => <ListItem item={item} />}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={Separator}
-        style={styles.listContainer}
+        style={GlobalStyles.listContainer}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  icon2: {
+  icon: {
     color: Color.purple,
     fontSize: 25,
-  },
-  listItemRow: {
-    height: 40,
-    flexDirection: "row",
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  listText: {
-    ...GlobalStyles.body,
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  listContainer: {
-    margin: 20,
   },
 });
 

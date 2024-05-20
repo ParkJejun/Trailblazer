@@ -22,9 +22,10 @@ export const FontSize = {
 export const Color = {
   white: "#fff",
   black: "#000",
-  darkGray: "#121212",
-  gray: "#787878",
+  paleGray: "#f1f1f1",
   lightGray: "#a1a1a1",
+  gray: "#787878",
+  darkGray: "#121212",
   purple: "#6E45E2",
   lightBlue: "#88D3CE",
   blue: "#4FACFE",
@@ -99,13 +100,35 @@ export const GlobalStyles = StyleSheet.create({
     textAlign: "left",
   },
   background: {
-    backgroundColor: Color.white,
+    backgroundColor: Color.paleGray,
     flex: 1,
   },
-  headerIcon: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 30,
-    height: 30,
-    width: 30,
+  listItemRow: {
+    height: 40,
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  listText: {
+    fontSize: FontSize.size_xs,
+    color: Color.darkGray,
+    fontFamily: FontFamily.robotoRegular,
+    textAlign: "left",
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  listContainer: {
+    margin: 20,
+  },
+  colorIcon: {
+    color: Color.purple,
+    fontSize: 25,
+  },
+  grayIcon: {
+    color: Color.gray,
+    fontSize: 25,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });

@@ -12,18 +12,19 @@ function MaterialSearchBar(props) {
   };
 
   return (
-    <View style={[styles.container, props.style]}>
-      <TouchableOpacity
-        onPress={handleSearchPress} // Search 버튼이 눌렸을 때 handleSearchPress 함수 호출
-        style={styles.button}
-      >
+    <TouchableOpacity
+      onPress={handleSearchPress}
+      style={[styles.container, props.style]}
+    >
+      <View style={styles.button}>
         <TextInput
+          editable={false} // TextInput을 비활성화합니다.
           placeholder={placeholder} // 전달된 placeholder 값으로 설정
           placeholderTextColor={Color.lightGray}
           style={styles.inputStyle}
         ></TextInput>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -38,11 +39,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 15,
     width: 350,
-    height: 50,
+    height: 45,
     alignSelf: "center",
   },
   inputStyle: {
-    height: 48,
+    height: 45,
     color: "#000",
     paddingRight: 5,
     fontSize: 16,

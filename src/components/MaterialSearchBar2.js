@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { GlobalStyles } from "../../GlobalStyles";
 
 function MaterialSearchBar2(props) {
   return (
@@ -10,9 +11,8 @@ function MaterialSearchBar2(props) {
           placeholder="Building"
           style={styles.inputStyle1}
         ></TextInput>
-        <View style={styles.inputStyle1Filler}></View>
-        <TouchableOpacity style={styles.rightIconButton1}>
-          <Icon name="close" style={styles.rightIcon2}></Icon>
+        <TouchableOpacity>
+          <Icon name="close" style={GlobalStyles.grayIcon}></Icon>
         </TouchableOpacity>
       </View>
     </View>
@@ -21,7 +21,6 @@ function MaterialSearchBar2(props) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 4,
     justifyContent: "center",
   },
   rect1: {
@@ -29,9 +28,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     alignItems: "center",
     borderRadius: 15,
-    width: 350,
+    width: "100%",
     height: 50,
     alignSelf: "center",
+    justifyContent: "space-between",
   },
   inputStyle1: {
     height: 48,
@@ -48,10 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   rightIconButton1: {
-    padding: 11,
     alignItems: "center",
-    marginRight: 3,
-    marginTop: 1,
   },
   rightIcon2: {
     backgroundColor: "transparent",

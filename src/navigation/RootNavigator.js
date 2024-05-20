@@ -1,8 +1,9 @@
-import React from "react";
+import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import Bookmark from "../screens/Bookmark";
 import Edit from "../screens/Edit";
@@ -10,26 +11,24 @@ import Setting from "../screens/Setting";
 import Select from "../screens/Select"; // Select 스크린을 import합니다.
 import { Color } from "../../GlobalStyles";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Bookmark 스크린에 대한 Stack Navigator 구성
 const BookmarkStack = () => (
   <Stack.Navigator>
     <Stack.Screen
       name="Bookmark"
       component={Bookmark}
       options={({ navigation }) => ({
-        // navigation prop을 받아서 사용
         title: "Bookmarked",
-        headerTitleAlign: "center", // 타이틀을 가운데로 정렬
+        headerTitleAlign: "center",
         headerLeft: () => (
           <MaterialCommunityIcons
             name="arrow-left"
             size={24}
             color={Color.darkGray}
             style={{ marginLeft: 10 }}
-            onPress={() => navigation.navigate("Setting")} // navigation prop에서 navigate 호출
+            onPress={() => navigation.navigate("Search")}
           />
         ),
       })}
@@ -37,23 +36,21 @@ const BookmarkStack = () => (
   </Stack.Navigator>
 );
 
-// Edit 스크린에 대한 Stack Navigator 구성
 const EditStack = () => (
   <Stack.Navigator>
     <Stack.Screen
       name="Edit"
       component={Edit}
       options={({ navigation }) => ({
-        // navigation prop을 받아서 사용
         title: "Edit Map",
-        headerTitleAlign: "center", // 타이틀을 가운데로 정렬
+        headerTitleAlign: "center",
         headerLeft: () => (
           <MaterialCommunityIcons
             name="arrow-left"
             size={24}
             color="black"
             style={{ marginLeft: 10 }}
-            onPress={() => navigation.navigate("Setting")} // navigation prop에서 navigate 호출
+            onPress={() => navigation.navigate("Search")}
           />
         ),
       })}
@@ -61,21 +58,20 @@ const EditStack = () => (
   </Stack.Navigator>
 );
 
-// Setting 스크린에 대한 Stack Navigator 구성
 const SettingStack = () => (
   <Stack.Navigator>
     <Stack.Screen
       name="Setting"
       component={Setting}
       options={{
-        headerShown: false, // Setting 스크린은 헤더를 숨깁니다.
+        headerShown: false,
       }}
     />
     <Stack.Screen
       name="Select"
       component={Select}
       options={{
-        headerShown: false, // Setting 스크린은 헤더를 숨깁니다.
+        headerShown: false,
       }}
     />
   </Stack.Navigator>
@@ -85,34 +81,50 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-
-            if (route.name === "Bookmark") {
-              iconName = "bookmark";
-            } else if (route.name === "Search") {
-              iconName = "magnify";
-            } else if (route.name === "Edit") {
-              iconName = "pencil";
-            }
-
-            return (
-              <MaterialCommunityIcons
-                name={iconName}
-                size={size}
-                color={color}
-              />
-            );
-          },
-          tabBarActiveTintColor: Color.purple, // 활성 탭의 아이콘 색상
-          tabBarInactiveTintColor: "gray", // 비활성 탭의 아이콘 색상
-        })}
+        initialRouteName="Search"
+        activeColor={Color.purple}
+        inactiveColor="gray"
+        barStyle={{ backgroundColor: "white" }}
+        tabBar={(props) => (
+          <Animated.View
+            entering={FadeInUp}
+            exiting={FadeOutDown}
+            layout={Layout.duration(100)}
+            style={{
+              height: tabBarVisible ? 80 : 0,
+            }}
+          >
+            <BottomTabBar {...props} />
+          </Animated.View>
+        )}
       >
-        <Tab.Screen name="Bookmark" component={BookmarkStack} />
-        <Tab.Screen name="Search" component={SettingStack} />
-        <Tab.Screen name="Edit" component={EditStack} />
+        <Tab.Screen
+          name="Bookmark"
+          component={BookmarkStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="bookmark" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={SettingStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="magnify" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Edit"
+          component={EditStack}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="pencil" color={color} size={26} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
