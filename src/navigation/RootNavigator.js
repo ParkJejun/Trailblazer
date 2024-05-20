@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Bookmark from "../screens/Bookmark";
 import Edit from "../screens/Edit";
 import Setting from "../screens/Setting";
+import Select from "../screens/Select"; // Select 스크린을 import합니다.
 import { Color } from "../../GlobalStyles";
 
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,7 @@ const BookmarkStack = () => (
           <MaterialCommunityIcons
             name="arrow-left"
             size={24}
-            color={Color.darkgray}
+            color={Color.darkGray}
             style={{ marginLeft: 10 }}
             onPress={() => navigation.navigate("Setting")} // navigation prop에서 navigate 호출
           />
@@ -66,6 +67,13 @@ const SettingStack = () => (
     <Stack.Screen
       name="Setting"
       component={Setting}
+      options={{
+        headerShown: false, // Setting 스크린은 헤더를 숨깁니다.
+      }}
+    />
+    <Stack.Screen
+      name="Select"
+      component={Select}
       options={{
         headerShown: false, // Setting 스크린은 헤더를 숨깁니다.
       }}

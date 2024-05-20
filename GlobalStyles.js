@@ -16,15 +16,15 @@ export const FontSize = {
   size_mid: 19,
   size_sm: 17,
   size_xs: 14,
+  size_smi: 12,
 };
 /* Colors */
 export const Color = {
   white: "#fff",
   black: "#000",
-  darkgray: "#121212",
-  gray_100: "#fefefe",
-  gray_200: "#202020",
-  lightGrey: "#bbc8d4",
+  darkGray: "#121212",
+  gray: "#787878",
+  lightGray: "#a1a1a1",
   purple: "#6E45E2",
   lightBlue: "#88D3CE",
   blue: "#4FACFE",
@@ -88,18 +88,19 @@ export const GlobalStyles = StyleSheet.create({
   },
   body: {
     fontSize: FontSize.size_xs,
-    color: Color.darkgray,
+    color: Color.darkGray,
+    fontFamily: FontFamily.robotoRegular,
+    textAlign: "left",
+  },
+  body2: {
+    fontSize: FontSize.size_smi,
+    color: Color.lightGray,
     fontFamily: FontFamily.robotoRegular,
     textAlign: "left",
   },
   background: {
     backgroundColor: Color.white,
     flex: 1,
-  },
-  content: {
-    flex: 1,
-    margin: 20,
-    alignItems: "center",
   },
   headerIcon: {
     color: "rgba(128,128,128,1)",

@@ -51,15 +51,6 @@ function Edit(props) {
           <View style={styles.rect4}></View>
         </View>
       </View>
-      <View gradientImage="Gradient_kykNqTa.png" style={styles.rect1}>
-        <View style={styles.icon1Row}>
-          <MaterialCommunityIconsIcon
-            name="arrow-left"
-            style={styles.icon1}
-          ></MaterialCommunityIconsIcon>
-          <Text style={styles.editMap}>Edit Map</Text>
-        </View>
-      </View>
     </View>
   );
 }
