@@ -1,10 +1,21 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar2(props) {
   const [searchText, setSearchText] = useState("");
+
+  // 검색어가 변경될 때 호출되는 함수
+  const handleSearch = (text) => {
+    setSearchText(text); // 검색어 상태 업데이트
+
+    // 부모 컴포넌트로 검색어 전달
+    if (props.onSearch) {
+      props.onSearch(text);
+    }
+  };
+
   return (
     <View style={[GlobalStyles.searchContainer, props.style]}>
       <View style={GlobalStyles.searchBack}>
@@ -12,10 +23,10 @@ function MaterialSearchBar2(props) {
           placeholder="Building"
           placeholderTextColor={Color.lightGray}
           style={styles.inputStyle1}
-          value={searchText} // TextInput의 값은 상태로 설정
-          onChangeText={(text) => setSearchText(text)} // 텍스트 변경 시 상태 업데이트
-        ></TextInput>
-        <TouchableOpacity onPress={() => setSearchText("")}>
+          value={searchText}
+          onChangeText={handleSearch} // 검색어 변경 시 handleSearch 함수 호출
+        />
+        <TouchableOpacity onPress={() => handleSearch("")}>
           <Icon name="close" style={GlobalStyles.grayIcon}></Icon>
         </TouchableOpacity>
       </View>
