@@ -5,7 +5,10 @@ import { Color } from "../../GlobalStyles";
 
 function MaterialButtonViolet(props) {
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableOpacity
+      style={[styles.container, props.style]}
+      onPress={props.onPress}
+    >
       <FontAwesomeIcon name={props.icon} style={styles.icon}></FontAwesomeIcon>
       <Text style={styles.caption}>{props.caption || "BUTTON"}</Text>
     </TouchableOpacity>

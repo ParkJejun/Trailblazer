@@ -28,13 +28,13 @@ function MaterialSearchBar3(props) {
           onChangeText={handleSearch}
         />
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("Setting")}
+          onPress={() => props.navigation.navigate("SettingStack")}
           style={styles.leftIconButton}
         >
           <MaterialCommunityIconsIcon
             name="arrow-left"
             style={GlobalStyles.grayIcon}
-            onPress={() => props.navigation.navigate("Setting")}
+            onPress={() => props.navigation.navigate("SettingStack")}
           />
         </TouchableOpacity>
         <TouchableOpacity

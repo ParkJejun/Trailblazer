@@ -127,20 +127,16 @@ function Select(props) {
           ></MaterialSearchBar3>
         </View>
         <View style={styles.buttonRow}>
-          <TouchableOpacity onPress={() => props.navigation.navigate("Result")}>
-            <MaterialButtonViolet
-              caption="Current Location"
-              icon="location-arrow"
-            ></MaterialButtonViolet>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => console.log("navigate to SelectMap")}
-          >
-            <MaterialButtonViolet
-              caption="Select on Map"
-              icon="map"
-            ></MaterialButtonViolet>
-          </TouchableOpacity>
+          <MaterialButtonViolet
+            caption="Current Location"
+            icon="location-arrow"
+            onPress={() => props.navigation.navigate("Result")}
+          ></MaterialButtonViolet>
+          <MaterialButtonViolet
+            caption="Select on Map"
+            icon="map"
+            onPress={() => props.navigation.navigate("SelectMap")}
+          ></MaterialButtonViolet>
         </View>
       </GradientBox>
       <View
