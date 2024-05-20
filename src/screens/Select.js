@@ -127,18 +127,14 @@ function Select(props) {
           ></MaterialSearchBar3>
         </View>
         <View style={styles.buttonRow}>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate("Result")}
-            style={styles.button}
-          >
+          <TouchableOpacity onPress={() => props.navigation.navigate("Result")}>
             <MaterialButtonViolet
               caption="Current Location"
               icon="location-arrow"
             ></MaterialButtonViolet>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("SelectMap")}
-            style={styles.button2}
+            onPress={() => console.log("navigate to SelectMap")}
           >
             <MaterialButtonViolet
               caption="Select on Map"
@@ -183,17 +179,9 @@ const styles = StyleSheet.create({
     width: 375,
     marginTop: 63,
   },
-  button: {
-    width: 171,
-    height: 50,
-  },
-  button2: {
-    width: 169,
-    height: 50,
-    marginLeft: 9,
-  },
   buttonRow: {
     height: 50,
+    width: 350,
     paddingTop: 15,
     flexDirection: "row",
     justifyContent: "space-between",

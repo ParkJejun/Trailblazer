@@ -6,7 +6,11 @@ export const FontFamily = {
   robotoMedium: "Roboto-Medium",
   robotoRegular: "Roboto-Regular",
   robotoLight: "Roboto-Light",
-  mulishSemiBold: "Mulish-SemiBold",
+
+  // robotoBold: require("./src/assets/fonts/Roboto-Bold.ttf"),
+  // robotoMedium: require("./src/assets/fonts/Roboto-Medium.ttf"),
+  // robotoRegular: require("./src/assets/fonts/Roboto-Regular.ttf"),
+  // robotoLight: require("./src/assets/fonts/Roboto-Light.ttf"),
 };
 
 /* font sizes */

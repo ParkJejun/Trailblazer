@@ -11,6 +11,7 @@ import Edit from "../screens/Edit";
 import Setting from "../screens/Setting";
 import Select from "../screens/Select"; // Select 스크린을 import합니다.
 import { Color } from "../../GlobalStyles";
+import SelectMap from "../screens/SelectMap";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,7 +19,7 @@ const Stack = createStackNavigator();
 const BookmarkStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Bookmark"
+      name="BookmarkStack"
       component={Bookmark}
       options={({ navigation }) => ({
         title: "Bookmarked",
@@ -40,7 +41,7 @@ const BookmarkStack = () => (
 const EditStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Edit"
+      name="EditStack"
       component={Edit}
       options={({ navigation }) => ({
         title: "Edit Map",
@@ -62,7 +63,7 @@ const EditStack = () => (
 const SettingStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Setting"
+      name="SettingStack"
       component={Setting}
       options={{
         headerShown: false,
@@ -73,6 +74,13 @@ const SettingStack = () => (
       component={Select}
       options={{
         headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="SelectMap"
+      component={SelectMap}
+      options={{
+        headerShown: true,
       }}
     />
   </Stack.Navigator>
