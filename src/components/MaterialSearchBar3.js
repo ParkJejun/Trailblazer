@@ -1,11 +1,21 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar3(props) {
-  const { placeholder, navigation } = props;
-  const [searchText, setSearchText] = useState(""); // 상태 추가
+  const { placeholder, onSearch } = props; // 수정: 검색어 변경 콜백 함수 추가
+  const [searchText, setSearchText] = useState("");
+
+  // 검색어가 변경될 때 호출되는 함수
+  const handleSearch = (text) => {
+    setSearchText(text); // 검색어 상태 업데이트
+
+    // 부모 컴포넌트로 검색어 전달
+    if (props.onSearch) {
+      props.onSearch(text);
+    }
+  };
 
   return (
     <View style={[GlobalStyles.searchContainer, props.style]}>
@@ -14,25 +24,25 @@ function MaterialSearchBar3(props) {
           placeholder={placeholder}
           placeholderTextColor={Color.lightGray}
           style={styles.inputStyle}
-          value={searchText} // TextInput의 값은 상태로 설정
-          onChangeText={(text) => setSearchText(text)} // 텍스트 변경 시 상태 업데이트
+          value={searchText}
+          onChangeText={handleSearch}
         />
         <TouchableOpacity
-          onPress={() => navigation.navigate("Setting")}
+          onPress={() => props.navigation.navigate("Setting")}
           style={styles.leftIconButton}
         >
           <MaterialCommunityIconsIcon
             name="arrow-left"
             style={GlobalStyles.grayIcon}
-            onPress={() => navigation.navigate("Setting")}
+            onPress={() => props.navigation.navigate("Setting")}
           />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.rightIconButton}
-          onPress={() => setSearchText("")}
+          onPress={handleSearch} // 수정: 검색 버튼 누를 때 검색어 전달
         >
           <MaterialCommunityIconsIcon
-            name="close"
+            name="magnify"
             style={GlobalStyles.grayIcon}
           />
         </TouchableOpacity>

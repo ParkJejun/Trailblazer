@@ -47,7 +47,9 @@ function Edit(props) {
 
   // 검색어를 포함하는 데이터만 필터링하여 반환하는 함수
   const filterData = () => {
-    return data.filter((item) => item.text.includes(searchText));
+    return data.filter((item) =>
+      item.text.toLowerCase().includes(searchText.toLowerCase())
+    );
   };
 
   return (

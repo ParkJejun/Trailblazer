@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -14,13 +14,20 @@ import { GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
 
-const data = [];
+const recentData = [];
+const matchingData = [];
 
 for (let i = 1; i <= 20; i++) {
-  data.push({
+  recentData.push({
+    id: i.toString(),
+    text: `RBuilding ${i}`,
+    date: `05.${String(i).padStart(2, "0")}`,
+  });
+}
+for (let i = 1; i <= 20; i++) {
+  matchingData.push({
     id: i.toString(),
     text: `Building ${i}`,
-    date: `05.${String(i).padStart(2, "0")}`,
   });
 }
 
@@ -89,7 +96,26 @@ const tagItem = ({ item }) => (
 
 function Select(props) {
   const { placeholder } = props;
-  console.log("Select received" + placeholder);
+  const [searchText, setSearchText] = useState(""); // 검색어 상태
+
+  // MaterialSearchBar3에서 검색어가 변경될 때 호출되는 함수
+  const handleSearch = (text) => {
+    setSearchText(text); // 검색어 상태 업데이트
+  };
+
+  // 검색어를 포함한 결과를 반환하는 함수
+  const getFilteredData = () => {
+    if (searchText.trim() === "") {
+      // 검색어가 없는 경우 recentData 반환
+      return recentData;
+    } else {
+      // 검색어가 있는 경우 matchingData에서 검색어를 포함하는 결과 반환
+      return matchingData.filter((item) =>
+        item.text.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <GradientBox height={200}>
@@ -97,6 +123,7 @@ function Select(props) {
           <MaterialSearchBar3
             placeholder={placeholder}
             navigation={props.navigation}
+            onSearch={handleSearch} // 검색어가 변경될 때 호출되는 콜백 함수 전달
           ></MaterialSearchBar3>
         </View>
         <View style={styles.buttonRow}>
@@ -137,10 +164,10 @@ function Select(props) {
         />
       </View>
       <Text style={{ ...GlobalStyles.body2, marginLeft: 35, marginBottom: 10 }}>
-        Recent Searches
+        {searchText ? "Matching Results" : "Recent Searches"}
       </Text>
       <FlatList
-        data={data}
+        data={getFilteredData()} // 검색어에 따라 필터된 데이터를 보여줌
         renderItem={({ item }) => <ListItem item={item} />}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={Separator}
