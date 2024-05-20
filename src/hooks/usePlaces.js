@@ -1,14 +1,62 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const usePlaces = () => {
+  const [count, setCount] = useState(0);
   const [places, setPlaces] = useState();
+
+  // timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const add = useCallback((info) => {
+    setPlaces((prevPlaces) => {
+      if (prevPlaces) {
+        const newPlaces = prevPlaces.concat({
+          id: prevPlaces.length + 1,
+          ...info,
+        });
+        setCount((prevCount) => prevCount + 1);
+        return newPlaces;
+      }
+      return null;
+    });
+  }, []);
+
+  const remove = useCallback((id) => {
+    setPlaces((prevPlaces) => {
+      if (prevPlaces) {
+        const newPlaces = prevPlaces.filter((place) => place.id !== id);
+        setCount((prevCount) => prevCount + 1);
+        return newPlaces;
+      }
+      return null;
+    });
+  }, []);
+
+  const update = useCallback((id, info) => {
+    setPlaces((prevPlaces) => {
+      if (prevPlaces) {
+        const newPlaces = prevPlaces.map((place) =>
+          place.id === id ? { id: id, ...info } : place
+        );
+        setCount((prevCount) => prevCount + 1);
+        return newPlaces;
+      }
+      return null;
+    });
+  }, []);
 
   useEffect(() => {
     // fetch from blockchain
     setPlaces(p);
-  }, []);
+  }, [count]);
 
-  return places;
+  return { places, add, remove, update };
 };
 
 const p = [
