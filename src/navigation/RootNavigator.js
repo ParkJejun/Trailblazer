@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 
 import Bookmark from "../screens/Bookmark";
 import Edit from "../screens/Edit";
@@ -85,18 +86,18 @@ export default function RootNavigator() {
         activeColor={Color.purple}
         inactiveColor="gray"
         barStyle={{ backgroundColor: "white" }}
-        tabBar={(props) => (
-          <Animated.View
-            entering={FadeInUp}
-            exiting={FadeOutDown}
-            layout={Layout.duration(100)}
-            style={{
-              height: tabBarVisible ? 80 : 0,
-            }}
-          >
-            <BottomTabBar {...props} />
-          </Animated.View>
-        )}
+        // tabBar={(props) => (
+        //   <Animated.View
+        //     entering={FadeInUp}
+        //     exiting={FadeOutDown}
+        //     layout={Layout.duration(100)}
+        //     style={{
+        //       height: tabBarVisible ? 80 : 0,
+        //     }}
+        //   >
+        //     <BottomTabBar {...props} />
+        //   </Animated.View>
+        // )}
       >
         <Tab.Screen
           name="Bookmark"

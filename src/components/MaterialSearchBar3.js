@@ -1,31 +1,39 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { GlobalStyles } from "../../GlobalStyles";
 
 function MaterialSearchBar3(props) {
+  const { placeholder, navigation } = props;
+  const [searchText, setSearchText] = useState(""); // 상태 추가
+
   return (
     <View style={[styles.container, props.style]}>
       <View style={styles.rect2Stack}>
-        <View style={styles.rect2}>
-          <TextInput
-            placeholder="Departure"
-            style={styles.inputStyle1}
-          ></TextInput>
-        </View>
+        <TextInput
+          placeholder={placeholder}
+          style={styles.inputStyle}
+          value={searchText} // TextInput의 값은 상태로 설정
+          onChangeText={(text) => setSearchText(text)} // 텍스트 변경 시 상태 업데이트
+        />
         <TouchableOpacity
-          onPress={() => console.log("Navigate to Setting")}
+          onPress={() => navigation.navigate("Setting")}
           style={styles.leftIconButton}
         >
           <MaterialCommunityIconsIcon
             name="arrow-left"
-            style={styles.leftIcon}
-          ></MaterialCommunityIconsIcon>
+            style={GlobalStyles.grayIcon}
+            onPress={() => navigation.navigate("Setting")}
+          />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.rightIconButton}>
+        <TouchableOpacity
+          style={styles.rightIconButton}
+          onPress={() => setSearchText("")}
+        >
           <MaterialCommunityIconsIcon
             name="close"
-            style={styles.rightIcon}
-          ></MaterialCommunityIconsIcon>
+            style={GlobalStyles.grayIcon}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -35,59 +43,34 @@ function MaterialSearchBar3(props) {
 const styles = StyleSheet.create({
   container: {
     padding: 4,
+    justifyContent: "center",
   },
-  rect2: {
+  rect2Stack: {
     flexDirection: "row",
     backgroundColor: "#FFFFFF",
     alignItems: "center",
-    position: "absolute",
     borderRadius: 15,
     width: 350,
-    height: 50,
-    left: 4,
-    top: 0,
+    height: 45,
+    alignSelf: "center",
   },
-  inputStyle1: {
-    height: 48,
+  inputStyle: {
+    height: 45,
     color: "#000",
     paddingRight: 5,
     fontSize: 16,
     alignSelf: "flex-start",
     width: 245,
     lineHeight: 16,
-    marginLeft: 43,
-    marginTop: 2,
+    marginLeft: 50,
   },
   leftIconButton: {
-    padding: 11,
     position: "absolute",
-    top: 1,
-    left: 0,
-  },
-  leftIcon: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
+    left: 5,
   },
   rightIconButton: {
-    padding: 11,
     position: "absolute",
-    top: 1,
-    right: 0,
-    alignItems: "center",
-  },
-  rightIcon: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
-  },
-  rect2Stack: {
-    width: 357,
-    height: 50,
-    marginTop: 3,
-    marginLeft: 9,
+    right: 5,
   },
 });
 

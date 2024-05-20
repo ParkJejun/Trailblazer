@@ -40,12 +40,19 @@ const ListItem = ({ item }) => (
 function Edit(props) {
   return (
     <View style={GlobalStyles.background}>
-      <GradientBox height={80}>
+      <GradientBox height={90}>
         <MaterialSearchBar2
           style={styles.materialSearchBar2}
         ></MaterialSearchBar2>
       </GradientBox>
-      <Text style={{ ...GlobalStyles.body2, margin: 20, marginBottom: 10 }}>
+      <Text
+        style={{
+          ...GlobalStyles.body2,
+          margin: 20,
+          marginLeft: 35,
+          marginBottom: 10,
+        }}
+      >
         Matching Results
       </Text>
       <FlatList
@@ -62,7 +69,7 @@ function Edit(props) {
 const styles = StyleSheet.create({
   materialSearchBar2: {
     height: 50,
-    width: 375,
+    width: 350,
   },
 });
 

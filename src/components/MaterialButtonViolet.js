@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import { Color } from "../../GlobalStyles";
 
 function MaterialButtonViolet(props) {
   return (
     <TouchableOpacity style={[styles.container, props.style]}>
+      <FontAwesomeIcon name={props.icon} style={styles.icon}></FontAwesomeIcon>
       <Text style={styles.caption}>{props.caption || "BUTTON"}</Text>
     </TouchableOpacity>
   );
@@ -11,6 +14,7 @@ function MaterialButtonViolet(props) {
 
 const styles = StyleSheet.create({
   container: {
+    height: 50,
     backgroundColor: "rgba(110,69,226,1)",
     justifyContent: "center",
     alignItems: "center",
@@ -32,6 +36,10 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     marginLeft: 20,
+  },
+  icon: {
+    color: Color.white,
+    fontSize: 20,
   },
 });
 

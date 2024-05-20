@@ -120,10 +120,17 @@ export const GlobalStyles = StyleSheet.create({
   },
   listContainer: {
     margin: 20,
+    marginLeft: 35,
+    marginRight: 35,
   },
   colorIcon: {
     color: Color.purple,
     fontSize: 25,
+  },
+  grayListIcon: {
+    color: Color.gray,
+    fontSize: 25,
+    marginLeft: 10,
   },
   grayIcon: {
     color: Color.gray,

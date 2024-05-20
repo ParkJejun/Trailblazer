@@ -6,9 +6,9 @@ function MaterialSearchBar(props) {
   const { placeholder, navigation } = props; // props로 전달된 placeholder 값과 navigation 객체 가져오기
 
   // Search 버튼이 눌렸을 때 화면으로 이동하는 함수
-  const handleSearchPress = () => {
+  const handleSearchPress = (placeholder) => {
     console.log("Navigate to Select");
-    navigation.navigate("Select"); // Select 화면으로 이동
+    navigation.navigate("Select", { placeholder }); // Select 화면으로 이동할 때 placeholder 전달
   };
 
   return (

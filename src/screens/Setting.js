@@ -56,7 +56,7 @@ const ListItem = ({ item }) => (
       }}
     >
       <Text style={GlobalStyles.body2}>{item.date} </Text>
-      <FeatherIcon name="x" style={GlobalStyles.grayIcon}></FeatherIcon>
+      <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
     </View>
   </View>
 );
@@ -81,7 +81,14 @@ function Setting(props) {
           />
         </View>
       </GradientBox>
-      <Text style={{ ...GlobalStyles.body2, margin: 20, marginBottom: 10 }}>
+      <Text
+        style={{
+          ...GlobalStyles.body2,
+          margin: 20,
+          marginLeft: 35,
+          marginBottom: 10,
+        }}
+      >
         Recent Path
       </Text>
       <FlatList
