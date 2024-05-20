@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
-import { Color } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../../GlobalStyles";
 
 function MaterialSearchBar(props) {
   const { placeholder, navigation } = props; // props로 전달된 placeholder 값과 navigation 객체 가져오기
@@ -14,9 +14,9 @@ function MaterialSearchBar(props) {
   return (
     <TouchableOpacity
       onPress={handleSearchPress}
-      style={[styles.container, props.style]}
+      style={[GlobalStyles.searchContainer, props.style]}
     >
-      <View style={styles.button}>
+      <View style={GlobalStyles.searchBack}>
         <TextInput
           editable={false} // TextInput을 비활성화합니다.
           placeholder={placeholder} // 전달된 placeholder 값으로 설정
@@ -29,19 +29,6 @@ function MaterialSearchBar(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-    justifyContent: "center",
-  },
-  button: {
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    borderRadius: 15,
-    width: 350,
-    height: 45,
-    alignSelf: "center",
-  },
   inputStyle: {
     height: 45,
     color: "#000",

@@ -1,17 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GlobalStyles } from "../../GlobalStyles";
+import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar2(props) {
+  const [searchText, setSearchText] = useState("");
   return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.rect1}>
+    <View style={[GlobalStyles.searchContainer, props.style]}>
+      <View style={GlobalStyles.searchBack}>
         <TextInput
           placeholder="Building"
+          placeholderTextColor={Color.lightGray}
           style={styles.inputStyle1}
+          value={searchText} // TextInput의 값은 상태로 설정
+          onChangeText={(text) => setSearchText(text)} // 텍스트 변경 시 상태 업데이트
         ></TextInput>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setSearchText("")}>
           <Icon name="close" style={GlobalStyles.grayIcon}></Icon>
         </TouchableOpacity>
       </View>
@@ -20,41 +24,15 @@ function MaterialSearchBar2(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-  },
-  rect1: {
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    borderRadius: 15,
-    width: "100%",
-    height: 50,
-    alignSelf: "center",
-    justifyContent: "space-between",
-  },
   inputStyle1: {
     height: 48,
     color: "#000",
     paddingRight: 5,
     fontSize: 16,
     alignSelf: "center",
-    width: 245,
+    width: 280,
     lineHeight: 16,
     marginLeft: 23,
-  },
-  inputStyle1Filler: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  rightIconButton1: {
-    alignItems: "center",
-  },
-  rightIcon2: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
   },
 });
 

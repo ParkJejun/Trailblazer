@@ -138,4 +138,17 @@ export const GlobalStyles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  searchContainer: {
+    padding: 4,
+    justifyContent: "center",
+  },
+  searchBack: {
+    flexDirection: "row",
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    borderRadius: 15,
+    width: 350,
+    height: 45,
+    alignSelf: "center",
+  },
 });

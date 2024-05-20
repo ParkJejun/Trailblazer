@@ -1,17 +1,18 @@
 import React, { Component, useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GlobalStyles } from "../../GlobalStyles";
+import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar3(props) {
   const { placeholder, navigation } = props;
   const [searchText, setSearchText] = useState(""); // 상태 추가
 
   return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.rect2Stack}>
+    <View style={[GlobalStyles.searchContainer, props.style]}>
+      <View style={GlobalStyles.searchBack}>
         <TextInput
           placeholder={placeholder}
+          placeholderTextColor={Color.lightGray}
           style={styles.inputStyle}
           value={searchText} // TextInput의 값은 상태로 설정
           onChangeText={(text) => setSearchText(text)} // 텍스트 변경 시 상태 업데이트
@@ -41,19 +42,6 @@ function MaterialSearchBar3(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-    justifyContent: "center",
-  },
-  rect2Stack: {
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    borderRadius: 15,
-    width: 350,
-    height: 45,
-    alignSelf: "center",
-  },
   inputStyle: {
     height: 45,
     color: "#000",
