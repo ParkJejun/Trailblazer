@@ -1,18 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar2(props) {
+  const [searchText, setSearchText] = useState("");
+
+  // 검색어가 변경될 때 호출되는 함수
+  const handleSearch = (text) => {
+    setSearchText(text); // 검색어 상태 업데이트
+
+    // 부모 컴포넌트로 검색어 전달
+    if (props.onSearch) {
+      props.onSearch(text);
+    }
+  };
+
   return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.rect1}>
+    <View style={[GlobalStyles.searchContainer, props.style]}>
+      <View style={GlobalStyles.searchBack}>
         <TextInput
           placeholder="Building"
+          placeholderTextColor={Color.lightGray}
           style={styles.inputStyle1}
-        ></TextInput>
-        <View style={styles.inputStyle1Filler}></View>
-        <TouchableOpacity style={styles.rightIconButton1}>
-          <Icon name="close" style={styles.rightIcon2}></Icon>
+          value={searchText}
+          onChangeText={handleSearch} // 검색어 변경 시 handleSearch 함수 호출
+        />
+        <TouchableOpacity onPress={() => handleSearch("")}>
+          <Icon name="close" style={GlobalStyles.grayIcon}></Icon>
         </TouchableOpacity>
       </View>
     </View>
@@ -20,44 +35,15 @@ function MaterialSearchBar2(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-    justifyContent: "center",
-  },
-  rect1: {
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    borderRadius: 15,
-    width: 350,
-    height: 50,
-    alignSelf: "center",
-  },
   inputStyle1: {
     height: 48,
     color: "#000",
     paddingRight: 5,
     fontSize: 16,
     alignSelf: "center",
-    width: 245,
+    width: 280,
     lineHeight: 16,
     marginLeft: 23,
-  },
-  inputStyle1Filler: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  rightIconButton1: {
-    padding: 11,
-    alignItems: "center",
-    marginRight: 3,
-    marginTop: 1,
-  },
-  rightIcon2: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
   },
 });
 

@@ -1,31 +1,50 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { GlobalStyles, Color } from "../../GlobalStyles";
 
 function MaterialSearchBar3(props) {
+  const { placeholder, onSearch } = props; // 수정: 검색어 변경 콜백 함수 추가
+  const [searchText, setSearchText] = useState("");
+
+  // 검색어가 변경될 때 호출되는 함수
+  const handleSearch = (text) => {
+    setSearchText(text); // 검색어 상태 업데이트
+
+    // 부모 컴포넌트로 검색어 전달
+    if (props.onSearch) {
+      props.onSearch(text);
+    }
+  };
+
   return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.rect2Stack}>
-        <View style={styles.rect2}>
-          <TextInput
-            placeholder="Departure"
-            style={styles.inputStyle1}
-          ></TextInput>
-        </View>
+    <View style={[GlobalStyles.searchContainer, props.style]}>
+      <View style={GlobalStyles.searchBack}>
+        <TextInput
+          placeholder={placeholder}
+          placeholderTextColor={Color.lightGray}
+          style={styles.inputStyle}
+          value={searchText}
+          onChangeText={handleSearch}
+        />
         <TouchableOpacity
-          onPress={() => console.log("Navigate to Setting")}
+          onPress={() => props.navigation.navigate("SettingStack")}
           style={styles.leftIconButton}
         >
           <MaterialCommunityIconsIcon
             name="arrow-left"
-            style={styles.leftIcon}
-          ></MaterialCommunityIconsIcon>
+            style={GlobalStyles.grayIcon}
+            onPress={() => props.navigation.navigate("SettingStack")}
+          />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.rightIconButton}>
+        <TouchableOpacity
+          style={styles.rightIconButton}
+          onPress={handleSearch} // 수정: 검색 버튼 누를 때 검색어 전달
+        >
           <MaterialCommunityIconsIcon
-            name="close"
-            style={styles.rightIcon}
-          ></MaterialCommunityIconsIcon>
+            name="magnify"
+            style={GlobalStyles.grayIcon}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -33,61 +52,23 @@ function MaterialSearchBar3(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 4,
-  },
-  rect2: {
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    position: "absolute",
-    borderRadius: 15,
-    width: 350,
-    height: 50,
-    left: 4,
-    top: 0,
-  },
-  inputStyle1: {
-    height: 48,
+  inputStyle: {
+    height: 45,
     color: "#000",
     paddingRight: 5,
     fontSize: 16,
     alignSelf: "flex-start",
     width: 245,
     lineHeight: 16,
-    marginLeft: 43,
-    marginTop: 2,
+    marginLeft: 50,
   },
   leftIconButton: {
-    padding: 11,
     position: "absolute",
-    top: 1,
-    left: 0,
-  },
-  leftIcon: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
+    left: 5,
   },
   rightIconButton: {
-    padding: 11,
     position: "absolute",
-    top: 1,
-    right: 0,
-    alignItems: "center",
-  },
-  rightIcon: {
-    backgroundColor: "transparent",
-    color: "#000",
-    fontSize: 24,
-    opacity: 0.6,
-  },
-  rect2Stack: {
-    width: 357,
-    height: 50,
-    marginTop: 3,
-    marginLeft: 9,
+    right: 5,
   },
 });
 
