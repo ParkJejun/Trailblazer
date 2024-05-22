@@ -8,8 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover"
     },
     "ios": {
       "supportsTablet": true
@@ -22,6 +21,19 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Roboto-Bold.ttf",
+            "./src/assets/fonts/Roboto-Light.ttf",
+            "./src/assets/fonts/Roboto-Medium.ttf",
+            "./src/assets/fonts/Roboto-Regular.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

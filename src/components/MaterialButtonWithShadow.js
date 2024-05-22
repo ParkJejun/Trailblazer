@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Color } from "../../GlobalStyles";
+import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import { GlobalStyles } from "../../GlobalStyles";
 
 function MaterialButtonWithShadow(props) {
   return (
     <TouchableOpacity style={[styles.container, props.style]}>
+      <MaterialCommunityIconsIcon
+        name={props.icon}
+        style={{ ...GlobalStyles.colorIcon, fontSize: 20 }}
+      ></MaterialCommunityIconsIcon>
       <Text style={styles.caption}>{props.caption || "BUTTON"}</Text>
     </TouchableOpacity>
   );
@@ -11,11 +18,11 @@ function MaterialButtonWithShadow(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    borderRadius: 15,
+    borderRadius: 25,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -27,9 +34,11 @@ const styles = StyleSheet.create({
     minWidth: 88,
     paddingLeft: 16,
     paddingRight: 16,
+    marginLeft: 5,
+    marginRight: 5,
   },
   caption: {
-    color: "rgba(110,69,226,1)",
+    color: Color.purple,
     fontSize: 14,
     margin: 0,
     marginLeft: 20,
