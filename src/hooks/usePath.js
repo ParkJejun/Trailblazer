@@ -20,8 +20,8 @@ export const usePath = () => {
           },
           body: JSON.stringify({
             coordinates: [
-              [src[1], src[0]],
-              [dst[1], dst[0]],
+              [src.longitude, src.latitude],
+              [dst.longitude, dst.latitude],
             ],
           }),
         }
@@ -29,7 +29,6 @@ export const usePath = () => {
       const json = await response.json();
       const distance = json.features[0].properties.summary.distance;
       const duration = json.features[0].properties.summary.duration;
-      console.log(distance, duration);
 
       const coordinates = json.features[0].geometry.coordinates;
 
@@ -42,7 +41,6 @@ export const usePath = () => {
         });
       }
 
-      // console.log(p);
       setPath({ distance: distance, duration: duration, path: p });
     } catch (error) {
       console.log(error);

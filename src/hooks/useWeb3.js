@@ -1,69 +1,104 @@
-import { createPublicClient, http, publicActions } from "viem";
-import { klaytnBaobab } from "viem/chains";
-import { privateKeyToAccount } from "viem/accounts";
-import { PRIVATE_KEY, CONTRACT } from "@env";
+import { useMemo, useCallback } from "react";
+import { ADDRESS, PRIVATE_KEY, CONTRACT } from "@env";
+import "react-native-get-random-values";
 
 export const useWeb3 = () => {
-  const account = useMemo(() => {
-    return privateKeyToAccount(PRIVATE_KEY);
+  const Web3 = require("web3");
+
+  const web3 = useMemo(() => {
+    return new Web3("https://public-en-baobab.klaytn.net");
   }, []);
 
-  const walletClient = useMemo(() => {
-    return createPublicClient({
-      account,
-      chain: klaytnBaobab,
-      transport: http("https://klaytn-baobab-rpc.allthatnode.com:8551"),
-    }).extend(publicActions);
+  const contract = useMemo(() => {
+    return new web3.eth.Contract(abi, CONTRACT);
   }, []);
 
   const addPlace = useCallback(
     async (name, englishName, buildingNum, latitude, longitude, tags) => {
-      const { request } = await walletClient.simulateContract({
-        account,
-        address: CONTRACT,
-        abi: abi,
-        functionName: "addPlace",
-        value: parseEther("0.1"),
-        params: [name, englishName, buildingNum, latitude, longitude, tags],
-      });
-      await walletClient.writeContract(request);
+      const tx = contract.methods.addPlace(
+        name,
+        englishName,
+        buildingNum,
+        web3.utils.toWei(latitude, "lovelace"),
+        web3.utils.toWei(longitude, "lovelace"),
+        tags
+      );
+      const createTransaction = await web3.eth.accounts.signTransaction(
+        {
+          from: ADDRESS,
+          to: CONTRACT,
+          data: tx.encodeABI(),
+          gas: await tx.estimateGas(),
+          maxFeePerGas: 250000000000,
+          maxPriorityFeePerGas: 250000000000,
+        },
+        PRIVATE_KEY
+      );
+      await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
     },
     []
   );
 
   const deletePlace = useCallback(async (id) => {
-    const { request } = await walletClient.simulateContract({
-      account,
-      address: CONTRACT,
-      abi: abi,
-      functionName: "addPlace",
-      value: parseEther("0.1"),
-      params: [id],
-    });
-    await walletClient.writeContract(request);
+    const tx = contract.methods.deletePlace(id);
+    const createTransaction = await web3.eth.accounts.signTransaction(
+      {
+        from: ADDRESS,
+        to: CONTRACT,
+        data: tx.encodeABI(),
+        gas: await tx.estimateGas(),
+        maxFeePerGas: 250000000000,
+        maxPriorityFeePerGas: 250000000000,
+      },
+      PRIVATE_KEY
+    );
+    await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
   }, []);
 
   const updatePlace = useCallback(
     async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
-      const { request } = await walletClient.simulateContract({
-        account,
-        address: CONTRACT,
-        abi: abi,
-        functionName: "addPlace",
-        value: parseEther("0.1"),
-        params: [id, name, englishName, buildingNum, latitude, longitude, tags],
-      });
-      await walletClient.writeContract(request);
+      const tx = contract.methods.updatePlace(
+        id,
+        name,
+        englishName,
+        buildingNum,
+        web3.utils.toWei(latitude, "lovelace"),
+        web3.utils.toWei(longitude, "lovelace"),
+        tags
+      );
+      const createTransaction = await web3.eth.accounts.signTransaction(
+        {
+          from: ADDRESS,
+          to: CONTRACT,
+          data: tx.encodeABI(),
+          gas: await tx.estimateGas(),
+          maxFeePerGas: 250000000000,
+          maxPriorityFeePerGas: 250000000000,
+        },
+        PRIVATE_KEY
+      );
+      await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
     },
     []
   );
 
   const getAllPlaces = useCallback(async () => {
-    return await walletClient.readContract({
-      address: CONTRACT,
-      abi: abi,
-      functionName: "getAllPlaces",
-    });
+    const result = await contract.methods.getAllPlaces().call();
+    const newPlaces = [];
+
+    for (let i = 0; i < result[0].length; i++) {
+      newPlaces.push({
+        id: result[0][i],
+        name: result[1][i],
+        englishName: result[2][i],
+        buildingNum: result[3][i],
+        latitude: web3.utils.fromWei(result[4][i], "lovelace"),
+        longitude: web3.utils.fromWei(result[5][i], "lovelace"),
+        tags: result[6][i],
+      });
+    }
+
+    return newPlaces;
   }, []);
 
   return { addPlace, deletePlace, updatePlace, getAllPlaces };
