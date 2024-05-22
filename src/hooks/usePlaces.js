@@ -1,59 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { useWeb3 } from "./useWeb3";
+import { useContext } from "react";
+import { Web3Context } from "../contexts/Web3Context";
 
 export const usePlaces = () => {
-  const [count, setCount] = useState(0);
-  const [places, setPlaces] = useState();
+  const { places, addPlace, deletePlace, updatePlace } =
+    useContext(Web3Context);
 
-  const { addPlace, deletePlace, updatePlace, getAllPlaces } = useWeb3();
-
-  // timer
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount + 1);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const add = useCallback(
-    async (name, englishName, buildingNum, latitude, longitude, tags) => {
-      await addPlace(name, englishName, buildingNum, latitude, longitude, tags);
-      setCount((prevCount) => prevCount + 1);
-    },
-    []
-  );
-
-  const remove = useCallback(async (id) => {
-    await deletePlace(id);
-    setCount((prevCount) => prevCount + 1);
-  }, []);
-
-  const update = useCallback(
-    async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
-      await updatePlace(
-        id,
-        name,
-        englishName,
-        buildingNum,
-        latitude,
-        longitude,
-        tags
-      );
-      setCount((prevCount) => prevCount + 1);
-    },
-    []
-  );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getAllPlaces();
-      setPlaces(result);
-    };
-    fetchData();
-  }, [count]);
-
-  return { places, add, remove, update };
+  return { places, addPlace, deletePlace, updatePlace };
 };
 
 const p = [
