@@ -1,36 +1,27 @@
 import { useCallback, useState } from "react";
+import { API_KEY } from "@env";
+import axios from "axios";
 
 export const usePath = () => {
   const [loading, setLoading] = useState(false);
-  const [path, setPath] = useState();
 
-  const findPath = useCallback(async (src, dst) => {
+  const findPath = useCallback(async (start, end) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://api.openrouteservice.org/v2/directions/foot-walking/geojson",
-        {
-          method: "POST",
-          headers: {
-            Accept:
-              "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
-            Authorization: "API_KEY",
-            "Content-Type": "application/json; charset=utf-8",
-          },
-          body: JSON.stringify({
-            coordinates: [
-              [src.longitude, src.latitude],
-              [dst.longitude, dst.latitude],
-            ],
-          }),
-        }
-      );
-      const json = await response.json();
-      const distance = json.features[0].properties.summary.distance;
-      const duration = json.features[0].properties.summary.duration;
+      const response = await axios({
+        url: `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${API_KEY}&start=${start.longitude},${start.latitude}&end=${end.longitude},${end.latitude}`,
+        method: "GET",
+        headers: {
+          Accept:
+            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        },
+      });
+      const features = response.data.features[0];
 
-      const coordinates = json.features[0].geometry.coordinates;
+      const coordinates = features.geometry.coordinates;
+      const distance = features.properties.summary.distance;
+      const duration = features.properties.summary.duration;
 
       const p = [];
 
@@ -41,13 +32,13 @@ export const usePath = () => {
         });
       }
 
-      setPath({ distance: distance, duration: duration, path: p });
+      setLoading(false);
+      return { distance: distance, duration: duration, path: p };
     } catch (error) {
       console.log(error);
-    } finally {
       setLoading(false);
     }
   }, []);
 
-  return { loading, path, findPath };
+  return { loading, findPath };
 };
