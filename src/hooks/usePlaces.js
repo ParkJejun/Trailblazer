@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
+import { useWeb3 } from "./useWeb3";
 
 export const usePlaces = () => {
   const [count, setCount] = useState(0);
   const [places, setPlaces] = useState();
+
+  const { addPlace, deletePlace, updatePlace, getAllPlaces } = useWeb3();
 
   // timer
   useEffect(() => {
@@ -13,47 +16,41 @@ export const usePlaces = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const add = useCallback((info) => {
-    setPlaces((prevPlaces) => {
-      if (prevPlaces) {
-        const newPlaces = prevPlaces.concat({
-          id: prevPlaces.length + 1,
-          ...info,
-        });
-        setCount((prevCount) => prevCount + 1);
-        return newPlaces;
-      }
-      return null;
-    });
+  const add = useCallback(
+    async (name, englishName, buildingNum, latitude, longitude, tags) => {
+      await addPlace(name, englishName, buildingNum, latitude, longitude, tags);
+      setCount((prevCount) => prevCount + 1);
+    },
+    []
+  );
+
+  const remove = useCallback(async (id) => {
+    await deletePlace(id);
+    setCount((prevCount) => prevCount + 1);
   }, []);
 
-  const remove = useCallback((id) => {
-    setPlaces((prevPlaces) => {
-      if (prevPlaces) {
-        const newPlaces = prevPlaces.filter((place) => place.id !== id);
-        setCount((prevCount) => prevCount + 1);
-        return newPlaces;
-      }
-      return null;
-    });
-  }, []);
-
-  const update = useCallback((id, info) => {
-    setPlaces((prevPlaces) => {
-      if (prevPlaces) {
-        const newPlaces = prevPlaces.map((place) =>
-          place.id === id ? { id: id, ...info } : place
-        );
-        setCount((prevCount) => prevCount + 1);
-        return newPlaces;
-      }
-      return null;
-    });
-  }, []);
+  const update = useCallback(
+    async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
+      await updatePlace(
+        id,
+        name,
+        englishName,
+        buildingNum,
+        latitude,
+        longitude,
+        tags
+      );
+      setCount((prevCount) => prevCount + 1);
+    },
+    []
+  );
 
   useEffect(() => {
-    // fetch from blockchain
-    setPlaces(p);
+    const fetchData = async () => {
+      const result = await getAllPlaces();
+      setPlaces(result);
+    };
+    fetchData();
   }, [count]);
 
   return { places, add, remove, update };
