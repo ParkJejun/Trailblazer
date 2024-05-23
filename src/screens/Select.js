@@ -175,7 +175,7 @@ function Select(props) {
         />
       </View>
       <Text style={{ ...GlobalStyles.body2, marginLeft: 35, marginBottom: 10 }}>
-        {searchText ? "Matching Results" : "Recent Searches"}
+        {searchText.trim() === "" ? "Matching Results" : "Recent Searches"}
       </Text>
       <FlatList
         data={getFilteredData()} // 검색어에 따라 필터된 데이터를 보여줌
