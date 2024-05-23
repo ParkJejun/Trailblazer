@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { Marker, Polyline } from "react-native-maps";
 
 function MaterialMapView(props) {
   return (
@@ -14,6 +14,24 @@ function MaterialMapView(props) {
           longitudeDelta: 0.004,
         }}
       >
+        {props.start ? (
+          <Marker
+            coordinate={{
+              latitude: props.start.latitude,
+              longitude: props.start.longitude,
+            }}
+            pinColor="green"
+          />
+        ) : null}
+        {props.end ? (
+          <Marker
+            coordinate={{
+              latitude: props.end.latitude,
+              longitude: props.end.longitude,
+            }}
+            pinColor="red"
+          />
+        ) : null}
         {props.path ? (
           <Polyline
             coordinates={props.path}

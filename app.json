@@ -33,6 +33,12 @@
             "./src/assets/fonts/Roboto-Regular.ttf"
           ]
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
     ]
   }
