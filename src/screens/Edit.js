@@ -1,19 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, FlatList } from "react-native";
 import MaterialSearchBar2 from "../components/MaterialSearchBar2";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
 import { GlobalStyles } from "../../GlobalStyles";
-
-const data = [];
-
-for (let i = 1; i <= 20; i++) {
-  data.push({
-    id: i.toString(),
-    text: `Building ${i}`,
-  });
-}
+import { usePlaces } from "../hooks/usePlaces";
 
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
@@ -40,6 +32,8 @@ const ListItem = ({ item }) => (
 function Edit(props) {
   const [searchText, setSearchText] = useState(""); // MaterialSearchBar2의 value 상태
 
+  const { places } = usePlaces();
+
   // MaterialSearchBar2의 값이 변경될 때 호출되는 함수
   const handleSearch = (text) => {
     setSearchText(text); // 검색어를 상태에 설정
@@ -47,9 +41,23 @@ function Edit(props) {
 
   // 검색어를 포함하는 데이터만 필터링하여 반환하는 함수
   const filterData = () => {
-    return data.filter((item) =>
-      item.text.toLowerCase().includes(searchText.toLowerCase())
-    );
+    if (searchText.trim() === "") return [];
+
+    const matchingData = [];
+    places.forEach((item) => {
+      if (
+        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.englishName.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.buildingNum.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.tags.toLowerCase().includes(searchText.toLowerCase())
+      ) {
+        matchingData.push({
+          id: item.id,
+          text: item.englishName,
+        });
+      }
+    });
+    return matchingData;
   };
 
   return (
