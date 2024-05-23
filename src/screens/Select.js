@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -13,23 +13,8 @@ import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
 import { GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
-
-const recentData = [];
-const matchingData = [];
-
-for (let i = 1; i <= 20; i++) {
-  recentData.push({
-    id: i.toString(),
-    text: `RBuilding ${i}`,
-    date: `05.${String(i).padStart(2, "0")}`,
-  });
-}
-for (let i = 1; i <= 20; i++) {
-  matchingData.push({
-    id: i.toString(),
-    text: `Building ${i}`,
-  });
-}
+import { usePlaces } from "../hooks/usePlaces";
+import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
@@ -98,6 +83,28 @@ function Select(props) {
   const { placeholder } = props;
   const [searchText, setSearchText] = useState(""); // 검색어 상태
 
+  const [recentData, setRecentData] = useState([]);
+
+  const { places } = usePlaces();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await getData("RecentPlace");
+      if (result === null) return;
+
+      const newData = [];
+      result.forEach((item, index) => {
+        newData.push({
+          id: index,
+          text: places[item.placeId - 1].englishName,
+          date: item.date,
+        });
+      });
+      setRecentData(newData);
+    };
+    if (places) fetch();
+  }, [places]);
+
   // MaterialSearchBar3에서 검색어가 변경될 때 호출되는 함수
   const handleSearch = (text) => {
     setSearchText(text); // 검색어 상태 업데이트
@@ -110,9 +117,21 @@ function Select(props) {
       return recentData;
     } else {
       // 검색어가 있는 경우 matchingData에서 검색어를 포함하는 결과 반환
-      return matchingData.filter((item) =>
-        item.text.toLowerCase().includes(searchText.toLowerCase())
-      );
+      const matchingData = [];
+      places.forEach((item) => {
+        if (
+          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.englishName.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.buildingNum.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.tags.toLowerCase().includes(searchText.toLowerCase())
+        ) {
+          matchingData.push({
+            id: item.id,
+            text: item.englishName,
+          });
+        }
+      });
+      return matchingData;
     }
   };
 
