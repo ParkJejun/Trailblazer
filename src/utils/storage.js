@@ -45,7 +45,23 @@ export const getData = async (key) => {
   }
 };
 
-export const removeData = async (key) => {
+export const removeData = async (key, index) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(key);
+    if (jsonValue !== null) {
+      const arr = JSON.parse(jsonValue);
+      if (arr.length < index) {
+        return;
+      }
+      arr.splice(index, 1);
+      await AsyncStorage.setItem(key, JSON.stringify(arr));
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const removeAllData = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
   } catch (e) {

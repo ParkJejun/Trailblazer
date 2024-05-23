@@ -1,19 +1,11 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { Color, GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
 import { FlatList } from "react-native";
-
-const data = [];
-
-for (let i = 1; i <= 20; i++) {
-  data.push({
-    id: i.toString(),
-    departure: `Departure ${i}`,
-    destination: `Destination ${i}`,
-  });
-}
+import { usePlaces } from "../hooks/usePlaces";
+import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
@@ -26,6 +18,29 @@ const ListItem = ({ item }) => (
 );
 
 function Bookmark(props) {
+  const [data, setData] = useState();
+
+  const { places } = usePlaces();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await getData("Bookmark");
+
+      const data = [];
+      result.forEach((item, index) => {
+        data.push({
+          id: index,
+          departure: places[item.startId - 1].englishName,
+          destination: places[item.endId - 1].englishName,
+        });
+      });
+      setData(data);
+    };
+    if (places) {
+      fetch();
+    }
+  }, [places]);
+
   return (
     <View style={GlobalStyles.background}>
       <FlatList
