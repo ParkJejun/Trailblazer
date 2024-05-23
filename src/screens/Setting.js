@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -15,6 +15,8 @@ import { Color, GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
 import RoundImageButton from "../components/RoundImageButton";
 import GradientBox from "../components/GradientBox";
+import { usePlaces } from "../hooks/usePlaces";
+import { getData, removeData } from "../utils/storage";
 
 const data = [];
 
@@ -62,6 +64,29 @@ const ListItem = ({ item }) => (
 );
 
 function Setting(props) {
+  const [data, setData] = useState([]);
+
+  const { places } = usePlaces();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await getData("RecentPath");
+      if (result === null) return;
+
+      const newData = [];
+      result.forEach((item, index) => {
+        newData.push({
+          id: index,
+          departure: places[item.startId - 1].englishName,
+          destination: places[item.endId - 1].englishName,
+          date: item.date,
+        });
+      });
+      setData(newData);
+    };
+    if (places) fetch();
+  }, [places]);
+
   return (
     <View style={GlobalStyles.background}>
       <GradientBox height={200}>

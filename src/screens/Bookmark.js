@@ -18,27 +18,26 @@ const ListItem = ({ item }) => (
 );
 
 function Bookmark(props) {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   const { places } = usePlaces();
 
   useEffect(() => {
     const fetch = async () => {
       const result = await getData("Bookmark");
+      if (result === null) return;
 
-      const data = [];
+      const newData = [];
       result.forEach((item, index) => {
-        data.push({
+        newData.push({
           id: index,
           departure: places[item.startId - 1].englishName,
           destination: places[item.endId - 1].englishName,
         });
       });
-      setData(data);
+      setData(newData);
     };
-    if (places) {
-      fetch();
-    }
+    if (places) fetch();
   }, [places]);
 
   return (
