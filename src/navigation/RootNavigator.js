@@ -12,6 +12,7 @@ import Setting from "../screens/Setting";
 import Select from "../screens/Select"; // Select 스크린을 import합니다.
 import { Color } from "../../GlobalStyles";
 import SelectMap from "../screens/SelectMap";
+import BackButton from "../components/BackButton";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,13 +26,7 @@ const BookmarkStack = () => (
         title: "Bookmarked",
         headerTitleAlign: "center",
         headerLeft: () => (
-          <MaterialCommunityIcons
-            name="arrow-left"
-            size={24}
-            color={Color.darkGray}
-            style={{ marginLeft: 10 }}
-            onPress={() => navigation.navigate("Search")}
-          />
+          <BackButton onPress={() => navigation.navigate("Search")} />
         ),
       })}
     />
@@ -47,13 +42,7 @@ const EditStack = () => (
         title: "Edit Map",
         headerTitleAlign: "center",
         headerLeft: () => (
-          <MaterialCommunityIcons
-            name="arrow-left"
-            size={24}
-            color="black"
-            style={{ marginLeft: 10 }}
-            onPress={() => navigation.navigate("Search")}
-          />
+          <BackButton onPress={() => navigation.navigate("Search")} />
         ),
       })}
     />
@@ -79,9 +68,11 @@ const SettingStack = () => (
     <Stack.Screen
       name="SelectMap"
       component={SelectMap}
-      options={{
-        headerShown: true,
-      }}
+      options={({ navigation }) => ({
+        title: "Select Map",
+        headerTitleAlign: "center",
+        headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
+      })}
     />
   </Stack.Navigator>
 );

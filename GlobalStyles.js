@@ -16,7 +16,7 @@ export const FontFamily = {
 /* font sizes */
 export const FontSize = {
   size_xl: 24,
-  size_lgi: 20,
+  size_lgi: 22,
   size_mid: 19,
   size_sm: 17,
   size_xs: 14,
@@ -37,6 +37,7 @@ export const Color = {
 
 /* border radiuses */
 export const Border = {
+  br_xl: 25,
   br_sm: 14,
   br_base: 16,
   br_lg: 20,
@@ -70,25 +71,17 @@ export const GlobalStyles = StyleSheet.create({
     textAlign: "left",
     fontFamily: FontFamily.robotoBold,
     fontWeight: "700",
-    textTransform: "uppercase",
+    textTransform: "Capitalize",
     letterSpacing: 0,
     fontSize: FontSize.size_lgi,
     color: Color.colorBlack,
-    margin: 10,
-    marginTop: 20,
-    width: "100%",
   },
   h3: {
-    alignSelf: "left",
-    textAlign: "left",
+    textAlign: "center",
     fontFamily: FontFamily.robotoBold,
-    fontWeight: "700",
-    textTransform: "capitalize",
     letterSpacing: 0,
-    fontSize: FontSize.size_mid,
+    fontSize: FontSize.size_sm,
     color: Color.colorBlack,
-    margin: 10,
-    marginTop: 5,
     width: "100%",
   },
   body: {

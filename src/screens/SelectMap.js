@@ -1,8 +1,14 @@
-import React, { Component } from "react";
+import React, {
+  Component,
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+} from "react";
 import {
   StyleSheet,
   View,
-  ImageBackground,
+  FlatList,
   Text,
   TouchableOpacity,
   Image,
@@ -11,127 +17,170 @@ import MaterialMapView from "../components/MaterialMapView";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Svg, { Ellipse } from "react-native-svg";
-import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
 import MaterialIconTextButtonsFooter from "../components/MaterialIconTextButtonsFooter";
+import TransparentGradientBox from "../components/TransparentGradientBox";
+import { GlobalStyles, Color } from "../../GlobalStyles";
+import WhiteBox from "../components/WhiteBox";
+import RoundIconButton from "../components/RoundIconButton";
+import RoundImageButton from "../components/RoundImageButton";
+import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+const data = {
+  name: "E3 Information & Electronics B/D",
+  description:
+    "A building containing laboratories and classrooms for the Department of Electrical and Electronic Engineering and Computer Science.",
+};
+
+const tags = [
+  {
+    id: "1",
+    icon: "silverware-fork-knife",
+    caption: "Restaurant",
+  },
+  {
+    id: "2",
+    icon: "coffee",
+    caption: "Cafe",
+  },
+  {
+    id: "3",
+    icon: "printer",
+    caption: "Printer",
+  },
+  {
+    id: "4",
+    icon: "store",
+    caption: "Store",
+  },
+];
+
+const tagItem = ({ item }) => (
+  <View style={GlobalStyles.listItemRow}>
+    <MaterialButtonWithShadow
+      icon={item.icon}
+      caption={item.caption}
+      style={{ height: 40 }}
+    ></MaterialButtonWithShadow>
+  </View>
+);
 
 function SelectMap(props) {
+  // const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
+  // const whiteBoxRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (whiteBoxRef.current) {
+  //     const height = whiteBoxRef.current.offsetHeight;
+  //     setWhiteBoxHeight(height);
+  //     console.log("whiteBoxHeight: " + height);
+  //   }
+  // }, []);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.materialMapViewStack}>
-        <MaterialMapView style={styles.materialMapView}></MaterialMapView>
-        <ImageBackground
-          style={styles.rect2}
-          imageStyle={styles.rect2_imageStyle}
-          source={require("../assets/images/Gradient_kykNqTa.png")}
-        >
-          <Text style={styles.text}>Move the map to save the location</Text>
-        </ImageBackground>
-        <View gradientImage="Gradient_kykNqTa.png" style={styles.rect1}>
-          <View style={styles.icon4Row}>
-            <MaterialCommunityIconsIcon
-              name="arrow-left"
-              style={styles.icon4}
-            ></MaterialCommunityIconsIcon>
-            <Text style={styles.loremIpsum}>Destination Selection</Text>
-          </View>
-        </View>
-        <EntypoIcon name="location-pin" style={styles.icon3}></EntypoIcon>
-        <View style={styles.group2}>
-          <View gradientImage="Gradient_kykNqTa.png" style={styles.rect3}>
-            <View style={styles.n13TaeWulGwanRow}>
-              <Text style={styles.n13TaeWulGwan}>
-                E3 Information {"\n"}&amp; Electronics B/D
-              </Text>
-              <TouchableOpacity style={styles.button3}>
-                <View style={styles.ellipse4Stack}>
-                  <Svg viewBox="0 0 44.51 44.51" style={styles.ellipse4}>
-                    <Ellipse
-                      strokeWidth={0}
-                      fill="rgba(110,69,226,1)"
-                      cx={22}
-                      cy={22}
-                      rx={22}
-                      ry={22}
-                    ></Ellipse>
-                  </Svg>
-                  <FontAwesomeIcon
-                    name="long-arrow-right"
-                    style={styles.icon9}
-                  ></FontAwesomeIcon>
-                </View>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.text3}>
-              A building containing laboratories and classrooms for{"\n"}the
-              Department of Electrical and Electronic Engineering{"\n"}and
-              Computer Science.
+    <View style={GlobalStyles.background}>
+      <View>
+        <MaterialMapView
+          style={{ height: "100%", width: "100%" }}
+        ></MaterialMapView>
+        <View style={styles.wrap}>
+          <TransparentGradientBox height={60}>
+            <Text style={{ ...GlobalStyles.h3, color: "white" }}>
+              Move the map to save the location
             </Text>
-            <View style={styles.group1Row}>
-              <View style={styles.group1}>
-                <View style={styles.icon7Stack}>
-                  <IoniconsIcon
-                    name="ios-cafe"
-                    style={styles.icon7}
-                  ></IoniconsIcon>
-                  <MaterialButtonWithShadow
-                    caption="Cafe"
-                    style={styles.materialButtonWithShadow1}
-                  ></MaterialButtonWithShadow>
-                </View>
-              </View>
-              <View style={styles.group3}>
-                <View style={styles.materialButtonWithShadow2Stack}>
-                  <MaterialButtonWithShadow
-                    caption="Store"
-                    style={styles.materialButtonWithShadow2}
-                  ></MaterialButtonWithShadow>
-                  <EntypoIcon name="shop" style={styles.icon10}></EntypoIcon>
-                </View>
+          </TransparentGradientBox>
+          <EntypoIcon name="location-pin" style={styles.loc_icon}></EntypoIcon>
+
+          <View style={{ flex: 1 }} />
+          <View
+            style={{
+              position: "absolute",
+              right: 30,
+              bottom: 300,
+              // bottom: WhiteBoxHeight+40,
+            }}
+          >
+            <RoundIconButton
+              onPress={() => console.log("Button pressed")}
+              icon={
+                <MaterialCommunityIcons
+                  name="target"
+                  style={styles.target_icon}
+                />
+              }
+              backgroundColor="white"
+            />
+          </View>
+
+          {/* <WhiteBox ref={whiteBoxRef}> */}
+
+          <WhiteBox>
+            <View style={{ flexDirection: "row", margin: 20 }}>
+              <Text
+                style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
+              >
+                {data.name}
+              </Text>
+              <View style={{ marginLeft: 30 }}>
+                <RoundIconButton
+                  icon={
+                    <FontAwesomeIcon
+                      name="long-arrow-right"
+                      style={styles.arrow_icon}
+                    />
+                  }
+                />
               </View>
             </View>
-            <Text style={styles.editTheInformation}>Edit the information</Text>
-          </View>
+            <Text
+              style={{
+                ...GlobalStyles.body2,
+                marginLeft: 20,
+                marginRight: 20,
+              }}
+            >
+              {data.description}
+            </Text>
+            <View
+              style={{
+                margin: 20,
+                marginBottom: 0,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <FlatList
+                data={tags}
+                renderItem={tagItem}
+                keyExtractor={(item) => item.id}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+            <TouchableOpacity onPress={() => console.log("Button pressed")}>
+              <Text
+                style={{
+                  ...GlobalStyles.body2,
+                  margin: 20,
+                  marginTop: 10,
+                  marginBottom: 10,
+                  textAlign: "right",
+                }}
+              >
+                Edit the information
+              </Text>
+            </TouchableOpacity>
+          </WhiteBox>
         </View>
-        <MaterialIconTextButtonsFooter
-          style={styles.materialIconTextButtonsFooter1}
-        ></MaterialIconTextButtonsFooter>
-        <TouchableOpacity style={styles.button2}>
-          <View style={styles.ellipse2Stack}>
-            <Svg viewBox="0 0 44.51 44.51" style={styles.ellipse2}>
-              <Ellipse
-                strokeWidth={0}
-                fill="rgba(255,255,255,1)"
-                cx={22}
-                cy={22}
-                rx={22}
-                ry={22}
-              ></Ellipse>
-            </Svg>
-            <Image
-              source={require("../assets/images/자산_4target_icon_c.png")}
-              resizeMode="contain"
-              style={styles.image}
-            ></Image>
-          </View>
-        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  materialMapView: {
-    width: 375,
-    height: 812,
-    position: "absolute",
-    left: 0,
-    top: 0,
-  },
   rect2: {
     width: 350,
     height: 50,
@@ -141,12 +190,13 @@ const styles = StyleSheet.create({
     left: 13,
     overflow: "hidden",
   },
-  rect2_imageStyle: {},
-  text: {
-    color: "rgba(255,255,255,1)",
-    fontSize: 15,
-    marginTop: 16,
-    marginLeft: 61,
+  target_icon: {
+    color: Color.purple, // 아이콘 색상 설정
+    fontSize: 35, // 아이콘 크기 설정
+  },
+  arrow_icon: {
+    color: "white", // 아이콘 색상 설정
+    fontSize: 35, // 아이콘 크기 설정
   },
   rect1: {
     left: 0,
@@ -177,11 +227,19 @@ const styles = StyleSheet.create({
     marginLeft: 17,
     marginTop: 45,
   },
-  icon3: {
-    top: 263,
-    left: 154,
+  wrap: {
     position: "absolute",
-    color: "#b82c44",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flex: 1,
+  },
+  loc_icon: {
+    position: "absolute",
+    alignSelf: "center",
+    top: "30%",
+    color: Color.purple,
     fontSize: 70,
   },
   group2: {
@@ -331,10 +389,6 @@ const styles = StyleSheet.create({
   ellipse2Stack: {
     width: 45,
     height: 45,
-  },
-  materialMapViewStack: {
-    width: 375,
-    height: 812,
   },
 });
 
