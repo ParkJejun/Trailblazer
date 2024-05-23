@@ -18,17 +18,6 @@ import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
 import { getData, removeData } from "../utils/storage";
 
-const data = [];
-
-for (let i = 1; i <= 20; i++) {
-  data.push({
-    id: i.toString(),
-    departure: `Departure ${i}`,
-    destination: `Destination ${i}`,
-    date: `05.${String(i).padStart(2, "0")}`,
-  });
-}
-
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
     <View>
