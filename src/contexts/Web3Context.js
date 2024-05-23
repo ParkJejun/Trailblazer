@@ -18,8 +18,7 @@ export const Web3ContextProvider = ({ children }) => {
   }, []);
 
   const contract = useMemo(() => {
-    const contractAddress = CONTRACT;
-    return new web3.eth.Contract(abi, contractAddress);
+    return new web3.eth.Contract(abi, CONTRACT);
   }, []);
 
   const [places, setPlaces] = useState();
@@ -226,55 +225,6 @@ const abi = [
         internalType: "string[]",
         name: "",
         type: "string[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_id",
-        type: "uint256",
-      },
-    ],
-    name: "getPlace",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
       },
     ],
     stateMutability: "view",
