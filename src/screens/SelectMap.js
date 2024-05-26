@@ -132,6 +132,7 @@ function SelectMap(props) {
                       style={styles.arrow_icon}
                     />
                   }
+                  onPress={() => props.navigation.navigate("Result")}
                 />
               </View>
             </View>
