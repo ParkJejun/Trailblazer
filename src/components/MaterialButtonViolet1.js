@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+import { Color, FontSize } from "../../GlobalStyles";
 
 function MaterialButtonViolet1(props) {
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableOpacity
+      style={[styles.container, props.style]}
+      onPress={props.onPress}
+    >
       <Text style={styles.caption}>{props.caption || "BUTTON"}</Text>
     </TouchableOpacity>
   );
@@ -11,7 +15,7 @@ function MaterialButtonViolet1(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#3F51B5",
+    backgroundColor: Color.purple,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
   },
   caption: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: FontSize.size_xs,
   },
 });
 

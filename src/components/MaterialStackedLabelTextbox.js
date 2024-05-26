@@ -1,13 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
+import { GlobalStyles } from "../../GlobalStyles";
 
 function MaterialStackedLabelTextbox(props) {
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue(props.value);
+  }, []);
+
   return (
     <View style={[styles.container, props.style]}>
-      <Text style={styles.label}>{props.label || "StackedLabel"}</Text>
+      <Text style={GlobalStyles.body2}>{props.label || "StackedLabel"}</Text>
       <TextInput
-        placeholder={props.inputStyle || "Input"}
+        value={value}
         style={styles.inputStyle}
+        onChangeText={(text) => setValue(text)}
       ></TextInput>
     </View>
   );
@@ -18,6 +26,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#D9D5DC",
     backgroundColor: "transparent",
+    marginBottom: 20,
   },
   label: {
     fontSize: 12,

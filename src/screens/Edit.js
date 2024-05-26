@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import MaterialSearchBar2 from "../components/MaterialSearchBar2";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Separator from "../components/Separator";
@@ -7,26 +13,27 @@ import GradientBox from "../components/GradientBox";
 import { GlobalStyles } from "../../GlobalStyles";
 import { usePlaces } from "../hooks/usePlaces";
 
-const ListItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
-    <View>
-      <View
-        style={{
-          flexDirection: "row",
-          flex: 1,
-          alignItems: "center",
-        }}
-      >
-        <EntypoIcon
-          name="location-pin"
-          style={GlobalStyles.colorIcon}
-        ></EntypoIcon>
-        <View style={{ marginLeft: 10 }}>
-          <Text style={GlobalStyles.listText}>{item.text}</Text>
-        </View>
+const ListItem = ({ item, onPress }) => (
+  <TouchableOpacity
+    onPress={() => onPress(item.name)}
+    style={GlobalStyles.listItemRow}
+  >
+    <View
+      style={{
+        flexDirection: "row",
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
+      <EntypoIcon
+        name="location-pin"
+        style={GlobalStyles.colorIcon}
+      ></EntypoIcon>
+      <View style={{ marginLeft: 10 }}>
+        <Text style={GlobalStyles.listText}>{item.text}</Text>
       </View>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 function Edit(props) {
@@ -60,6 +67,12 @@ function Edit(props) {
     return matchingData;
   };
 
+  // ListItem을 클릭했을 때 호출되는 함수
+  const handleListItemPress = (name) => {
+    // ItemInfo 스크린으로 이동하면서 item.name 전달
+    props.navigation.navigate("EditInfo", { itemName: name });
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <GradientBox height={90}>
@@ -80,7 +93,9 @@ function Edit(props) {
       </Text>
       <FlatList
         data={filterData()} // 필터링된 데이터를 FlatList에 전달
-        renderItem={({ item }) => <ListItem item={item} />}
+        renderItem={({ item }) => (
+          <ListItem item={item} onPress={handleListItemPress} />
+        )}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={Separator}
         style={GlobalStyles.listContainer}
