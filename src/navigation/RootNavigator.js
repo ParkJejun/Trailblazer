@@ -10,8 +10,10 @@ import Bookmark from "../screens/Bookmark";
 import Edit from "../screens/Edit";
 import Setting from "../screens/Setting";
 import Select from "../screens/Select"; // Select 스크린을 import합니다.
-import { Color } from "../../GlobalStyles";
 import SelectMap from "../screens/SelectMap";
+import EditInfo from "../screens/EditInfo";
+
+import { Color } from "../../GlobalStyles";
 import BackButton from "../components/BackButton";
 
 const Tab = createMaterialBottomTabNavigator();
@@ -43,6 +45,17 @@ const EditStack = () => (
         headerTitleAlign: "center",
         headerLeft: () => (
           <BackButton onPress={() => navigation.navigate("Search")} />
+        ),
+      })}
+    />
+    <Stack.Screen
+      name="EditInfo"
+      component={EditInfo}
+      options={({ navigation }) => ({
+        title: "Edit Information",
+        headerTitleAlign: "center",
+        headerLeft: () => (
+          <BackButton onPress={() => navigation.navigate("EditStack")} />
         ),
       })}
     />

@@ -68,16 +68,18 @@ const tagItem = ({ item }) => (
 );
 
 function SelectMap(props) {
-  // const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
-  // const whiteBoxRef = useRef(null);
+  const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
+  const whiteBoxRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (whiteBoxRef.current) {
-  //     const height = whiteBoxRef.current.offsetHeight;
-  //     setWhiteBoxHeight(height);
-  //     console.log("whiteBoxHeight: " + height);
-  //   }
-  // }, []);
+  const onWhiteBoxLayout = () => {
+    if (whiteBoxRef.current) {
+      whiteBoxRef.current.measure((x, y, width, height, pageX, pageY) => {
+        setWhiteBoxHeight(height);
+        // console.log("whiteBoxHeight: " + height);
+        // console.log(whiteBoxHeight);
+      });
+    }
+  };
 
   return (
     <View style={GlobalStyles.background}>
@@ -98,8 +100,7 @@ function SelectMap(props) {
             style={{
               position: "absolute",
               right: 30,
-              bottom: 300,
-              // bottom: WhiteBoxHeight+40,
+              bottom: whiteBoxHeight + 200,
             }}
           >
             <RoundIconButton
@@ -114,10 +115,12 @@ function SelectMap(props) {
             />
           </View>
 
-          {/* <WhiteBox ref={whiteBoxRef}> */}
-
           <WhiteBox>
-            <View style={{ flexDirection: "row", margin: 20 }}>
+            <View
+              style={{ flexDirection: "row", margin: 20 }}
+              onLayout={onWhiteBoxLayout}
+              ref={whiteBoxRef}
+            >
               <Text
                 style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
               >
@@ -160,7 +163,7 @@ function SelectMap(props) {
                 showsHorizontalScrollIndicator={false}
               />
             </View>
-            <TouchableOpacity onPress={() => console.log("Button pressed")}>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Edit")}>
               <Text
                 style={{
                   ...GlobalStyles.body2,
@@ -181,51 +184,13 @@ function SelectMap(props) {
 }
 
 const styles = StyleSheet.create({
-  rect2: {
-    width: 350,
-    height: 50,
-    position: "absolute",
-    top: 100,
-    borderRadius: 15,
-    left: 13,
-    overflow: "hidden",
-  },
   target_icon: {
-    color: Color.purple, // 아이콘 색상 설정
-    fontSize: 35, // 아이콘 크기 설정
+    color: Color.purple,
+    fontSize: 35,
   },
   arrow_icon: {
-    color: "white", // 아이콘 색상 설정
-    fontSize: 35, // 아이콘 크기 설정
-  },
-  rect1: {
-    left: 0,
-    width: 375,
-    height: 91,
-    position: "absolute",
-    top: 0,
-    backgroundColor: "rgba(255,255,255,1)",
-    flexDirection: "row",
-  },
-  icon4: {
-    color: "rgba(128,128,128,1)",
-    fontSize: 30,
-    height: 33,
-    width: 30,
-  },
-  loremIpsum: {
-    color: "#121212",
-    fontSize: 18,
-    marginLeft: 56,
-    marginTop: 8,
-  },
-  icon4Row: {
-    height: 33,
-    flexDirection: "row",
-    flex: 1,
-    marginRight: 103,
-    marginLeft: 17,
-    marginTop: 45,
+    color: "white",
+    fontSize: 35,
   },
   wrap: {
     position: "absolute",
@@ -241,154 +206,6 @@ const styles = StyleSheet.create({
     top: "30%",
     color: Color.purple,
     fontSize: 70,
-  },
-  group2: {
-    top: 460,
-    left: 17,
-    width: 336,
-    height: 250,
-    position: "absolute",
-  },
-  rect3: {
-    width: 336,
-    height: 230,
-    backgroundColor: "rgba(255,255,255,1)",
-    borderRadius: 30,
-    marginTop: 20,
-  },
-  n13TaeWulGwan: {
-    color: "#121212",
-    lineHeight: 20,
-    fontSize: 18,
-    marginTop: 2,
-  },
-  button3: {
-    width: 45,
-    height: 45,
-    marginLeft: 98,
-  },
-  ellipse4: {
-    top: 0,
-    left: 0,
-    width: 45,
-    height: 45,
-    position: "absolute",
-  },
-  icon9: {
-    top: 7,
-    left: 7,
-    position: "absolute",
-    color: "rgba(255,255,255,1)",
-    fontSize: 30,
-  },
-  ellipse4Stack: {
-    width: 45,
-    height: 45,
-  },
-  n13TaeWulGwanRow: {
-    height: 45,
-    flexDirection: "row",
-    marginTop: 20,
-    marginLeft: 28,
-    marginRight: 27,
-  },
-  text3: {
-    color: "#121212",
-    opacity: 0.5,
-    fontSize: 12,
-    marginTop: 21,
-    marginLeft: 28,
-  },
-  group1: {
-    width: 80,
-    height: 36,
-  },
-  icon7: {
-    top: 7,
-    left: 16,
-    position: "absolute",
-    color: "#6e45e2",
-    fontSize: 20,
-  },
-  materialButtonWithShadow1: {
-    height: 36,
-    width: 80,
-    position: "absolute",
-    left: 0,
-    top: 0,
-  },
-  icon7Stack: {
-    width: 80,
-    height: 36,
-  },
-  group3: {
-    width: 80,
-    height: 36,
-    marginLeft: 24,
-  },
-  materialButtonWithShadow2: {
-    height: 36,
-    width: 100,
-    position: "absolute",
-    left: 0,
-    top: 0,
-  },
-  icon10: {
-    top: 7,
-    left: 13,
-    position: "absolute",
-    color: "#6e45e2",
-    fontSize: 20,
-  },
-  materialButtonWithShadow2Stack: {
-    width: 100,
-    height: 36,
-  },
-  group1Row: {
-    height: 36,
-    flexDirection: "row",
-    marginTop: 21,
-    marginLeft: 20,
-    marginRight: 133,
-  },
-  editTheInformation: {
-    color: "#121212",
-    opacity: 0.5,
-    fontSize: 12,
-    marginTop: 14,
-    marginLeft: 203,
-  },
-  materialIconTextButtonsFooter1: {
-    height: 81,
-    width: 375,
-    position: "absolute",
-    left: 0,
-    top: 731,
-  },
-  button2: {
-    top: 420,
-    left: 281,
-    width: 45,
-    height: 45,
-    position: "absolute",
-  },
-  ellipse2: {
-    top: 0,
-    left: 0,
-    width: 45,
-    height: 45,
-    position: "absolute",
-  },
-  image: {
-    top: 6,
-    left: 6,
-    width: 32,
-    height: 32,
-    position: "absolute",
-  },
-  ellipse2Stack: {
-    width: 45,
-    height: 45,
   },
 });
 
