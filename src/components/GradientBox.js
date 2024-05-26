@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, ImageBackground } from "react-native";
+import { Border } from "../../GlobalStyles";
 
 const GradientBox = ({ children, height }) => {
   return (
@@ -16,8 +17,8 @@ const GradientBox = ({ children, height }) => {
 const styles = StyleSheet.create({
   rect1: {
     width: "100%",
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: Border.br_xl,
+    borderBottomLeftRadius: Border.br_xl,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",

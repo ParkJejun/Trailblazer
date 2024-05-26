@@ -15,7 +15,7 @@ export const FontFamily = {
 
 /* font sizes */
 export const FontSize = {
-  size_xl: 24,
+  size_xl: 50,
   size_lgi: 22,
   size_mid: 19,
   size_sm: 17,
@@ -56,15 +56,12 @@ export const GlobalStyles = StyleSheet.create({
     position: "absolute",
   },
   h1: {
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: FontFamily.robotoBold,
     fontWeight: "700",
     letterSpacing: 0,
-    fontSize: FontSize.size_mid,
+    fontSize: FontSize.size_xl,
     color: Color.colorBlack,
-    margin: 10,
-    marginTop: 20,
-    width: "100%",
   },
   h2: {
     alignSelf: "left",
@@ -82,7 +79,6 @@ export const GlobalStyles = StyleSheet.create({
     letterSpacing: 0,
     fontSize: FontSize.size_sm,
     color: Color.colorBlack,
-    width: "100%",
   },
   body: {
     fontSize: FontSize.size_xs,

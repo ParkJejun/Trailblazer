@@ -2,10 +2,14 @@ import React from "react";
 import { StyleSheet, ImageBackground } from "react-native";
 import { Border } from "../../GlobalStyles";
 
-const TransparentGradientBox = ({ children, height = 100 }) => {
+const TransparentGradientBox = ({
+  children,
+  height = 100,
+  borderRadius = Border.br_base,
+}) => {
   return (
     <ImageBackground
-      style={[styles.rect1, { height: height }]} // height prop을 사용하여 동적으로 설정
+      style={[styles.rect1, { height: height, borderRadius: borderRadius }]}
       imageStyle={styles.rect1_imageStyle}
       source={require("../assets/images/Gradient_kykNqTa.png")}
     >
@@ -16,7 +20,6 @@ const TransparentGradientBox = ({ children, height = 100 }) => {
 
 const styles = StyleSheet.create({
   rect1: {
-    margin: 10,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
@@ -24,7 +27,6 @@ const styles = StyleSheet.create({
   rect1_imageStyle: {
     resizeMode: "stretch",
     opacity: 0.7,
-    borderRadius: Border.br_base,
   },
 });
 

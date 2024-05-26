@@ -88,11 +88,13 @@ function SelectMap(props) {
           style={{ height: "100%", width: "100%" }}
         ></MaterialMapView>
         <View style={styles.wrap}>
-          <TransparentGradientBox height={60}>
-            <Text style={{ ...GlobalStyles.h3, color: "white" }}>
-              Move the map to save the location
-            </Text>
-          </TransparentGradientBox>
+          <View style={{ margin: 10 }}>
+            <TransparentGradientBox height={60}>
+              <Text style={{ ...GlobalStyles.h3, color: "white" }}>
+                Move the map to save the location
+              </Text>
+            </TransparentGradientBox>
+          </View>
           <EntypoIcon name="location-pin" style={styles.loc_icon}></EntypoIcon>
 
           <View style={{ flex: 1 }} />
@@ -100,7 +102,7 @@ function SelectMap(props) {
             style={{
               position: "absolute",
               right: 30,
-              bottom: whiteBoxHeight + 200,
+              bottom: whiteBoxHeight + 230,
             }}
           >
             <RoundIconButton
@@ -116,11 +118,7 @@ function SelectMap(props) {
           </View>
 
           <WhiteBox>
-            <View
-              style={{ flexDirection: "row", margin: 20 }}
-              onLayout={onWhiteBoxLayout}
-              ref={whiteBoxRef}
-            >
+            <View style={{ flexDirection: "row", margin: 20 }}>
               <Text
                 style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
               >
@@ -137,15 +135,17 @@ function SelectMap(props) {
                 />
               </View>
             </View>
-            <Text
-              style={{
-                ...GlobalStyles.body2,
-                marginLeft: 20,
-                marginRight: 20,
-              }}
-            >
-              {data.description}
-            </Text>
+            <View onLayout={onWhiteBoxLayout} ref={whiteBoxRef}>
+              <Text
+                style={{
+                  ...GlobalStyles.body2,
+                  marginLeft: 20,
+                  marginRight: 20,
+                }}
+              >
+                {data.description}
+              </Text>
+            </View>
             <View
               style={{
                 margin: 20,

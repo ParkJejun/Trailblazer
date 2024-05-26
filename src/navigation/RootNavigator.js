@@ -12,6 +12,7 @@ import Setting from "../screens/Setting";
 import Select from "../screens/Select"; // Select 스크린을 import합니다.
 import SelectMap from "../screens/SelectMap";
 import EditInfo from "../screens/EditInfo";
+import Result from "../screens/Result";
 
 import { Color } from "../../GlobalStyles";
 import BackButton from "../components/BackButton";
@@ -86,6 +87,13 @@ const SettingStack = () => (
         headerTitleAlign: "center",
         headerLeft: () => <BackButton onPress={() => navigation.goBack()} />,
       })}
+    />
+    <Stack.Screen
+      name="Result"
+      component={Result}
+      options={{
+        headerShown: false,
+      }}
     />
   </Stack.Navigator>
 );
