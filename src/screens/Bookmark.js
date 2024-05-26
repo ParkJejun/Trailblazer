@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { Color, GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
@@ -13,12 +13,16 @@ const ListItem = ({ item }) => (
       <Text style={GlobalStyles.listText}>{item.departure}</Text>
       <Text style={GlobalStyles.listText}>{" →   " + item.destination}</Text>
     </View>
-    <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>
+    <TouchableOpacity onPress={item.onPress}>
+      <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>
+    </TouchableOpacity>
   </View>
 );
 
 function Bookmark(props) {
   const [data, setData] = useState([]);
+
+  const [refresh, setRefresh] = useState(0);
 
   const { places } = usePlaces();
 
@@ -29,16 +33,22 @@ function Bookmark(props) {
 
       const newData = [];
       result.forEach((item, index) => {
-        newData.push({
-          id: index,
-          departure: places[item.startId - 1].englishName,
-          destination: places[item.endId - 1].englishName,
-        });
+        if (item.startId <= places.length && item.endId <= places.length) {
+          newData.push({
+            id: index,
+            departure: places[item.startId - 1].englishName,
+            destination: places[item.endId - 1].englishName,
+            onPress: async () => {
+              await removeData("Bookmark", index);
+              setRefresh(refresh + 1);
+            },
+          });
+        }
       });
       setData(newData);
     };
-    if (places) fetch();
-  }, [places]);
+    fetch();
+  }, [refresh, JSON.stringify(places)]);
 
   return (
     <View style={GlobalStyles.background}>

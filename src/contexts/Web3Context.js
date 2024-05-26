@@ -21,7 +21,7 @@ export const Web3ContextProvider = ({ children }) => {
     return new web3.eth.Contract(abi, CONTRACT);
   }, []);
 
-  const [places, setPlaces] = useState();
+  const [places, setPlaces] = useState([]);
   const [count, setCount] = useState(0);
 
   // timer
@@ -112,7 +112,7 @@ export const Web3ContextProvider = ({ children }) => {
 
       for (let i = 0; i < result[0].length; i++) {
         newPlaces.push({
-          id: result[0][i],
+          id: Number(result[0][i]),
           name: result[1][i],
           englishName: result[2][i],
           buildingNum: result[3][i],

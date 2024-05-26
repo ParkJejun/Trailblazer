@@ -9,6 +9,7 @@ import {
 import MaterialSearchBar3 from "../components/MaterialSearchBar3";
 import MaterialButtonViolet from "../components/MaterialButtonViolet";
 import EntypoIcon from "react-native-vector-icons/Entypo";
+import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
 import { GlobalStyles } from "../../GlobalStyles";
 import Separator from "../components/Separator";
@@ -42,6 +43,11 @@ const ListItem = ({ item }) => (
       }}
     >
       <Text style={GlobalStyles.body2}>{item.date} </Text>
+      {item.onPress ? (
+        <TouchableOpacity onPress={item.onPress}>
+          <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
+        </TouchableOpacity>
+      ) : null}
     </View>
   </View>
 );
@@ -85,6 +91,8 @@ function Select(props) {
 
   const [recentData, setRecentData] = useState([]);
 
+  const [refresh, setRefresh] = useState(0);
+
   const { places } = usePlaces();
 
   useEffect(() => {
@@ -94,16 +102,22 @@ function Select(props) {
 
       const newData = [];
       result.forEach((item, index) => {
-        newData.push({
-          id: index,
-          text: places[item.placeId - 1].englishName,
-          date: item.date,
-        });
+        if (item.placeId <= places.length) {
+          newData.push({
+            id: index,
+            text: places[item.placeId - 1].englishName,
+            date: item.date,
+            onPress: async () => {
+              await removeData("RecentPlace", index);
+              setRefresh(refresh + 1);
+            },
+          });
+        }
       });
       setRecentData(newData);
     };
-    if (places) fetch();
-  }, [places]);
+    fetch();
+  }, [refresh, JSON.stringify(places)]);
 
   // MaterialSearchBar3에서 검색어가 변경될 때 호출되는 함수
   const handleSearch = (text) => {
@@ -175,7 +189,7 @@ function Select(props) {
         />
       </View>
       <Text style={{ ...GlobalStyles.body2, marginLeft: 35, marginBottom: 10 }}>
-        {searchText.trim() === "" ? "Matching Results" : "Recent Searches"}
+        {searchText.trim() === "" ? "Recent Searches" : "Matching Results"}
       </Text>
       <FlatList
         data={getFilteredData()} // 검색어에 따라 필터된 데이터를 보여줌

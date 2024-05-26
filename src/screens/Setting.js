@@ -47,13 +47,17 @@ const ListItem = ({ item }) => (
       }}
     >
       <Text style={GlobalStyles.body2}>{item.date} </Text>
-      <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
+      <TouchableOpacity onPress={item.onPress}>
+        <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
+      </TouchableOpacity>
     </View>
   </View>
 );
 
 function Setting(props) {
   const [data, setData] = useState([]);
+
+  const [refresh, setRefresh] = useState(0);
 
   const { places } = usePlaces();
 
@@ -64,17 +68,23 @@ function Setting(props) {
 
       const newData = [];
       result.forEach((item, index) => {
-        newData.push({
-          id: index,
-          departure: places[item.startId - 1].englishName,
-          destination: places[item.endId - 1].englishName,
-          date: item.date,
-        });
+        if (item.startId <= places.length && item.endId <= places.length) {
+          newData.push({
+            id: index,
+            departure: places[item.startId - 1].englishName,
+            destination: places[item.endId - 1].englishName,
+            date: item.date,
+            onPress: async () => {
+              await removeData("RecentPath", index);
+              setRefresh(refresh + 1);
+            },
+          });
+        }
       });
       setData(newData);
     };
-    if (places) fetch();
-  }, [places]);
+    fetch();
+  }, [refresh, JSON.stringify(places)]);
 
   return (
     <View style={GlobalStyles.background}>
