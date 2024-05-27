@@ -1,3 +1,5 @@
+// Setting.js
+
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -61,6 +63,11 @@ function Setting(props) {
 
   const { places } = usePlaces();
 
+  const handleSearchPress = (placeholder) => {
+    console.log("Navigate to Select: " + placeholder);
+    props.navigation.navigate("Select", { placeholder: { placeholder } });
+  };
+
   useEffect(() => {
     const fetch = async () => {
       const result = await getData("RecentPath");
@@ -92,12 +99,12 @@ function Setting(props) {
         <View style={{ marginTop: 20 }}>
           <MaterialSearchBar
             placeholder="Departure"
-            navigation={props.navigation} // navigation prop 전달
-          ></MaterialSearchBar>
+            onSearchPress={handleSearchPress} // 수정된 부분
+          />
           <MaterialSearchBar
             placeholder="Destination"
-            navigation={props.navigation} // navigation prop 전달
-          ></MaterialSearchBar>
+            onSearchPress={handleSearchPress} // 수정된 부분
+          />
         </View>
         <View style={styles.button}>
           <RoundImageButton

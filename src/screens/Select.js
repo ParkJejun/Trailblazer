@@ -1,3 +1,5 @@
+// Select.js
+
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -16,6 +18,7 @@ import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
 import { getData, removeData } from "../utils/storage";
+import { useLocation } from "react-router-dom";
 
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
@@ -86,7 +89,8 @@ const tagItem = ({ item }) => (
 );
 
 function Select(props) {
-  const { placeholder } = props;
+  const { placeholder } = props.route.params.placeholder;
+
   const [searchText, setSearchText] = useState(""); // 검색어 상태
 
   const [recentData, setRecentData] = useState([]);

@@ -3,12 +3,10 @@ import { StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
 import { Color, GlobalStyles } from "../../GlobalStyles";
 
 function MaterialSearchBar(props) {
-  const { placeholder, navigation } = props; // props로 전달된 placeholder 값과 navigation 객체 가져오기
+  const { placeholder, onSearchPress } = props; // 수정된 부분
 
-  // Search 버튼이 눌렸을 때 화면으로 이동하는 함수
-  const handleSearchPress = (placeholder) => {
-    console.log("Navigate to Select");
-    navigation.navigate("Select", { placeholder }); // Select 화면으로 이동할 때 placeholder 전달
+  const handleSearchPress = () => {
+    onSearchPress(placeholder); // 수정된 부분
   };
 
   return (
