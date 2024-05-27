@@ -13,7 +13,7 @@ import {
 import MaterialSearchBar from "../components/MaterialSearchBar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FeatherIcon from "react-native-vector-icons/Feather";
-import { Color, GlobalStyles } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../utils/styles";
 import Separator from "../components/Separator";
 import RoundImageButton from "../components/RoundImageButton";
 import GradientBox from "../components/GradientBox";

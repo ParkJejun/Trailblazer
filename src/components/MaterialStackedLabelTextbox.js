@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { GlobalStyles } from "../../GlobalStyles";
+import { GlobalStyles } from "../utils/styles";
 
 function MaterialStackedLabelTextbox(props) {
   const [value, setValue] = useState("");

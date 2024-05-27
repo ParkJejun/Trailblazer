@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GlobalStyles, Color } from "../../GlobalStyles";
+import { GlobalStyles, Color } from "../utils/styles";
 
 function MaterialSearchBar2(props) {
   const [searchText, setSearchText] = useState("");

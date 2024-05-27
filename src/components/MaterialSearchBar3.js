@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GlobalStyles, Color } from "../../GlobalStyles";
+import { GlobalStyles, Color } from "../utils/styles";
 
 function MaterialSearchBar3(props) {
   const { placeholder, onSearch } = props; // 수정: 검색어 변경 콜백 함수 추가

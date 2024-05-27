@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
-import { Color } from "../../GlobalStyles";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
-import { GlobalStyles } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../utils/styles";
 
 function MaterialButtonWithShadow(props) {
   return (

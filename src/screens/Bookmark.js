@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
-import { Color, GlobalStyles } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../utils/styles";
 import Separator from "../components/Separator";
 import { FlatList } from "react-native";
 import { usePlaces } from "../hooks/usePlaces";

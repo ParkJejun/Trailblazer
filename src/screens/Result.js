@@ -13,7 +13,7 @@ import EntypoIcon from "react-native-vector-icons/Entypo";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons"; // 추가됨
-import { GlobalStyles, Color, Border } from "../../GlobalStyles";
+import { GlobalStyles, Color, Border } from "../utils/styles";
 import TransparentGradientBox from "../components/TransparentGradientBox";
 import RoundImageButton from "../components/RoundImageButton";
 import WhiteBox from "../components/WhiteBox";

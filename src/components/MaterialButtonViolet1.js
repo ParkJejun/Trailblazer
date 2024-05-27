@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
-import { Color, FontSize } from "../../GlobalStyles";
+import { Color, FontSize } from "../utils/styles";
 
 function MaterialButtonViolet1(props) {
   return (

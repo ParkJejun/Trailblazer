@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Border } from "../../GlobalStyles";
+import { Border } from "../utils/styles";
 
 const WhiteBox = ({ children, height }) => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, ImageBackground } from "react-native";
-import { Border } from "../../GlobalStyles";
+import { Border } from "../utils/styles";
 
 const GradientBox = ({ children, height }) => {
   return (

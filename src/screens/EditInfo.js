@@ -4,7 +4,7 @@ import MaterialIconTextButtonsFooter from "../components/MaterialIconTextButtons
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
-import { Color, GlobalStyles } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../utils/styles";
 
 function EditInfo(props) {
   return (

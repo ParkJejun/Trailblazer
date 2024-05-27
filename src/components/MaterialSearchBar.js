@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
-import { Color, GlobalStyles } from "../../GlobalStyles";
+import { Color, GlobalStyles } from "../utils/styles";
 
 function MaterialSearchBar(props) {
   const { placeholder, onSearchPress } = props; // 수정된 부분

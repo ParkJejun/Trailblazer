@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Svg, Ellipse } from "react-native-svg";
-import { Color } from "../../GlobalStyles";
+import { Color } from "../utils/styles";
 
 const RoundIconButton = ({
   onPress = () => console.log("Button pressed"),

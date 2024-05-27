@@ -22,6 +22,7 @@ export const FontSize = {
   size_xs: 14,
   size_smi: 12,
 };
+
 /* Colors */
 export const Color = {
   white: "#fff",

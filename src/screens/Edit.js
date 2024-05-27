@@ -10,7 +10,7 @@ import MaterialSearchBar2 from "../components/MaterialSearchBar2";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
-import { GlobalStyles } from "../../GlobalStyles";
+import { GlobalStyles } from "../utils/styles";
 import { usePlaces } from "../hooks/usePlaces";
 
 const ListItem = ({ item, onPress }) => (

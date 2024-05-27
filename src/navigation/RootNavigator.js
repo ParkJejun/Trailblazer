@@ -14,7 +14,7 @@ import SelectMap from "../screens/SelectMap";
 import EditInfo from "../screens/EditInfo";
 import Result from "../screens/Result";
 
-import { Color } from "../../GlobalStyles";
+import { Color } from "../utils/styles";
 import BackButton from "../components/BackButton";
 
 const Tab = createMaterialBottomTabNavigator();

@@ -21,7 +21,7 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
 import MaterialIconTextButtonsFooter from "../components/MaterialIconTextButtonsFooter";
 import TransparentGradientBox from "../components/TransparentGradientBox";
-import { GlobalStyles, Color } from "../../GlobalStyles";
+import { GlobalStyles, Color } from "../utils/styles";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
 import RoundImageButton from "../components/RoundImageButton";

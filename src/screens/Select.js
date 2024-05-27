@@ -13,12 +13,12 @@ import MaterialButtonViolet from "../components/MaterialButtonViolet";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
-import { GlobalStyles } from "../../GlobalStyles";
+import { GlobalStyles } from "../utils/styles";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
 import { getData, removeData } from "../utils/storage";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const ListItem = ({ item }) => (
   <View style={GlobalStyles.listItemRow}>
@@ -125,7 +125,7 @@ function Select(props) {
 
   // MaterialSearchBar3에서 검색어가 변경될 때 호출되는 함수
   const handleSearch = (text) => {
-    setSearchText(text); // 검색어 상태 업데이트
+    if (typeof text === "string") setSearchText(text); // 검색어 상태 업데이트
   };
 
   // 검색어를 포함한 결과를 반환하는 함수
