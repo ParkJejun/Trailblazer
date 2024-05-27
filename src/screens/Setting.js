@@ -18,6 +18,7 @@ import Separator from "../components/Separator";
 import RoundImageButton from "../components/RoundImageButton";
 import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
+import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
@@ -59,7 +60,7 @@ const ListItem = ({ item }) => (
 function Setting(props) {
   const [data, setData] = useState([]);
 
-  const [refresh, setRefresh] = useState(0);
+  const { refresh, setRefresh } = useRefresh();
 
   const { places } = usePlaces();
 

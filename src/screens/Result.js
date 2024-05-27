@@ -19,21 +19,43 @@ import RoundImageButton from "../components/RoundImageButton";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
 import { usePath } from "../hooks/usePath";
+import { useRefresh } from "../hooks/useRefresh";
+import { storeBookmark, getData, removeData } from "../utils/storage";
 
 function Result(props) {
+  const { refresh, setRefresh } = useRefresh();
+
   const { loading, findPath } = usePath();
 
   const [path, setPath] = useState();
+  const [bookmarkIndex, setBookmarkIndex] = useState(-1);
+
+  const start = { id: 6, latitude: 36.36811, longitude: 127.36583 }; // E3-1
+  const end = { id: 69, latitude: 36.374286, longitude: 127.364998 }; // N1
 
   useEffect(() => {
     const fetch = async () => {
-      const start = { latitude: 36.36811, longitude: 127.36583 }; // E3-1
-      const end = { latitude: 36.374286, longitude: 127.364998 }; // N1
       const result = await findPath(start, end);
       setPath(result);
     };
     fetch();
   }, []);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await getData("Bookmark");
+      if (result === null) return;
+
+      let index = -1;
+      result.forEach((item, i) => {
+        if (item.startId === start.id && item.endId === end.id) {
+          index = i;
+        }
+      });
+      setBookmarkIndex(index);
+    };
+    fetch();
+  }, [refresh]);
 
   return (
     <View style={GlobalStyles.background}>
@@ -78,6 +100,14 @@ function Result(props) {
                   icon={
                     <FontAwesomeIcon name="star-o" style={styles.bigIcon} />
                   }
+                  onPress={async () => {
+                    if (bookmarkIndex < 0) {
+                      await storeBookmark(start.id, end.id);
+                    } else {
+                      await removeData("Bookmark", bookmarkIndex);
+                    }
+                    setRefresh(refresh + 1);
+                  }}
                   backgroundColor="transparent"
                 />
                 <RoundIconButton

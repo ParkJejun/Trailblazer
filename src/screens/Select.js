@@ -17,6 +17,7 @@ import { GlobalStyles } from "../utils/styles";
 import Separator from "../components/Separator";
 import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
+import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
 // import { useLocation } from "react-router-dom";
 
@@ -95,7 +96,7 @@ function Select(props) {
 
   const [recentData, setRecentData] = useState([]);
 
-  const [refresh, setRefresh] = useState(0);
+  const { refresh, setRefresh } = useRefresh();
 
   const { places } = usePlaces();
 

@@ -5,6 +5,7 @@ import { Color, GlobalStyles } from "../utils/styles";
 import Separator from "../components/Separator";
 import { FlatList } from "react-native";
 import { usePlaces } from "../hooks/usePlaces";
+import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
@@ -22,7 +23,7 @@ const ListItem = ({ item }) => (
 function Bookmark(props) {
   const [data, setData] = useState([]);
 
-  const [refresh, setRefresh] = useState(0);
+  const { refresh, setRefresh } = useRefresh();
 
   const { places } = usePlaces();
 
