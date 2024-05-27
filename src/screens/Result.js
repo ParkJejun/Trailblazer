@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -18,13 +18,31 @@ import TransparentGradientBox from "../components/TransparentGradientBox";
 import RoundImageButton from "../components/RoundImageButton";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
+import { usePath } from "../hooks/usePath";
 
 function Result(props) {
+  const { loading, findPath } = usePath();
+
+  const [path, setPath] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const start = { latitude: 36.36811, longitude: 127.36583 }; // E3-1
+      const end = { latitude: 36.374286, longitude: 127.364998 }; // N1
+      const result = await findPath(start, end);
+      setPath(result);
+    };
+    fetch();
+  }, []);
+
   return (
     <View style={GlobalStyles.background}>
       <View>
         <MaterialMapView
           style={{ height: "100%", width: "100%" }}
+          start={{ latitude: 36.36811, longitude: 127.36583 }}
+          end={{ latitude: 36.374286, longitude: 127.364998 }}
+          path={path?.path}
         ></MaterialMapView>
         <View style={styles.wrap}>
           <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
@@ -45,15 +63,14 @@ function Result(props) {
             </View>
           </TransparentGradientBox>
 
-          <EntypoIcon name="location-pin" style={styles.icon1}></EntypoIcon>
-          <EntypoIcon name="location-pin" style={styles.icon2}></EntypoIcon>
-
           <View style={{ flex: 1 }} />
 
           <WhiteBox>
             <View style={styles.upperGroup}>
               <View style={styles.textRow}>
-                <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>16</Text>
+                <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
+                  {path?.duration}
+                </Text>
                 <Text style={GlobalStyles.h2}>min</Text>
               </View>
               <View style={styles.buttonRow}>
@@ -76,7 +93,7 @@ function Result(props) {
                   name="map-marker-distance"
                   style={styles.smallIcon}
                 />
-                <Text style={GlobalStyles.h3}>936 m</Text>
+                <Text style={GlobalStyles.h3}>{path?.distance} m</Text>
               </View>
               <View style={styles.iconRow}>
                 <IoniconsIcon name="footsteps" style={styles.smallIcon} />

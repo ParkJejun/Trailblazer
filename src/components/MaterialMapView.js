@@ -7,12 +7,16 @@ function MaterialMapView(props) {
     <View style={[styles.container, props.style]}>
       <MapView
         style={styles.MapView1}
-        region={{
-          latitude: 36.3703,
-          longitude: 127.36251,
-          latitudeDelta: 0.004,
-          longitudeDelta: 0.004,
-        }}
+        region={
+          props.start
+            ? { ...props.start, latitudeDelta: 0.01, longitudeDelta: 0.01 }
+            : {
+                latitude: 36.3703,
+                longitude: 127.36251,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }
+        }
       >
         {props.start ? (
           <Marker

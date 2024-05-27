@@ -21,7 +21,7 @@ export const usePath = () => {
 
       const coordinates = features.geometry.coordinates;
       const distance = features.properties.summary.distance;
-      const duration = features.properties.summary.duration;
+      const duration = Math.ceil(features.properties.summary.duration / 60);
 
       const p = [];
 
