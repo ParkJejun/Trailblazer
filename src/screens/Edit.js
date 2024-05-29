@@ -48,22 +48,31 @@ function Edit(props) {
 
   // 검색어를 포함하는 데이터만 필터링하여 반환하는 함수
   const filterData = () => {
-    if (searchText.trim() === "") return [];
-
     const matchingData = [];
-    places.forEach((item) => {
-      if (
-        item.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.englishName.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.buildingNum.toLowerCase().includes(searchText.toLowerCase()) ||
-        item.tags.toLowerCase().includes(searchText.toLowerCase())
-      ) {
+
+    if (searchText.trim() === "") {
+      places.forEach((item) => {
         matchingData.push({
           id: item.id,
           text: item.englishName,
         });
-      }
-    });
+      });
+    } else {
+      places.forEach((item) => {
+        if (
+          item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.englishName.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.buildingNum.toLowerCase().includes(searchText.toLowerCase()) ||
+          item.tags.toLowerCase().includes(searchText.toLowerCase())
+        ) {
+          matchingData.push({
+            id: item.id,
+            text: item.englishName,
+          });
+        }
+      });
+    }
+
     return matchingData;
   };
 
