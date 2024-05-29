@@ -98,7 +98,11 @@ function Result(props) {
               <View style={styles.buttonRow}>
                 <RoundIconButton
                   icon={
-                    <FontAwesomeIcon name="star-o" style={styles.bigIcon} />
+                    bookmarkIndex < 0 ? (
+                      <FontAwesomeIcon name="star-o" style={styles.bigIcon} />
+                    ) : (
+                      <FontAwesomeIcon name="star" style={styles.bigIcon} />
+                    )
                   }
                   onPress={async () => {
                     if (bookmarkIndex < 0) {
