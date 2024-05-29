@@ -5,8 +5,44 @@ import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommun
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
 import { Color, GlobalStyles } from "../utils/styles";
+import { usePlaces } from "../hooks/usePlaces";
 
 function EditInfo(props) {
+  const { id, name, englishName, buildingNum, latitude, longitude, tags } =
+    props.route.params;
+
+  const { places, updatePlace } = usePlaces();
+
+  const handlePress = async (
+    newName,
+    newEnglishName,
+    newBuildingNum,
+    newLatitude,
+    newLongitude,
+    newTags
+  ) => {
+    if (
+      places[id - 1].name !== newName ||
+      places[id - 1].englishName !== newEnglishName ||
+      places[id - 1].buildingNum !== newBuildingNum ||
+      places[id - 1].latitude !== newLatitude ||
+      places[id - 1].longitude !== newLongitude ||
+      places[id - 1].tags !== newTags
+    ) {
+      console.log("updatePlace: " + id);
+      await updatePlace({
+        id,
+        newName,
+        newEnglishName,
+        newBuildingNum,
+        newLatitude,
+        newLongitude,
+        newTags,
+      });
+    }
+    props.navigation.goBack();
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <View style={styles.row}>
@@ -17,22 +53,22 @@ function EditInfo(props) {
         <View>
           <MaterialStackedLabelTextbox
             label="Building number"
-            value="E3"
+            value={buildingNum}
             style={styles.materialStackedLabelTextbox}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Building name"
-            value="Information & Electronics B/D"
+            value={englishName}
             style={styles.materialStackedLabelTextbox}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Description"
-            value="A building containing laboratories and classrooms for the Department of Electrical and Electronic Engineering and Computer Science."
+            value="Description"
             style={styles.materialStackedLabelTextbox}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Tags"
-            value="Cafe,"
+            value={tags}
             style={styles.materialStackedLabelTextbox}
           ></MaterialStackedLabelTextbox>
         </View>

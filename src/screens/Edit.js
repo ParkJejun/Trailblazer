@@ -14,10 +14,7 @@ import { GlobalStyles } from "../utils/styles";
 import { usePlaces } from "../hooks/usePlaces";
 
 const ListItem = ({ item, onPress }) => (
-  <TouchableOpacity
-    onPress={() => onPress(item.name)}
-    style={GlobalStyles.listItemRow}
-  >
+  <TouchableOpacity onPress={onPress} style={GlobalStyles.listItemRow}>
     <View
       style={{
         flexDirection: "row",
@@ -77,9 +74,17 @@ function Edit(props) {
   };
 
   // ListItem을 클릭했을 때 호출되는 함수
-  const handleListItemPress = (name) => {
+  const handleListItemPress = (id) => {
     // ItemInfo 스크린으로 이동하면서 item.name 전달
-    props.navigation.navigate("EditInfo", { itemName: name });
+    props.navigation.navigate("EditInfo", {
+      id: places[id - 1].id,
+      name: places[id - 1].name,
+      englishName: places[id - 1].englishName,
+      buildingNum: places[id - 1].buildingNum,
+      latitude: places[id - 1].latitude,
+      longitude: places[id - 1].longitude,
+      tags: places[id - 1].tags,
+    });
   };
 
   return (
@@ -103,7 +108,7 @@ function Edit(props) {
       <FlatList
         data={filterData()} // 필터링된 데이터를 FlatList에 전달
         renderItem={({ item }) => (
-          <ListItem item={item} onPress={handleListItemPress} />
+          <ListItem item={item} onPress={() => handleListItemPress(item.id)} />
         )}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={Separator}
