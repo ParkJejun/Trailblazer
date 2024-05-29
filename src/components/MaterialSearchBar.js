@@ -6,7 +6,7 @@ function MaterialSearchBar(props) {
   const { placeholder, onSearchPress } = props; // 수정된 부분
 
   const handleSearchPress = () => {
-    onSearchPress(placeholder); // 수정된 부분
+    if (onSearchPress) onSearchPress(placeholder); // 수정된 부분
   };
 
   return (

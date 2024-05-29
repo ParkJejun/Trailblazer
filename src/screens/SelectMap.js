@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import MaterialMapView from "../components/MaterialMapView";
+import MaterialMapViewSelect from "../components/MaterialMapViewSelect";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
 import Svg, { Ellipse } from "react-native-svg";
@@ -71,6 +71,8 @@ function SelectMap(props) {
   const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
   const whiteBoxRef = useRef(null);
 
+  const [region, setRegion] = useState();
+
   const onWhiteBoxLayout = () => {
     if (whiteBoxRef.current) {
       whiteBoxRef.current.measure((x, y, width, height, pageX, pageY) => {
@@ -81,12 +83,17 @@ function SelectMap(props) {
     }
   };
 
+  useEffect(() => {
+    console.log("Region changed: ", region);
+  }, [region]);
+
   return (
     <View style={GlobalStyles.background}>
       <View>
-        <MaterialMapView
+        <MaterialMapViewSelect
           style={{ height: "100%", width: "100%" }}
-        ></MaterialMapView>
+          setRegion={setRegion}
+        ></MaterialMapViewSelect>
         <View style={styles.wrap}>
           <View style={{ margin: 10 }}>
             <TransparentGradientBox height={60}>

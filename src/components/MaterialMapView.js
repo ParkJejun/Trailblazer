@@ -7,7 +7,7 @@ function MaterialMapView(props) {
     <View style={[styles.container, props.style]}>
       <MapView
         style={styles.MapView1}
-        region={{
+        initialRegion={{
           latitude: props.start ? props.start.latitude : 36.3703,
           longitude: props.start ? props.start.longitude : 127.36251,
           latitudeDelta: 0.01,
