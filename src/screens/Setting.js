@@ -22,7 +22,7 @@ import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
+  <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
     <View>
       <View
         style={{
@@ -50,11 +50,11 @@ const ListItem = ({ item }) => (
       }}
     >
       <Text style={GlobalStyles.body2}>{item.date} </Text>
-      <TouchableOpacity onPress={item.onPress}>
+      <TouchableOpacity onPress={item.handleRemovePress}>
         <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
       </TouchableOpacity>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 function Setting(props) {
@@ -64,9 +64,26 @@ function Setting(props) {
 
   const { places } = usePlaces();
 
-  const handleSearchPress = (placeholder) => {
-    console.log("Navigate to Select: " + placeholder);
-    props.navigation.navigate("Select", { placeholder: { placeholder } });
+  const params = props.route.params;
+
+  const [ids, setIds] = useState({
+    startId: params?.startId ?? -1,
+    endId: params?.endId ?? -1,
+  });
+
+  useEffect(() => {
+    setIds({
+      startId: params?.startId ?? -1,
+      endId: params?.endId ?? -1,
+    });
+  }, [params]);
+
+  const handleSearchPress = (type) => {
+    props.navigation.navigate("Select", {
+      type: type,
+      startId: ids.startId,
+      endId: ids.endId,
+    });
   };
 
   useEffect(() => {
@@ -82,7 +99,12 @@ function Setting(props) {
             departure: places[item.startId - 1].englishName,
             destination: places[item.endId - 1].englishName,
             date: item.date,
-            onPress: async () => {
+            handlePress: () =>
+              props.navigation.navigate("Result", {
+                startId: item.startId,
+                endId: item.endId,
+              }),
+            handleRemovePress: async () => {
               await removeData("RecentPath", index);
               setRefresh(refresh + 1);
             },
@@ -99,16 +121,27 @@ function Setting(props) {
       <GradientBox height={200}>
         <View style={{ marginTop: 20 }}>
           <MaterialSearchBar
-            placeholder="Departure"
-            onSearchPress={handleSearchPress} // 수정된 부분
+            type="Departure"
+            placeholder={
+              ids.startId > 0
+                ? places[ids.startId - 1]?.englishName ?? "Departure"
+                : "Departure"
+            }
+            onSearchPress={() => handleSearchPress("Departure")}
           />
           <MaterialSearchBar
-            placeholder="Destination"
-            onSearchPress={handleSearchPress} // 수정된 부분
+            type="Destination"
+            placeholder={
+              ids.endId > 0
+                ? places[ids.endId - 1]?.englishName ?? "Destination"
+                : "Destination"
+            }
+            onSearchPress={() => handleSearchPress("Destination")}
           />
         </View>
         <View style={styles.button}>
           <RoundImageButton
+            onPress={() => setIds({ startId: ids.endId, endId: ids.startId })}
             imageSource={require("../assets/images/자산_2switch_icon.png")}
           />
         </View>

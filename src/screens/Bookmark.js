@@ -9,15 +9,15 @@ import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
+  <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
     <View>
       <Text style={GlobalStyles.listText}>{item.departure}</Text>
       <Text style={GlobalStyles.listText}>{" →   " + item.destination}</Text>
     </View>
-    <TouchableOpacity onPress={item.onPress}>
+    <TouchableOpacity onPress={item.handleStarPress}>
       <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>
     </TouchableOpacity>
-  </View>
+  </TouchableOpacity>
 );
 
 function Bookmark(props) {
@@ -39,7 +39,12 @@ function Bookmark(props) {
             id: index,
             departure: places[item.startId - 1].englishName,
             destination: places[item.endId - 1].englishName,
-            onPress: async () => {
+            handlePress: () =>
+              props.navigation.navigate("Result", {
+                startId: item.startId,
+                endId: item.endId,
+              }),
+            handleStarPress: async () => {
               await removeData("Bookmark", index);
               setRefresh(refresh + 1);
             },

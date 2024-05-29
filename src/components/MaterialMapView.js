@@ -8,31 +8,31 @@ function MaterialMapView(props) {
       <MapView
         style={styles.MapView1}
         initialRegion={{
-          latitude: props.start ? props.start.latitude : 36.3703,
-          longitude: props.start ? props.start.longitude : 127.36251,
+          latitude: props.path ? props.path[0].latitude : 36.3703,
+          longitude: props.path ? props.path[0].longitude : 127.36251,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
       >
-        {props.start ? (
+        {!props.loading && props.path ? (
           <Marker
             coordinate={{
-              latitude: props.start.latitude,
-              longitude: props.start.longitude,
+              latitude: props.path[0].latitude,
+              longitude: props.path[0].longitude,
             }}
             pinColor="green"
           />
         ) : null}
-        {props.end ? (
+        {!props.loading && props.path ? (
           <Marker
             coordinate={{
-              latitude: props.end.latitude,
-              longitude: props.end.longitude,
+              latitude: props.path[props.path.length - 1].latitude,
+              longitude: props.path[props.path.length - 1].longitude,
             }}
             pinColor="red"
           />
         ) : null}
-        {props.path ? (
+        {!props.loading && props.path ? (
           <Polyline
             coordinates={props.path}
             strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider

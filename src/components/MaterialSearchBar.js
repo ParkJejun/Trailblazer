@@ -3,22 +3,21 @@ import { StyleSheet, View, TouchableOpacity, TextInput } from "react-native";
 import { Color, GlobalStyles } from "../utils/styles";
 
 function MaterialSearchBar(props) {
-  const { placeholder, onSearchPress } = props; // 수정된 부분
-
-  const handleSearchPress = () => {
-    if (onSearchPress) onSearchPress(placeholder); // 수정된 부분
-  };
-
   return (
     <TouchableOpacity
-      onPress={handleSearchPress}
+      onPress={props.onSearchPress}
       style={[GlobalStyles.searchContainer, props.style]}
     >
       <View style={GlobalStyles.searchBack}>
         <TextInput
           editable={false} // TextInput을 비활성화합니다.
-          placeholder={placeholder} // 전달된 placeholder 값으로 설정
-          placeholderTextColor={Color.lightGray}
+          placeholder={props.placeholder} // 전달된 placeholder 값으로 설정
+          placeholderTextColor={
+            props.placeholder === "Departure" ||
+            props.placeholder === "Destination"
+              ? Color.lightGray
+              : Color.black
+          }
           style={styles.inputStyle}
         ></TextInput>
       </View>

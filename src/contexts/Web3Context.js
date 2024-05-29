@@ -116,8 +116,8 @@ export const Web3ContextProvider = ({ children }) => {
           name: result[1][i],
           englishName: result[2][i],
           buildingNum: result[3][i],
-          latitude: web3.utils.fromWei(result[4][i], "lovelace"),
-          longitude: web3.utils.fromWei(result[5][i], "lovelace"),
+          latitude: Number(web3.utils.fromWei(result[4][i], "lovelace")),
+          longitude: Number(web3.utils.fromWei(result[5][i], "lovelace")),
           tags: result[6][i],
         });
       }

@@ -22,7 +22,7 @@ import { getData, removeData } from "../utils/storage";
 // import { useLocation } from "react-router-dom";
 
 const ListItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
+  <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
     <View>
       <View
         style={{
@@ -47,13 +47,13 @@ const ListItem = ({ item }) => (
       }}
     >
       <Text style={GlobalStyles.body2}>{item.date} </Text>
-      {item.onPress ? (
-        <TouchableOpacity onPress={item.onPress}>
+      {item.handleRemovePress ? (
+        <TouchableOpacity onPress={item.handleRemovePress}>
           <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
         </TouchableOpacity>
       ) : null}
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 const tags = [
@@ -90,7 +90,7 @@ const tagItem = ({ item }) => (
 );
 
 function Select(props) {
-  const { placeholder } = props.route.params.placeholder;
+  const params = props.route.params;
 
   const [searchText, setSearchText] = useState(""); // 검색어 상태
 
@@ -99,6 +99,34 @@ function Select(props) {
   const { refresh, setRefresh } = useRefresh();
 
   const { places } = usePlaces();
+
+  const handlePress = (id) => {
+    if (params.type === "Departure") {
+      if (params.endId < 0) {
+        props.navigation.navigate("SettingStack", {
+          startId: id,
+          endId: -1,
+        });
+      } else {
+        props.navigation.navigate("Result", {
+          startId: id,
+          endId: params.endId,
+        });
+      }
+    } else if (params.type === "Destination") {
+      if (params.startId < 0) {
+        props.navigation.navigate("SettingStack", {
+          startId: -1,
+          endId: id,
+        });
+      } else {
+        props.navigation.navigate("Result", {
+          startId: params.startId,
+          endId: id,
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -112,7 +140,10 @@ function Select(props) {
             id: index,
             text: places[item.placeId - 1].englishName,
             date: item.date,
-            onPress: async () => {
+            handlePress: () => {
+              handlePress(item.placeId);
+            },
+            handleRemovePress: async () => {
               await removeData("RecentPlace", index);
               setRefresh(refresh + 1);
             },
@@ -147,6 +178,9 @@ function Select(props) {
           matchingData.push({
             id: item.id,
             text: item.englishName,
+            handlePress: () => {
+              handlePress(item.id);
+            },
           });
         }
       });
@@ -159,9 +193,9 @@ function Select(props) {
       <GradientBox height={200}>
         <View style={{ marginTop: 20 }}>
           <MaterialSearchBar3
-            placeholder={placeholder}
+            placeholder={params.type}
             navigation={props.navigation}
-            onSearch={handleSearch} // 검색어가 변경될 때 호출되는 콜백 함수 전달
+            setSearchText={handleSearch} // 검색어가 변경될 때 호출되는 콜백 함수 전달
           ></MaterialSearchBar3>
         </View>
         <View style={styles.buttonRow}>

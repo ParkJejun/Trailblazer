@@ -19,8 +19,15 @@ import RoundImageButton from "../components/RoundImageButton";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
 import { usePath } from "../hooks/usePath";
+import { usePlaces } from "../hooks/usePlaces";
 import { useRefresh } from "../hooks/useRefresh";
-import { storeBookmark, getData, removeData } from "../utils/storage";
+import {
+  storeBookmark,
+  storeRecentPath,
+  storeRecentPlace,
+  getData,
+  removeData,
+} from "../utils/storage";
 
 function Result(props) {
   const { refresh, setRefresh } = useRefresh();
@@ -30,16 +37,29 @@ function Result(props) {
   const [path, setPath] = useState();
   const [bookmarkIndex, setBookmarkIndex] = useState(-1);
 
-  const start = { id: 6, latitude: 36.36811, longitude: 127.36583 }; // E3-1
-  const end = { id: 69, latitude: 36.374286, longitude: 127.364998 }; // N1
+  const { startId, endId } = props.route.params;
+
+  const { places } = usePlaces();
+
+  useEffect(() => {
+    const store = async () => {
+      await storeRecentPlace(startId);
+      await storeRecentPlace(endId);
+      await storeRecentPath(startId, endId);
+    };
+    store();
+  }, []);
 
   useEffect(() => {
     const fetch = async () => {
-      const result = await findPath(start, end);
-      setPath(result);
+      setPath(null);
+      if (startId <= places.length && endId <= places.length) {
+        const result = await findPath(places[startId - 1], places[endId - 1]);
+        setPath(result);
+      }
     };
     fetch();
-  }, []);
+  }, [startId, endId, JSON.stringify(places)]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -48,7 +68,7 @@ function Result(props) {
 
       let index = -1;
       result.forEach((item, i) => {
-        if (item.startId === start.id && item.endId === end.id) {
+        if (item.startId === startId && item.endId === endId) {
           index = i;
         }
       });
@@ -62,19 +82,26 @@ function Result(props) {
       <View>
         <MaterialMapView
           style={{ height: "100%", width: "100%" }}
-          start={{ latitude: 36.36811, longitude: 127.36583 }}
-          end={{ latitude: 36.374286, longitude: 127.364998 }}
+          loading={loading}
           path={path?.path}
         ></MaterialMapView>
         <View style={styles.wrap}>
           <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
             <View style={{ marginTop: 20 }}>
               <MaterialSearchBar
-                placeholder="Departure"
+                placeholder={
+                  startId <= places.length
+                    ? places[startId - 1]?.englishName ?? "Departure"
+                    : "Departure"
+                }
                 navigation={props.navigation}
               ></MaterialSearchBar>
               <MaterialSearchBar
-                placeholder="Destination"
+                placeholder={
+                  endId <= places.length
+                    ? places[endId - 1]?.englishName ?? "Destination"
+                    : "Destination"
+                }
                 navigation={props.navigation}
               ></MaterialSearchBar>
             </View>
@@ -106,7 +133,7 @@ function Result(props) {
                   }
                   onPress={async () => {
                     if (bookmarkIndex < 0) {
-                      await storeBookmark(start.id, end.id);
+                      await storeBookmark(startId, endId);
                     } else {
                       await removeData("Bookmark", bookmarkIndex);
                     }
