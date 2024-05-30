@@ -1,38 +1,21 @@
-import React, {
-  Component,
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   StyleSheet,
   View,
   FlatList,
   Text,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import MaterialMapViewSelect from "../components/MaterialMapViewSelect";
-import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import EntypoIcon from "react-native-vector-icons/Entypo";
-import Svg, { Ellipse } from "react-native-svg";
-import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialButtonWithShadow from "../components/MaterialButtonWithShadow";
-import MaterialIconTextButtonsFooter from "../components/MaterialIconTextButtonsFooter";
 import TransparentGradientBox from "../components/TransparentGradientBox";
 import { GlobalStyles, Color } from "../utils/styles";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
-import RoundImageButton from "../components/RoundImageButton";
 import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-const data = {
-  name: "E3 Information & Electronics B/D",
-  description:
-    "A building containing laboratories and classrooms for the Department of Electrical and Electronic Engineering and Computer Science.",
-};
+import { usePlaces } from "../hooks/usePlaces";
 
 const tags = [
   {
@@ -68,10 +51,22 @@ const tagItem = ({ item }) => (
 );
 
 function SelectMap(props) {
+  const params = props.route.params;
+
   const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
   const whiteBoxRef = useRef(null);
 
-  const [region, setRegion] = useState();
+  const { places } = usePlaces();
+
+  const [region, setRegion] = useState({
+    latitude: 36.3703,
+    longitude: 127.36251,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+  const [closest, setClosest] = useState();
+
+  const [refresh, setRefresh] = useState(0);
 
   const onWhiteBoxLayout = () => {
     if (whiteBoxRef.current) {
@@ -84,8 +79,71 @@ function SelectMap(props) {
   };
 
   useEffect(() => {
-    console.log("Region changed: ", region);
-  }, [region]);
+    if (places.length === 0) return;
+
+    let temp = places[0];
+
+    for (let i = 1; i < places.length; i++) {
+      if (
+        Math.abs(region.latitude - places[i].latitude) +
+          Math.abs(region.longitude - places[i].longitude) <
+        Math.abs(region.latitude - temp.latitude) +
+          Math.abs(region.longitude - temp.longitude)
+      ) {
+        temp = places[i];
+      }
+    }
+    setClosest(temp);
+  }, [region, JSON.stringify(places)]);
+
+  const handlePress = () => {
+    if (params.type === "Departure") {
+      if (params.endId < 0) {
+        props.navigation.navigate("SettingStack", {
+          startId: closest?.id ?? -1,
+          endId: -1,
+        });
+      } else {
+        props.navigation.navigate("Result", {
+          startId: closest?.id ?? -1,
+          endId: params.endId,
+        });
+      }
+    } else if (params.type === "Destination") {
+      if (params.startId < 0) {
+        props.navigation.navigate("SettingStack", {
+          startId: -1,
+          endId: closest?.id ?? -1,
+        });
+      } else {
+        props.navigation.navigate("Result", {
+          startId: params.startId,
+          endId: closest?.id ?? -1,
+        });
+      }
+    }
+  };
+
+  const handleCurrentLocation = async () => {
+    // TODO: getCurrentPosition loading
+    const current = await getCurrentPosition();
+
+    if (!current || places.length === 0) return;
+
+    let temp = places[0];
+
+    for (let i = 1; i < places.length; i++) {
+      if (
+        Math.abs(current.latitude - places[i].latitude) +
+          Math.abs(current.longitude - places[i].longitude) <
+        Math.abs(current.latitude - temp.latitude) +
+          Math.abs(current.longitude - temp.longitude)
+      ) {
+        temp = places[i];
+      }
+    }
+    handlePress(temp.id);
+  };
 
   return (
     <View style={GlobalStyles.background}>
@@ -93,6 +151,7 @@ function SelectMap(props) {
         <MaterialMapViewSelect
           style={{ height: "100%", width: "100%" }}
           setRegion={setRegion}
+          refresh={refresh}
         ></MaterialMapViewSelect>
         <View style={styles.wrap}>
           <View style={{ margin: 10 }}>
@@ -113,7 +172,7 @@ function SelectMap(props) {
             }}
           >
             <RoundIconButton
-              onPress={() => console.log("Button pressed")}
+              onPress={() => setRefresh(refresh + 1)}
               icon={
                 <MaterialCommunityIcons
                   name="target"
@@ -129,7 +188,7 @@ function SelectMap(props) {
               <Text
                 style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
               >
-                {data.name}
+                {closest?.englishName}
               </Text>
               <View style={{ marginLeft: 30 }}>
                 <RoundIconButton
@@ -139,7 +198,7 @@ function SelectMap(props) {
                       style={styles.arrow_icon}
                     />
                   }
-                  onPress={() => props.navigation.navigate("Result")}
+                  onPress={handlePress}
                 />
               </View>
             </View>
@@ -151,7 +210,7 @@ function SelectMap(props) {
                   marginRight: 20,
                 }}
               >
-                {data.description}
+                {closest?.tags}
               </Text>
             </View>
             <View
@@ -171,7 +230,22 @@ function SelectMap(props) {
                 showsHorizontalScrollIndicator={false}
               />
             </View>
-            <TouchableOpacity onPress={() => props.navigation.navigate("Edit")}>
+            <TouchableOpacity
+              onPress={
+                closest
+                  ? () =>
+                      props.navigation.navigate("EditInfo", {
+                        id: closest.id,
+                        name: closest.name,
+                        englishName: closest.englishName,
+                        buildingNum: closest.buildingNum,
+                        latitude: closest.latitude,
+                        longitude: closest.longitude,
+                        tags: closest.tags,
+                      })
+                  : null
+              }
+            >
               <Text
                 style={{
                   ...GlobalStyles.body2,

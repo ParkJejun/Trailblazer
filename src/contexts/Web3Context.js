@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { ADDRESS, PRIVATE_KEY, CONTRACT } from "@env";
+import { ADDRESS, PRIVATE_KEY } from "@env";
 import "react-native-get-random-values";
 
 export const Web3Context = createContext();
@@ -18,7 +18,10 @@ export const Web3ContextProvider = ({ children }) => {
   }, []);
 
   const contract = useMemo(() => {
-    return new web3.eth.Contract(abi, CONTRACT);
+    return new web3.eth.Contract(
+      abi,
+      "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b"
+    );
   }, []);
 
   const [places, setPlaces] = useState([]);
@@ -35,63 +38,43 @@ export const Web3ContextProvider = ({ children }) => {
 
   const addPlace = useCallback(
     async (name, englishName, buildingNum, latitude, longitude, tags) => {
-      const tx = contract.methods.addPlace(
-        name,
-        englishName,
-        buildingNum,
-        web3.utils.toWei(latitude, "lovelace"),
-        web3.utils.toWei(longitude, "lovelace"),
-        tags
-      );
-      const createTransaction = await web3.eth.accounts.signTransaction(
-        {
-          from: ADDRESS,
-          to: CONTRACT,
-          data: tx.encodeABI(),
-          gas: await tx.estimateGas(),
-          maxFeePerGas: 250000000000,
-          maxPriorityFeePerGas: 250000000000,
-        },
-        PRIVATE_KEY
-      );
-      await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
+      try {
+        const tx = contract.methods.addPlace(
+          name,
+          englishName,
+          buildingNum,
+          web3.utils.toWei(latitude, "micro"),
+          web3.utils.toWei(longitude, "micro"),
+          tags
+        );
+        const createTransaction = await web3.eth.accounts.signTransaction(
+          {
+            from: ADDRESS,
+            to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
+            data: tx.encodeABI(),
+            gas: await tx.estimateGas(),
+            maxFeePerGas: 250000000000,
+            maxPriorityFeePerGas: 250000000000,
+          },
+          PRIVATE_KEY
+        );
+        await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("addPlace completed");
       setCount((prevCount) => prevCount + 1);
     },
     []
   );
 
   const deletePlace = useCallback(async (id) => {
-    const tx = contract.methods.deletePlace(id);
-    const createTransaction = await web3.eth.accounts.signTransaction(
-      {
-        from: ADDRESS,
-        to: CONTRACT,
-        data: tx.encodeABI(),
-        gas: await tx.estimateGas(),
-        maxFeePerGas: 250000000000,
-        maxPriorityFeePerGas: 250000000000,
-      },
-      PRIVATE_KEY
-    );
-    await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
-    setCount((prevCount) => prevCount + 1);
-  }, []);
-
-  const updatePlace = useCallback(
-    async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
-      const tx = contract.methods.updatePlace(
-        id,
-        name,
-        englishName,
-        buildingNum,
-        web3.utils.toWei(latitude, "lovelace"),
-        web3.utils.toWei(longitude, "lovelace"),
-        tags
-      );
+    try {
+      const tx = contract.methods.deletePlace(id);
       const createTransaction = await web3.eth.accounts.signTransaction(
         {
           from: ADDRESS,
-          to: CONTRACT,
+          to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
           data: tx.encodeABI(),
           gas: await tx.estimateGas(),
           maxFeePerGas: 250000000000,
@@ -100,6 +83,41 @@ export const Web3ContextProvider = ({ children }) => {
         PRIVATE_KEY
       );
       await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("deletePlace completed");
+    setCount((prevCount) => prevCount + 1);
+  }, []);
+
+  const updatePlace = useCallback(
+    async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
+      try {
+        const tx = contract.methods.updatePlace(
+          id,
+          name,
+          englishName,
+          buildingNum,
+          web3.utils.toWei(latitude, "micro"),
+          web3.utils.toWei(longitude, "micro"),
+          tags
+        );
+        const createTransaction = await web3.eth.accounts.signTransaction(
+          {
+            from: ADDRESS,
+            to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
+            data: tx.encodeABI(),
+            gas: await tx.estimateGas(),
+            maxFeePerGas: 250000000000,
+            maxPriorityFeePerGas: 250000000000,
+          },
+          PRIVATE_KEY
+        );
+        await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log("updatePlace completed");
       setCount((prevCount) => prevCount + 1);
     },
     []
@@ -116,8 +134,8 @@ export const Web3ContextProvider = ({ children }) => {
           name: result[1][i],
           englishName: result[2][i],
           buildingNum: result[3][i],
-          latitude: Number(web3.utils.fromWei(result[4][i], "lovelace")),
-          longitude: Number(web3.utils.fromWei(result[5][i], "lovelace")),
+          latitude: Number(web3.utils.fromWei(result[4][i], "micro")),
+          longitude: Number(web3.utils.fromWei(result[5][i], "micro")),
           tags: result[6][i],
         });
       }

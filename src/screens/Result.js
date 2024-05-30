@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import MaterialMapView from "../components/MaterialMapView";
 import MaterialSearchBar from "../components/MaterialSearchBar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -15,7 +8,6 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons"; // 추가됨
 import { GlobalStyles, Color, Border } from "../utils/styles";
 import TransparentGradientBox from "../components/TransparentGradientBox";
-import RoundImageButton from "../components/RoundImageButton";
 import WhiteBox from "../components/WhiteBox";
 import RoundIconButton from "../components/RoundIconButton";
 import { usePath } from "../hooks/usePath";
@@ -105,11 +97,11 @@ function Result(props) {
                 navigation={props.navigation}
               ></MaterialSearchBar>
             </View>
-            <View style={styles.button}>
+            {/*<View style={styles.button}>
               <RoundImageButton
                 imageSource={require("../assets/images/자산_2switch_icon.png")}
               />
-            </View>
+              </View>*/}
           </TransparentGradientBox>
 
           <View style={{ flex: 1 }} />

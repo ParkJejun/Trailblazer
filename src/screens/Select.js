@@ -1,5 +1,3 @@
-// Select.js
-
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -19,7 +17,7 @@ import GradientBox from "../components/GradientBox";
 import { usePlaces } from "../hooks/usePlaces";
 import { useRefresh } from "../hooks/useRefresh";
 import { getData, removeData } from "../utils/storage";
-// import { useLocation } from "react-router-dom";
+import { getCurrentPosition } from "../utils/location";
 
 const ListItem = ({ item }) => (
   <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
@@ -128,6 +126,27 @@ function Select(props) {
     }
   };
 
+  const handleCurrentLocation = async () => {
+    // TODO: getCurrentPosition loading
+    const current = await getCurrentPosition();
+
+    if (!current || places.length === 0) return;
+
+    let temp = places[0];
+
+    for (let i = 1; i < places.length; i++) {
+      if (
+        Math.abs(current.latitude - places[i].latitude) +
+          Math.abs(current.longitude - places[i].longitude) <
+        Math.abs(current.latitude - temp.latitude) +
+          Math.abs(current.longitude - temp.longitude)
+      ) {
+        temp = places[i];
+      }
+    }
+    handlePress(temp.id);
+  };
+
   useEffect(() => {
     const fetch = async () => {
       const result = await getData("RecentPlace");
@@ -202,12 +221,18 @@ function Select(props) {
           <MaterialButtonViolet
             caption="Current Location"
             icon="location-arrow"
-            onPress={() => props.navigation.navigate("Result")}
+            onPress={handleCurrentLocation}
           ></MaterialButtonViolet>
           <MaterialButtonViolet
             caption="Select on Map"
             icon="map"
-            onPress={() => props.navigation.navigate("SelectMap")}
+            onPress={() =>
+              props.navigation.navigate("SelectMap", {
+                type: params.type,
+                startId: params.startId,
+                endId: params.endId,
+              })
+            }
           ></MaterialButtonViolet>
         </View>
       </GradientBox>

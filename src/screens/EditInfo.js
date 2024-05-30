@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import MaterialIconTextButtonsFooter from "../components/MaterialIconTextButtonsFooter";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
@@ -13,32 +12,50 @@ function EditInfo(props) {
 
   const { places, updatePlace } = usePlaces();
 
-  const handlePress = async (
-    newName,
-    newEnglishName,
-    newBuildingNum,
-    newLatitude,
-    newLongitude,
-    newTags
-  ) => {
+  const [newName, setNewName] = useState(name);
+  const [newEnglishName, setNewEnglishName] = useState(englishName);
+  const [newBuildingNum, setNewBuildingNum] = useState(buildingNum);
+  const [newLatitude, setNewLatitude] = useState(latitude);
+  const [newLongitude, setNewLongitude] = useState(longitude);
+  const [newTags, setNewTags] = useState(tags);
+
+  const handlePress = async () => {
     if (
       places[id - 1].name !== newName ||
       places[id - 1].englishName !== newEnglishName ||
       places[id - 1].buildingNum !== newBuildingNum ||
-      places[id - 1].latitude !== newLatitude ||
-      places[id - 1].longitude !== newLongitude ||
+      places[id - 1].latitude != newLatitude ||
+      places[id - 1].longitude != newLongitude ||
       places[id - 1].tags !== newTags
     ) {
-      console.log("updatePlace: " + id);
-      await updatePlace({
+      // check if latitude and longitude are valid
+      // TODO: handle invalid input
+      if (
+        isNaN(newLatitude) ||
+        Number(newLatitude) < -90 ||
+        Number(newLatitude) > 90
+      ) {
+        console.log("Invalid latitude");
+        return;
+      }
+      if (
+        isNaN(newLongitude) ||
+        Number(newLongitude) < -180 ||
+        Number(newLongitude) > 180
+      ) {
+        console.log("Invalid longitude");
+        return;
+      }
+
+      await updatePlace(
         id,
         newName,
         newEnglishName,
         newBuildingNum,
         newLatitude,
         newLongitude,
-        newTags,
-      });
+        newTags
+      );
     }
     props.navigation.goBack();
   };
@@ -52,31 +69,47 @@ function EditInfo(props) {
         ></MaterialCommunityIconsIcon>
         <View>
           <MaterialStackedLabelTextbox
-            label="Building number"
-            value={buildingNum}
+            label="Building name"
+            value={name}
             style={styles.materialStackedLabelTextbox}
+            setValue={setNewName}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Building name"
             value={englishName}
             style={styles.materialStackedLabelTextbox}
+            setValue={setNewEnglishName}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
-            label="Description"
-            value="Description"
+            label="Building number"
+            value={buildingNum}
             style={styles.materialStackedLabelTextbox}
+            setValue={setNewBuildingNum}
+          ></MaterialStackedLabelTextbox>
+          <MaterialStackedLabelTextbox
+            label="Latitude"
+            value={latitude.toString()}
+            style={styles.materialStackedLabelTextbox}
+            setValue={setNewLatitude}
+          ></MaterialStackedLabelTextbox>
+          <MaterialStackedLabelTextbox
+            label="Longitude"
+            value={longitude.toString()}
+            style={styles.materialStackedLabelTextbox}
+            setValue={setNewLongitude}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Tags"
             value={tags}
             style={styles.materialStackedLabelTextbox}
+            setValue={setNewTags}
           ></MaterialStackedLabelTextbox>
         </View>
       </View>
       <MaterialButtonViolet1
         caption="Save"
         style={styles.materialButtonViolet1}
-        onPress={() => console.log("Button pressed")}
+        onPress={handlePress}
       ></MaterialButtonViolet1>
     </View>
   );
