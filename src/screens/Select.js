@@ -77,16 +77,6 @@ const tags = [
   },
 ];
 
-const tagItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
-    <MaterialButtonWithShadow
-      icon={item.icon}
-      caption={item.caption}
-      style={{ height: 40 }}
-    ></MaterialButtonWithShadow>
-  </View>
-);
-
 function Select(props) {
   const params = props.route.params;
 
@@ -214,6 +204,7 @@ function Select(props) {
           <MaterialSearchBar3
             placeholder={params.type}
             navigation={props.navigation}
+            searchText={searchText}
             setSearchText={handleSearch} // 검색어가 변경될 때 호출되는 콜백 함수 전달
           ></MaterialSearchBar3>
         </View>
@@ -246,7 +237,16 @@ function Select(props) {
       >
         <FlatList
           data={tags}
-          renderItem={tagItem}
+          renderItem={({ item }) => (
+            <View style={GlobalStyles.listItemRow}>
+              <MaterialButtonWithShadow
+                icon={item.icon}
+                caption={item.caption}
+                style={{ height: 40 }}
+                onPress={() => setSearchText(item.caption)}
+              ></MaterialButtonWithShadow>
+            </View>
+          )}
           keyExtractor={(item) => item.id}
           horizontal={true}
           showsHorizontalScrollIndicator={false}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -6,6 +6,12 @@ import { GlobalStyles, Color } from "../utils/styles";
 
 function MaterialSearchBar3(props) {
   const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    if (searchText !== props.searchText) {
+      setSearchText(props.searchText);
+    }
+  }, [props.searchText]);
 
   // 검색어가 변경될 때 호출되는 함수
   const handleChangeText = (text) => {

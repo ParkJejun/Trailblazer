@@ -5,7 +5,10 @@ import { Color, GlobalStyles } from "../utils/styles";
 
 function MaterialButtonWithShadow(props) {
   return (
-    <TouchableOpacity style={[styles.container, props.style]}>
+    <TouchableOpacity
+      style={[styles.container, props.style]}
+      onPress={props.onPress}
+    >
       <MaterialCommunityIconsIcon
         name={props.icon}
         style={{ ...GlobalStyles.colorIcon, fontSize: 20 }}
