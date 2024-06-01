@@ -150,14 +150,18 @@ function Result(props) {
               </View>
               <View style={styles.iconRow}>
                 <IoniconsIcon name="footsteps" style={styles.smallIcon} />
-                <Text style={GlobalStyles.h3}>1,462</Text>
+                <Text style={GlobalStyles.h3}>
+                  {Math.floor(path?.distance / 0.75)} steps
+                </Text>
               </View>
               <View style={styles.iconRow}>
                 <MaterialCommunityIconsIcon
                   name="fire"
                   style={styles.smallIcon}
                 />
-                <Text style={GlobalStyles.h3}>42 kcal</Text>
+                <Text style={GlobalStyles.h3}>
+                  {((path?.distance * 3) / 1000).toFixed(1)} kcal
+                </Text>
               </View>
             </View>
           </WhiteBox>

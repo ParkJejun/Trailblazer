@@ -76,7 +76,7 @@ export const GlobalStyles = StyleSheet.create({
   },
   h3: {
     textAlign: "center",
-    fontFamily: FontFamily.robotoBold,
+    fontFamily: FontFamily.robotoMedium,
     letterSpacing: 0,
     fontSize: FontSize.size_sm,
     color: Color.colorBlack,
