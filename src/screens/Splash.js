@@ -1,39 +1,26 @@
 import React, { Component } from "react";
 import { StyleSheet, View, ImageBackground, Image } from "react-native";
+import { GlobalStyles } from "../utils/styles";
+import GradientBox from "../components/GradientBox";
 
 function Splash(props) {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.rect}
-        imageStyle={styles.rect_imageStyle}
-        source={require("../assets/images/Gradient_kykNqTa.png")}
-      >
+    <View style={GlobalStyles.background}>
+      <GradientBox height="110%">
         <Image
           source={require("../assets/images/자산_8Splash.png")}
-          resizeMode="contain"
-          style={styles.image2}
+          style={styles.image}
+          resizeMode="center"
         ></Image>
-      </ImageBackground>
+      </GradientBox>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "rgba(230, 230, 230,1)",
-  },
-  rect: {
-    width: 375,
-    height: 812,
-  },
-  rect_imageStyle: {},
-  image2: {
-    width: 260,
-    height: 260,
-    marginTop: 276,
-    marginLeft: 53,
+  image: {
+    width: "75%",
+    marginTop: "-15%",
   },
 });
 
