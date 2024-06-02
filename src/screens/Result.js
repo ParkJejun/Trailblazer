@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { Platform, StyleSheet, View, Text } from "react-native";
 import MaterialMapView from "../components/MaterialMapView";
 import MaterialSearchBar from "../components/MaterialSearchBar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -14,6 +14,8 @@ import RoundImageButton from "../components/RoundImageButton";
 import { usePath } from "../hooks/usePath";
 import { usePlaces } from "../hooks/usePlaces";
 import { useRefresh } from "../hooks/useRefresh";
+import { shareAsync } from "expo-sharing";
+import ViewShot from "react-native-view-shot";
 import {
   storeBookmark,
   storeRecentPath,
@@ -37,6 +39,8 @@ function Result(props) {
     startId: params?.startId ?? -1,
     endId: params?.endId ?? -1,
   });
+
+  const viewShotRef = useRef();
 
   const handleSearchPress = (type) => {
     props.navigation.navigate("Select", {
@@ -92,11 +96,16 @@ function Result(props) {
   return (
     <View style={GlobalStyles.background}>
       <View>
-        <MaterialMapView
-          style={{ height: "100%", width: "100%" }}
-          loading={loading}
-          path={path?.path}
-        ></MaterialMapView>
+        <ViewShot
+          ref={viewShotRef}
+          options={{ fileName: "shared", format: "png", quality: 1 }}
+        >
+          <MaterialMapView
+            style={{ height: "100%", width: "100%" }}
+            loading={loading}
+            path={path?.path}
+          ></MaterialMapView>
+        </ViewShot>
         <View style={styles.wrap}>
           <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
             <View style={{ marginTop: 20 }}>
@@ -162,6 +171,20 @@ function Result(props) {
                 <RoundIconButton
                   icon={<EntypoIcon name="share" style={styles.bigIcon} />}
                   backgroundColor="transparent"
+                  onPress={async () => {
+                    const uri = await viewShotRef.current
+                      .capture()
+                      .catch((err) => console.log(err));
+                    await shareAsync(
+                      Platform.OS === "ios" ? `file://${uri}` : uri,
+                      {
+                        mimeType: "image/png",
+                        dialogTitle: "공유하기",
+                        UTI: "image/png",
+                      }
+                    );
+                  }}
+                  // onPress={onCapture}
                 />
               </View>
             </View>
