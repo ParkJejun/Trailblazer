@@ -5,6 +5,7 @@ import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextb
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
 import { Color, GlobalStyles } from "../utils/styles";
 import { usePlaces } from "../hooks/usePlaces";
+import Toast from "react-native-toast-message";
 
 function EditInfo(props) {
   const { id, name, englishName, buildingNum, latitude, longitude, tags } =
@@ -39,57 +40,57 @@ function EditInfo(props) {
     setNewTags(tags);
   }, [name, englishName, buildingNum, latitude, longitude, tags]);
 
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener("beforeRemove", (e) => {
-      // Prevent default behavior of leaving the screen
-      e.preventDefault();
-      // Prompt the user before leaving the screen
-      if (
-        places[id - 1].name !== newName ||
-        places[id - 1].englishName !== newEnglishName ||
-        places[id - 1].buildingNum !== newBuildingNum ||
-        places[id - 1].latitude != newLatitude ||
-        places[id - 1].longitude != newLongitude ||
-        places[id - 1].tags !== newTags
-      ) {
-        console.log(places[id - 1]);
-        console.log(
-          newName,
-          newEnglishName,
-          newBuildingNum,
-          newLatitude,
-          newLongitude,
-          newTags
-        );
-        Alert.alert(
-          "Discard changes?",
-          "If you go back, your changes will be discarded.",
-          [
-            {
-              text: "Stay",
-              style: "cancel",
-            },
-            {
-              text: "Discard",
-              onPress: () => props.navigation.dispatch(e.data.action),
-            },
-          ]
-        );
-      } else {
-        props.navigation.dispatch(e.data.action);
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = props.navigation.addListener("beforeRemove", (e) => {
+  //     // Prevent default behavior of leaving the screen
+  //     e.preventDefault();
+  //     // Prompt the user before leaving the screen
+  //     if (
+  //       places[id - 1].name !== newName ||
+  //       places[id - 1].englishName !== newEnglishName ||
+  //       places[id - 1].buildingNum !== newBuildingNum ||
+  //       places[id - 1].latitude != newLatitude ||
+  //       places[id - 1].longitude != newLongitude ||
+  //       places[id - 1].tags !== newTags
+  //     ) {
+  //       console.log(places[id - 1]);
+  //       console.log(
+  //         newName,
+  //         newEnglishName,
+  //         newBuildingNum,
+  //         newLatitude,
+  //         newLongitude,
+  //         newTags
+  //       );
+  //       Alert.alert(
+  //         "Discard changes?",
+  //         "If you go back, your changes will be discarded.",
+  //         [
+  //           {
+  //             text: "Stay",
+  //             style: "cancel",
+  //           },
+  //           {
+  //             text: "Discard",
+  //             onPress: () => props.navigation.dispatch(e.data.action),
+  //           },
+  //         ]
+  //       );
+  //     } else {
+  //       props.navigation.dispatch(e.data.action);
+  //     }
+  //   });
 
-    return unsubscribe;
-  }, [
-    newName,
-    newEnglishName,
-    newBuildingNum,
-    newLatitude,
-    newLongitude,
-    newTags,
-    props.navigation,
-  ]);
+  //   return unsubscribe;
+  // }, [
+  //   newName,
+  //   newEnglishName,
+  //   newBuildingNum,
+  //   newLatitude,
+  //   newLongitude,
+  //   newTags,
+  //   props.navigation,
+  // ]);
 
   const handlePress = async () => {
     if (
@@ -105,7 +106,9 @@ function EditInfo(props) {
       if (
         isNaN(newLatitude) ||
         Number(newLatitude) < -90 ||
-        Number(newLatitude) > 90
+        Number(newLatitude) > 90 ||
+        Number(newLatitude) < 36.365 || // 최소 위도
+        Number(newLatitude) > 36.3706 // 최대 위도
       ) {
         console.log("Invalid latitude");
         return;
@@ -113,7 +116,9 @@ function EditInfo(props) {
       if (
         isNaN(newLongitude) ||
         Number(newLongitude) < -180 ||
-        Number(newLongitude) > 180
+        Number(newLongitude) > 180 ||
+        Number(newLongitude) < 127.36 || // 최소 경도
+        Number(newLongitude) > 127.38 // 최대 경도
       ) {
         console.log("Invalid longitude");
         return;
@@ -129,6 +134,18 @@ function EditInfo(props) {
         newTags
       );
     }
+    // Show toast message for successful save
+    Toast.show({
+      type: "success",
+      text1: "Success",
+      text2: "Changes saved successfully",
+      visibilityTime: 2000, // 2 seconds
+      autoHide: true,
+      topOffset: 50,
+      bottomOffset: 40,
+      position: "bottom",
+    });
+    console.log("saved successly");
     props.navigation.navigate("EditStack");
   };
 

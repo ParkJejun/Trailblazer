@@ -27,7 +27,7 @@ const ListItem = ({ item, onPress }) => (
         style={GlobalStyles.colorIcon}
       ></EntypoIcon>
       <View style={{ marginLeft: 10 }}>
-        <Text style={GlobalStyles.listText}>{item.text}</Text>
+        <Text style={GlobalStyles.listText}>{item.num + " " + item.text}</Text>
       </View>
     </View>
   </TouchableOpacity>
@@ -51,6 +51,7 @@ function Edit(props) {
       places.forEach((item) => {
         matchingData.push({
           id: item.id,
+          num: item.buildingNum,
           text: item.englishName,
         });
       });
@@ -64,6 +65,7 @@ function Edit(props) {
         ) {
           matchingData.push({
             id: item.id,
+            num: item.buildingNum,
             text: item.englishName,
           });
         }
