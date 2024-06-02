@@ -17,13 +17,13 @@ const toastConfig = {
         alignItems: "center",
         height: 50,
         width: "85%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundColor: "rgba(255,255,255, 0.7)",
         padding: 10,
         borderRadius: 18,
         justifyContent: "center",
       }}
     >
-      <Text style={{ ...GlobalStyles.body, color: Color.white }}>{text2}</Text>
+      <Text style={{ ...GlobalStyles.body, color: Color.black }}>{text2}</Text>
     </View>
   ),
 };

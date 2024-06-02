@@ -6,6 +6,7 @@ import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
 import { Color, GlobalStyles } from "../utils/styles";
 import { usePlaces } from "../hooks/usePlaces";
 import Toast from "react-native-toast-message";
+import Loading from "../components/Loading";
 
 function EditInfo(props) {
   const { id, name, englishName, buildingNum, latitude, longitude, tags } =
@@ -21,6 +22,8 @@ function EditInfo(props) {
   const [newLatitude, setNewLatitude] = useState(latitude);
   const [newLongitude, setNewLongitude] = useState(longitude);
   const [newTags, setNewTags] = useState(tags);
+
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
 
   console.log(
     newName,
@@ -123,6 +126,7 @@ function EditInfo(props) {
         console.log("Invalid longitude");
         return;
       }
+      setLoading(true);
 
       await updatePlace(
         id,
@@ -133,20 +137,21 @@ function EditInfo(props) {
         newLongitude,
         newTags
       );
+      setLoading(false);
+      // Show toast message for successful save
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Changes saved successfully",
+        visibilityTime: 2000, // 2 seconds
+        autoHide: true,
+        topOffset: 50,
+        bottomOffset: 100,
+        position: "bottom",
+      });
+      console.log("saved successly");
+      props.navigation.navigate("EditStack");
     }
-    // Show toast message for successful save
-    Toast.show({
-      type: "success",
-      text1: "Success",
-      text2: "Changes saved successfully",
-      visibilityTime: 2000, // 2 seconds
-      autoHide: true,
-      topOffset: 50,
-      bottomOffset: 40,
-      position: "bottom",
-    });
-    console.log("saved successly");
-    props.navigation.navigate("EditStack");
   };
 
   return (
@@ -200,11 +205,27 @@ function EditInfo(props) {
         style={styles.materialButtonViolet1}
         onPress={handlePress}
       ></MaterialButtonViolet1>
+      {loading && (
+        <View style={styles.overlay}>
+          <Loading />
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    backgroundColor: "rgba(255,255,255, 0.7)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   row: {
     flexDirection: "row",
     margin: 20,
