@@ -46,7 +46,9 @@ const ListItem = ({ item }) => (
         alignItems: "center",
       }}
     >
-      <Text style={GlobalStyles.body2}>{item.date} </Text>
+      <Text style={GlobalStyles.body2}>
+        {item.date ? item.date.split(" ")[0] : ""}{" "}
+      </Text>
       {item.handleRemovePress ? (
         <TouchableOpacity onPress={item.handleRemovePress}>
           <FeatherIcon name="x" style={GlobalStyles.grayListIcon}></FeatherIcon>
@@ -143,9 +145,12 @@ function Select(props) {
     const fetch = async () => {
       const result = await getData("RecentPlace");
       if (result === null) return;
+      console.log("result");
+      console.log(result);
 
       const newData = [];
       result.forEach((item, index) => {
+        console.log(item.date);
         if (item.placeId <= places.length) {
           newData.push({
             id: index,
@@ -162,6 +167,20 @@ function Select(props) {
           });
         }
       });
+      // newData를 date 속성을 기준으로 내림차순으로 정렬
+      newData.sort((a, b) => {
+        // 날짜와 시간 문자열을 공백으로 분리하여 비교
+        const [aDate, aTime] = a.date.split(" ");
+        const [bDate, bTime] = b.date.split(" ");
+        // 날짜와 시간이 같으면 시간으로 비교, 아니면 날짜로 비교
+        if (aDate === bDate) {
+          return bTime.localeCompare(aTime); // 시간으로 내림차순 정렬
+        } else {
+          return bDate.localeCompare(aDate); // 날짜로 내림차순 정렬
+        }
+      });
+      console.log("newData");
+      console.log(newData);
       setRecentData(newData);
     };
     fetch();

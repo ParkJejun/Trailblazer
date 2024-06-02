@@ -28,12 +28,65 @@ export const storeBookmark = async (startId, endId) => {
 
 export const storeRecentPath = async (startId, endId) => {
   const date = getDate();
-  await storeData("RecentPath", { startId, endId, date });
+  try {
+    let recentData = await getData("RecentPath");
+    if (recentData === null) {
+      // RecentPath 데이터가 없는 경우 새로 추가
+      await storeData("RecentPath", { startId, endId, date });
+    } else {
+      // RecentPath 데이터가 있는 경우
+      let found = false;
+      for (let i = 0; i < recentData.length; i++) {
+        if (
+          recentData[i].startId === startId &&
+          recentData[i].endId === endId
+        ) {
+          // 이미 해당 startId와 endId가 있는 경우 날짜만 업데이트하고 found를 true로 변경
+          recentData[i].date = date;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        // 해당 startId와 endId가 없는 경우 새로 추가
+        recentData.push({ startId, endId, date });
+      }
+      // 업데이트된 recentData를 저장
+      await AsyncStorage.setItem("RecentPath", JSON.stringify(recentData));
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const storeRecentPlace = async (placeId) => {
   const date = getDate();
-  await storeData("RecentPlace", { placeId, date });
+  try {
+    let recentData = await getData("RecentPlace");
+    if (recentData === null) {
+      // RecentPlace 데이터가 없는 경우 새로 추가
+      await storeData("RecentPlace", { placeId, date });
+    } else {
+      // RecentPlace 데이터가 있는 경우
+      let found = false;
+      for (let i = 0; i < recentData.length; i++) {
+        if (recentData[i].placeId === placeId) {
+          // 이미 해당 placeId가 있는 경우 날짜만 업데이트하고 found를 true로 변경
+          recentData[i].date = date;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        // 해당 placeId가 없는 경우 새로 추가
+        recentData.push({ placeId, date });
+      }
+      // 업데이트된 recentData를 저장
+      await AsyncStorage.setItem("RecentPlace", JSON.stringify(recentData));
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getData = async (key) => {
