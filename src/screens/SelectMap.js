@@ -53,10 +53,8 @@ const tagItem = ({ item }) => (
 function SelectMap(props) {
   const params = props.route.params;
 
-  const [titleHeight, settitleHeight] = useState(0);
-  const titleRef = useRef(null);
-  const [desHeight, setdesHeight] = useState(0);
-  const desRef = useRef(null);
+  const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
+  const whiteBoxRef = useRef(null);
 
   const { places } = usePlaces();
 
@@ -70,19 +68,13 @@ function SelectMap(props) {
 
   const [refresh, setRefresh] = useState(0);
 
-  const onTitleLayout = () => {
-    if (titleRef.current) {
-      titleRef.current.measure((x, y, width, height, pageX, pageY) => {
-        settitleHeight(height);
+  const onWhiteBoxLayout = () => {
+    if (whiteBoxRef.current) {
+      whiteBoxRef.current.measure((x, y, width, height, pageX, pageY) => {
+        setWhiteBoxHeight(height);
       });
     }
-  };
-  const onDesLayout = () => {
-    if (desRef.current) {
-      desRef.current.measure((x, y, width, height, pageX, pageY) => {
-        setdesHeight(height);
-      });
-    }
+    console.log(whiteBoxHeight);
   };
 
   useEffect(() => {
@@ -175,7 +167,7 @@ function SelectMap(props) {
             style={{
               position: "absolute",
               right: 30,
-              bottom: titleHeight + desHeight + 180,
+              bottom: whiteBoxHeight + 30,
             }}
           >
             <RoundIconButton
@@ -191,89 +183,97 @@ function SelectMap(props) {
           </View>
 
           <WhiteBox>
-            <View
-              onLayout={onTitleLayout}
-              ref={titleRef}
-              style={{ flexDirection: "row", margin: 20 }}
-            >
-              <Text
-                style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
-              >
-                {closest?.buildingNum + " " + closest?.englishName}
-              </Text>
-              <View style={{ marginLeft: 30 }}>
-                <RoundIconButton
-                  icon={
-                    <FontAwesomeIcon
-                      name="long-arrow-right"
-                      style={styles.arrow_icon}
-                    />
-                  }
-                  onPress={handlePress}
-                />
-              </View>
-            </View>
-            <View onLayout={onDesLayout} ref={desRef}>
-              <Text
-                style={{
-                  ...GlobalStyles.body2,
-                  marginLeft: 20,
-                  marginRight: 20,
-                }}
-              >
-                {closest?.tags}
-              </Text>
-            </View>
-            <View
-              style={{
-                margin: 20,
-                marginBottom: 0,
-                height: 50,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <FlatList
-                data={tags}
-                renderItem={tagItem}
-                keyExtractor={(item) => item.id}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-            </View>
-            <TouchableOpacity
-              onPress={
-                closest
-                  ? () => {
-                      props.navigation.navigate("Edit", {
-                        screen: "EditInfo",
-                        params: {
-                          id: closest.id,
-                          name: closest.name,
-                          englishName: closest.englishName,
-                          buildingNum: closest.buildingNum,
-                          latitude: closest.latitude,
-                          longitude: closest.longitude,
-                          tags: closest.tags,
-                        },
-                      });
-                      // console.log(closest.name);
+            <View onLayout={onWhiteBoxLayout} ref={whiteBoxRef}>
+              <View style={{ flexDirection: "row", margin: 20 }}>
+                <Text
+                  style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
+                >
+                  {closest?.buildingNum + " " + closest?.englishName}
+                </Text>
+                <View style={{ marginLeft: 30 }}>
+                  <RoundIconButton
+                    icon={
+                      <FontAwesomeIcon
+                        name="long-arrow-right"
+                        style={styles.arrow_icon}
+                      />
                     }
-                  : null
-              }
-            >
-              <Text
+                    onPress={handlePress}
+                  />
+                </View>
+              </View>
+              <View>
+                <Text
+                  style={{
+                    ...GlobalStyles.body2,
+                    marginLeft: 20,
+                    marginRight: 20,
+                  }}
+                >
+                  {closest?.tags}
+                </Text>
+              </View>
+              <View
                 style={{
-                  ...GlobalStyles.body2,
                   margin: 20,
-                  marginTop: 10,
-                  marginBottom: 10,
-                  textAlign: "right",
+                  marginBottom: 0,
+                  height:
+                    tags.filter((tag) => closest?.tags.includes(tag.caption))
+                      .length > 0
+                      ? 50
+                      : 0,
+                  alignItems: "flex-start",
+                  justifyContent: "center",
                 }}
               >
-                Edit the information
-              </Text>
-            </TouchableOpacity>
+                {tags.filter((tag) => closest?.tags.includes(tag.caption))
+                  .length > 0 && (
+                  <FlatList
+                    data={tags.filter((tag) =>
+                      closest?.tags.includes(tag.caption)
+                    )}
+                    renderItem={tagItem}
+                    keyExtractor={(item) => item.id}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{ height: 50 }} // FlatList의 height를 고정값으로 설정
+                  />
+                )}
+              </View>
+              <TouchableOpacity
+                onPress={
+                  closest
+                    ? () => {
+                        props.navigation.navigate("Edit", {
+                          screen: "EditInfo",
+                          params: {
+                            id: closest.id,
+                            name: closest.name,
+                            englishName: closest.englishName,
+                            buildingNum: closest.buildingNum,
+                            latitude: closest.latitude,
+                            longitude: closest.longitude,
+                            tags: closest.tags,
+                          },
+                        });
+                        // console.log(closest.name);
+                      }
+                    : null
+                }
+              >
+                <Text
+                  style={{
+                    ...GlobalStyles.body2,
+                    margin: 20,
+                    marginTop: 10,
+                    marginBottom: 10,
+                    textAlign: "right",
+                  }}
+                >
+                  Edit the information
+                </Text>
+              </TouchableOpacity>
+            </View>
           </WhiteBox>
         </View>
       </View>
