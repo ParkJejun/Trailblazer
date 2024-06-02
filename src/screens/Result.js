@@ -23,6 +23,7 @@ import {
   getData,
   removeData,
 } from "../utils/storage";
+import Loading from "../components/Loading";
 
 function Result(props) {
   const params = props.route.params;
@@ -141,78 +142,87 @@ function Result(props) {
 
           <View style={{ flex: 1 }} />
 
-          <WhiteBox>
-            <View style={styles.upperGroup}>
-              <View style={styles.textRow}>
-                <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
-                  {path?.duration}
-                </Text>
-                <Text style={GlobalStyles.h2}>min</Text>
-              </View>
-              <View style={styles.buttonRow}>
-                <RoundIconButton
-                  icon={
-                    bookmarkIndex < 0 ? (
-                      <FontAwesomeIcon name="star-o" style={styles.bigIcon} />
-                    ) : (
-                      <FontAwesomeIcon name="star" style={styles.bigIcon} />
-                    )
-                  }
-                  onPress={async () => {
-                    if (bookmarkIndex < 0) {
-                      await storeBookmark(ids.startId, ids.endId);
-                    } else {
-                      await removeData("Bookmark", bookmarkIndex);
-                    }
-                    setRefresh(refresh + 1);
-                  }}
-                  backgroundColor="transparent"
-                />
-                <RoundIconButton
-                  icon={<EntypoIcon name="share" style={styles.bigIcon} />}
-                  backgroundColor="transparent"
-                  onPress={async () => {
-                    const uri = await viewShotRef.current
-                      .capture()
-                      .catch((err) => console.log(err));
-                    await shareAsync(
-                      Platform.OS === "ios" ? `file://${uri}` : uri,
-                      {
-                        mimeType: "image/png",
-                        dialogTitle: "공유하기",
-                        UTI: "image/png",
+          <WhiteBox height={160}>
+            {loading ? (
+              <Loading />
+            ) : (
+              <View>
+                <View style={styles.upperGroup}>
+                  <View style={styles.textRow}>
+                    <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
+                      {path?.duration}
+                    </Text>
+                    <Text style={GlobalStyles.h2}>min</Text>
+                  </View>
+                  <View style={styles.buttonRow}>
+                    <RoundIconButton
+                      icon={
+                        bookmarkIndex < 0 ? (
+                          <FontAwesomeIcon
+                            name="star-o"
+                            style={styles.bigIcon}
+                          />
+                        ) : (
+                          <FontAwesomeIcon name="star" style={styles.bigIcon} />
+                        )
                       }
-                    );
-                  }}
-                  // onPress={onCapture}
-                />
-              </View>
-            </View>
+                      onPress={async () => {
+                        if (bookmarkIndex < 0) {
+                          await storeBookmark(ids.startId, ids.endId);
+                        } else {
+                          await removeData("Bookmark", bookmarkIndex);
+                        }
+                        setRefresh(refresh + 1);
+                      }}
+                      backgroundColor="transparent"
+                    />
+                    <RoundIconButton
+                      icon={<EntypoIcon name="share" style={styles.bigIcon} />}
+                      backgroundColor="transparent"
+                      onPress={async () => {
+                        const uri = await viewShotRef.current
+                          .capture()
+                          .catch((err) => console.log(err));
+                        await shareAsync(
+                          Platform.OS === "ios" ? `file://${uri}` : uri,
+                          {
+                            mimeType: "image/png",
+                            dialogTitle: "공유하기",
+                            UTI: "image/png",
+                          }
+                        );
+                      }}
+                      // onPress={onCapture}
+                    />
+                  </View>
+                </View>
 
-            <View style={styles.iconGroup}>
-              <View style={styles.iconRow}>
-                <MaterialCommunityIconsIcon
-                  name="map-marker-distance"
-                  style={styles.smallIcon}
-                />
-                <Text style={GlobalStyles.h3}>{path?.distance} m</Text>
+                <View style={styles.iconGroup}>
+                  <View style={styles.iconRow}>
+                    <MaterialCommunityIconsIcon
+                      name="map-marker-distance"
+                      style={styles.smallIcon}
+                    />
+                    <Text style={GlobalStyles.h3}>{path?.distance} m</Text>
+                  </View>
+                  <View style={styles.iconRow}>
+                    <IoniconsIcon name="footsteps" style={styles.smallIcon} />
+                    <Text style={GlobalStyles.h3}>
+                      {Math.floor(path?.distance / 0.75)} steps
+                    </Text>
+                  </View>
+                  <View style={styles.iconRow}>
+                    <MaterialCommunityIconsIcon
+                      name="fire"
+                      style={styles.smallIcon}
+                    />
+                    <Text style={GlobalStyles.h3}>
+                      {((path?.distance * 3) / 1000).toFixed(1)} kcal
+                    </Text>
+                  </View>
+                </View>
               </View>
-              <View style={styles.iconRow}>
-                <IoniconsIcon name="footsteps" style={styles.smallIcon} />
-                <Text style={GlobalStyles.h3}>
-                  {Math.floor(path?.distance / 0.75)} steps
-                </Text>
-              </View>
-              <View style={styles.iconRow}>
-                <MaterialCommunityIconsIcon
-                  name="fire"
-                  style={styles.smallIcon}
-                />
-                <Text style={GlobalStyles.h3}>
-                  {((path?.distance * 3) / 1000).toFixed(1)} kcal
-                </Text>
-              </View>
-            </View>
+            )}
           </WhiteBox>
         </View>
       </View>
