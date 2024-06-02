@@ -105,15 +105,24 @@ function Edit(props) {
       >
         Matching Results
       </Text>
-      <FlatList
-        data={filterData()} // 필터링된 데이터를 FlatList에 전달
-        renderItem={({ item }) => (
-          <ListItem item={item} onPress={() => handleListItemPress(item.id)} />
-        )}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={Separator}
-        style={GlobalStyles.listContainer}
-      />
+      {filterData().length > 0 ? (
+        <FlatList
+          data={filterData()} // 필터링된 데이터를 FlatList에 전달
+          renderItem={({ item }) => (
+            <ListItem
+              item={item}
+              onPress={() => handleListItemPress(item.id)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={Separator}
+          style={GlobalStyles.listContainer}
+        />
+      ) : (
+        <Text style={{ ...GlobalStyles.listContainer, textAlign: "center" }}>
+          No matching results found.
+        </Text>
+      )}
     </View>
   );
 }

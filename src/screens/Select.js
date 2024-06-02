@@ -278,13 +278,19 @@ function Select(props) {
       <Text style={{ ...GlobalStyles.body2, marginLeft: 35, marginBottom: 10 }}>
         {searchText.trim() === "" ? "Recent Searches" : "Matching Results"}
       </Text>
-      <FlatList
-        data={getFilteredData()} // 검색어에 따라 필터된 데이터를 보여줌
-        renderItem={({ item }) => <ListItem item={item} />}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={Separator}
-        style={GlobalStyles.listContainer}
-      />
+      {searchText.trim() !== "" && getFilteredData().length === 0 ? (
+        <Text style={{ ...GlobalStyles.listContainer, textAlign: "center" }}>
+          No matching results found.
+        </Text>
+      ) : (
+        <FlatList
+          data={getFilteredData()} // 검색어에 따라 필터된 데이터를 보여줌
+          renderItem={({ item }) => <ListItem item={item} />}
+          keyExtractor={(item) => item.id}
+          ItemSeparatorComponent={Separator}
+          style={GlobalStyles.listContainer}
+        />
+      )}
     </View>
   );
 }
