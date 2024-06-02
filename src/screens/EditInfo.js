@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Alert } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
@@ -10,6 +10,8 @@ function EditInfo(props) {
   const { id, name, englishName, buildingNum, latitude, longitude, tags } =
     props.route.params;
 
+  console.log(props.route.params);
+
   const { places, updatePlace } = usePlaces();
 
   const [newName, setNewName] = useState(name);
@@ -18,6 +20,76 @@ function EditInfo(props) {
   const [newLatitude, setNewLatitude] = useState(latitude);
   const [newLongitude, setNewLongitude] = useState(longitude);
   const [newTags, setNewTags] = useState(tags);
+
+  console.log(
+    newName,
+    newEnglishName,
+    newBuildingNum,
+    newLatitude,
+    newLongitude,
+    newTags
+  );
+
+  useEffect(() => {
+    setNewName(name);
+    setNewEnglishName(englishName);
+    setNewBuildingNum(buildingNum);
+    setNewLatitude(latitude);
+    setNewLongitude(longitude);
+    setNewTags(tags);
+  }, [name, englishName, buildingNum, latitude, longitude, tags]);
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      e.preventDefault();
+      // Prompt the user before leaving the screen
+      if (
+        places[id - 1].name !== newName ||
+        places[id - 1].englishName !== newEnglishName ||
+        places[id - 1].buildingNum !== newBuildingNum ||
+        places[id - 1].latitude != newLatitude ||
+        places[id - 1].longitude != newLongitude ||
+        places[id - 1].tags !== newTags
+      ) {
+        console.log(places[id - 1]);
+        console.log(
+          newName,
+          newEnglishName,
+          newBuildingNum,
+          newLatitude,
+          newLongitude,
+          newTags
+        );
+        Alert.alert(
+          "Discard changes?",
+          "If you go back, your changes will be discarded.",
+          [
+            {
+              text: "Stay",
+              style: "cancel",
+            },
+            {
+              text: "Discard",
+              onPress: () => props.navigation.dispatch(e.data.action),
+            },
+          ]
+        );
+      } else {
+        props.navigation.dispatch(e.data.action);
+      }
+    });
+
+    return unsubscribe;
+  }, [
+    newName,
+    newEnglishName,
+    newBuildingNum,
+    newLatitude,
+    newLongitude,
+    newTags,
+    props.navigation,
+  ]);
 
   const handlePress = async () => {
     if (
@@ -57,7 +129,7 @@ function EditInfo(props) {
         newTags
       );
     }
-    props.navigation.goBack();
+    props.navigation.navigate("EditStack");
   };
 
   return (
@@ -70,37 +142,37 @@ function EditInfo(props) {
         <View>
           <MaterialStackedLabelTextbox
             label="Building name"
-            value={name}
+            value={newName}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewName}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Building name"
-            value={englishName}
+            value={newEnglishName}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewEnglishName}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Building number"
-            value={buildingNum}
+            value={newBuildingNum}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewBuildingNum}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Latitude"
-            value={latitude.toString()}
+            value={newLatitude.toString()}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewLatitude}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Longitude"
-            value={longitude.toString()}
+            value={newLongitude.toString()}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewLongitude}
           ></MaterialStackedLabelTextbox>
           <MaterialStackedLabelTextbox
             label="Tags"
-            value={tags}
+            value={newTags}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewTags}
           ></MaterialStackedLabelTextbox>

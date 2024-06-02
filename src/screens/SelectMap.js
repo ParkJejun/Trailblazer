@@ -233,16 +233,21 @@ function SelectMap(props) {
             <TouchableOpacity
               onPress={
                 closest
-                  ? () =>
-                      props.navigation.navigate("EditInfo", {
-                        id: closest.id,
-                        name: closest.name,
-                        englishName: closest.englishName,
-                        buildingNum: closest.buildingNum,
-                        latitude: closest.latitude,
-                        longitude: closest.longitude,
-                        tags: closest.tags,
-                      })
+                  ? () => {
+                      props.navigation.navigate("Edit", {
+                        screen: "EditInfo",
+                        params: {
+                          id: closest.id,
+                          name: closest.name,
+                          englishName: closest.englishName,
+                          buildingNum: closest.buildingNum,
+                          latitude: closest.latitude,
+                          longitude: closest.longitude,
+                          tags: closest.tags,
+                        },
+                      });
+                      // console.log(closest.name);
+                    }
                   : null
               }
             >
