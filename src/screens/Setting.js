@@ -36,9 +36,11 @@ const ListItem = ({ item }) => (
           style={GlobalStyles.colorIcon}
         ></EntypoIcon>
         <View style={{ marginLeft: 10 }}>
-          <Text style={GlobalStyles.listText}>{item.departure}</Text>
           <Text style={GlobalStyles.listText}>
-            {" →   " + item.destination}
+            {item.departureId + " " + item.departure}
+          </Text>
+          <Text style={GlobalStyles.listText}>
+            {" →   " + item.destinationId + " " + item.destination}
           </Text>
         </View>
       </View>
@@ -96,7 +98,9 @@ function Setting(props) {
         if (item.startId <= places.length && item.endId <= places.length) {
           newData.push({
             id: index,
+            departureId: places[item.startId - 1].buildingNum,
             departure: places[item.startId - 1].englishName,
+            destinationId: places[item.endId - 1].buildingNum,
             destination: places[item.endId - 1].englishName,
             date: item.date,
             handlePress: () =>

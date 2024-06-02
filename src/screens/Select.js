@@ -34,7 +34,9 @@ const ListItem = ({ item }) => (
           style={GlobalStyles.colorIcon}
         ></EntypoIcon>
         <View style={{ marginLeft: 10 }}>
-          <Text style={GlobalStyles.listText}>{item.text}</Text>
+          <Text style={GlobalStyles.listText}>
+            {item.num + " " + item.text}
+          </Text>
         </View>
       </View>
     </View>
@@ -147,6 +149,7 @@ function Select(props) {
         if (item.placeId <= places.length) {
           newData.push({
             id: index,
+            num: places[item.placeId - 1].buildingNum,
             text: places[item.placeId - 1].englishName,
             date: item.date,
             handlePress: () => {
@@ -186,6 +189,7 @@ function Select(props) {
         ) {
           matchingData.push({
             id: item.id,
+            num: item.buildingNum,
             text: item.englishName,
             handlePress: () => {
               handlePress(item.id);

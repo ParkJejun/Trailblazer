@@ -188,7 +188,7 @@ function SelectMap(props) {
               <Text
                 style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
               >
-                {closest?.englishName}
+                {closest?.buildingNum + " " + closest?.englishName}
               </Text>
               <View style={{ marginLeft: 30 }}>
                 <RoundIconButton

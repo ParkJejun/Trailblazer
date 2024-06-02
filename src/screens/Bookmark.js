@@ -11,8 +11,12 @@ import { getData, removeData } from "../utils/storage";
 const ListItem = ({ item }) => (
   <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
     <View>
-      <Text style={GlobalStyles.listText}>{item.departure}</Text>
-      <Text style={GlobalStyles.listText}>{" →   " + item.destination}</Text>
+      <Text style={GlobalStyles.listText}>
+        {item.departureId + " " + item.departure}
+      </Text>
+      <Text style={GlobalStyles.listText}>
+        {" →   " + item.destinationId + " " + item.destination}
+      </Text>
     </View>
     <TouchableOpacity onPress={item.handleStarPress}>
       <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>
@@ -37,7 +41,9 @@ function Bookmark(props) {
         if (item.startId <= places.length && item.endId <= places.length) {
           newData.push({
             id: index,
+            departureId: places[item.startId - 1].buildingNum,
             departure: places[item.startId - 1].englishName,
+            destinationId: places[item.endId - 1].buildingNum,
             destination: places[item.endId - 1].englishName,
             handlePress: () =>
               props.navigation.navigate("Result", {
