@@ -53,8 +53,10 @@ const tagItem = ({ item }) => (
 function SelectMap(props) {
   const params = props.route.params;
 
-  const [whiteBoxHeight, setWhiteBoxHeight] = useState(0);
-  const whiteBoxRef = useRef(null);
+  const [titleHeight, settitleHeight] = useState(0);
+  const titleRef = useRef(null);
+  const [desHeight, setdesHeight] = useState(0);
+  const desRef = useRef(null);
 
   const { places } = usePlaces();
 
@@ -68,12 +70,17 @@ function SelectMap(props) {
 
   const [refresh, setRefresh] = useState(0);
 
-  const onWhiteBoxLayout = () => {
-    if (whiteBoxRef.current) {
-      whiteBoxRef.current.measure((x, y, width, height, pageX, pageY) => {
-        setWhiteBoxHeight(height);
-        // console.log("whiteBoxHeight: " + height);
-        // console.log(whiteBoxHeight);
+  const onTitleLayout = () => {
+    if (titleRef.current) {
+      titleRef.current.measure((x, y, width, height, pageX, pageY) => {
+        settitleHeight(height);
+      });
+    }
+  };
+  const onDesLayout = () => {
+    if (desRef.current) {
+      desRef.current.measure((x, y, width, height, pageX, pageY) => {
+        setdesHeight(height);
       });
     }
   };
@@ -168,7 +175,7 @@ function SelectMap(props) {
             style={{
               position: "absolute",
               right: 30,
-              bottom: whiteBoxHeight + 230,
+              bottom: titleHeight + desHeight + 180,
             }}
           >
             <RoundIconButton
@@ -184,7 +191,11 @@ function SelectMap(props) {
           </View>
 
           <WhiteBox>
-            <View style={{ flexDirection: "row", margin: 20 }}>
+            <View
+              onLayout={onTitleLayout}
+              ref={titleRef}
+              style={{ flexDirection: "row", margin: 20 }}
+            >
               <Text
                 style={{ ...GlobalStyles.h2, flex: 1, whiteSpace: "nowrap" }}
               >
@@ -202,7 +213,7 @@ function SelectMap(props) {
                 />
               </View>
             </View>
-            <View onLayout={onWhiteBoxLayout} ref={whiteBoxRef}>
+            <View onLayout={onDesLayout} ref={desRef}>
               <Text
                 style={{
                   ...GlobalStyles.body2,
