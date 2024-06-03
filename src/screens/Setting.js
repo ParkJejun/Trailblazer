@@ -143,7 +143,9 @@ function Setting(props) {
             type="Departure"
             placeholder={
               ids.startId > 0
-                ? places[ids.startId - 1]?.englishName ?? "Departure"
+                ? places[ids.startId - 1]?.buildingNum +
+                    " " +
+                    places[ids.startId - 1]?.englishName ?? "Departure"
                 : "Departure"
             }
             onSearchPress={() => handleSearchPress("Departure")}
@@ -152,7 +154,9 @@ function Setting(props) {
             type="Destination"
             placeholder={
               ids.endId > 0
-                ? places[ids.endId - 1]?.englishName ?? "Destination"
+                ? places[ids.startId - 1]?.buildingNum +
+                    " " +
+                    places[ids.endId - 1]?.englishName ?? "Destination"
                 : "Destination"
             }
             onSearchPress={() => handleSearchPress("Destination")}

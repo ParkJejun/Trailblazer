@@ -57,6 +57,17 @@ function Result(props) {
         startId: params?.startId,
         endId: -1,
       });
+    } else {
+      setIds({
+        startId: params?.startId ?? -1,
+        endId: params?.endId ?? -1,
+      });
+      const store = async () => {
+        await storeRecentPlace(ids.startId);
+        await storeRecentPlace(ids.endId);
+        await storeRecentPath(ids.startId, ids.endId);
+      };
+      store();
     }
   }, []);
 
@@ -69,19 +80,6 @@ function Result(props) {
       endId: ids.endId,
     });
   };
-
-  useEffect(() => {
-    setIds({
-      startId: params?.startId ?? -1,
-      endId: params?.endId ?? -1,
-    });
-    const store = async () => {
-      await storeRecentPlace(ids.startId);
-      await storeRecentPlace(ids.endId);
-      await storeRecentPath(ids.startId, ids.endId);
-    };
-    store();
-  }, []);
 
   useEffect(() => {
     const fetch = async () => {
@@ -133,7 +131,9 @@ function Result(props) {
                 type="Departure"
                 placeholder={
                   ids.startId > 0
-                    ? places[ids.startId - 1]?.englishName ?? "Departure"
+                    ? places[ids.startId - 1]?.buildingNum +
+                        " " +
+                        places[ids.startId - 1]?.englishName ?? "Departure"
                     : "Departure"
                 }
                 onSearchPress={() => handleSearchPress("Departure")}
@@ -142,7 +142,9 @@ function Result(props) {
                 type="Destination"
                 placeholder={
                   ids.endId > 0
-                    ? places[ids.endId - 1]?.englishName ?? "Destination"
+                    ? places[ids.startId - 1]?.buildingNum +
+                        " " +
+                        places[ids.endId - 1]?.englishName ?? "Destination"
                     : "Destination"
                 }
                 onSearchPress={() => handleSearchPress("Destination")}
