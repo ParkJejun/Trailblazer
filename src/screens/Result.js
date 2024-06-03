@@ -50,7 +50,7 @@ function Result(props) {
         text2: "Start and end locations cannot be same",
         visibilityTime: 2000, // 2 seconds
         autoHide: true,
-        topOffset: 50,
+        topOffset: 60,
         bottomOffset: 100,
       });
       props.navigation.navigate("SettingStack", {
@@ -199,6 +199,16 @@ function Result(props) {
                       onPress={async () => {
                         if (bookmarkIndex < 0) {
                           await storeBookmark(ids.startId, ids.endId);
+                          Toast.show({
+                            type: "success",
+                            text1: "Success",
+                            text2: "This path is successfully bookmarked",
+                            visibilityTime: 2000, // 2 seconds
+                            autoHide: true,
+                            topOffset: 50,
+                            bottomOffset: 100,
+                            position: "bottom",
+                          });
                         } else {
                           await removeData("Bookmark", bookmarkIndex);
                         }
