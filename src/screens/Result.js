@@ -144,7 +144,16 @@ function Result(props) {
 
           <WhiteBox height={160}>
             {loading ? (
-              <Loading />
+              <View
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Loading />
+              </View>
             ) : (
               <View>
                 <View style={styles.upperGroup}>
