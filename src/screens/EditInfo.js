@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, Text } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
@@ -24,6 +24,7 @@ function EditInfo(props) {
   const [newTags, setNewTags] = useState(tags);
 
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [errors, setErrors] = useState({});
 
   console.log(
     newName,
@@ -104,54 +105,103 @@ function EditInfo(props) {
       places[id - 1].longitude != newLongitude ||
       places[id - 1].tags !== newTags
     ) {
-      // check if latitude and longitude are valid
-      // TODO: handle invalid input
-      if (
-        isNaN(newLatitude) ||
-        Number(newLatitude) < -90 ||
-        Number(newLatitude) > 90 ||
-        Number(newLatitude) < 36.365 || // 최소 위도
-        Number(newLatitude) > 36.3706 // 최대 위도
-      ) {
-        console.log("Invalid latitude");
-        return;
-      }
-      if (
-        isNaN(newLongitude) ||
-        Number(newLongitude) < -180 ||
-        Number(newLongitude) > 180 ||
-        Number(newLongitude) < 127.36 || // 최소 경도
-        Number(newLongitude) > 127.38 // 최대 경도
-      ) {
-        console.log("Invalid longitude");
-        return;
-      }
-      setLoading(true);
+      const isValid = validateForm();
 
-      await updatePlace(
-        id,
-        newName,
-        newEnglishName,
-        newBuildingNum,
-        newLatitude,
-        newLongitude,
-        newTags
-      );
-      setLoading(false);
-      // Show toast message for successful save
-      Toast.show({
-        type: "success",
-        text1: "Success",
-        text2: "Changes saved successfully",
-        visibilityTime: 2000, // 2 seconds
-        autoHide: true,
-        topOffset: 50,
-        bottomOffset: 100,
-        position: "bottom",
-      });
-      console.log("saved successly");
+      if (isValid) {
+        setLoading(true);
+
+        await updatePlace(
+          id,
+          newName,
+          newEnglishName,
+          newBuildingNum,
+          newLatitude,
+          newLongitude,
+          newTags
+        );
+        setLoading(false);
+        // Show toast message for successful save
+        Toast.show({
+          type: "success",
+          text1: "Success",
+          text2: "Changes saved successfully",
+          visibilityTime: 2000, // 2 seconds
+          autoHide: true,
+          topOffset: 50,
+          bottomOffset: 100,
+          position: "bottom",
+        });
+        console.log("saved successly");
+        props.navigation.navigate("EditStack");
+      } else {
+        console.log("Form validation failed");
+      }
+    } else {
       props.navigation.navigate("EditStack");
     }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Perform validation checks
+    // Example validation:
+    if (!newName.trim()) {
+      newErrors.newName = "Name cannot be empty";
+    }
+    if (!newEnglishName.trim()) {
+      newErrors.newEnglishName = "English Name cannot be empty";
+    }
+    if (
+      isNaN(newLatitude) ||
+      Number(newLatitude) < -90 ||
+      Number(newLatitude) > 90
+    ) {
+      newErrors.newLatitude = "Latitude is not valid";
+    } else if (
+      Number(newLatitude) < 36.365 || // 최소 위도
+      Number(newLatitude) > 36.3706 // 최대 위도
+    ) {
+      newErrors.newLatitude = "Latitude is out of KAIST";
+    }
+    if (
+      isNaN(newLongitude) ||
+      Number(newLongitude) < -180 ||
+      Number(newLongitude) > 180
+    ) {
+      newErrors.newLongitude = "Longitude is not valid";
+    } else if (
+      Number(newLongitude) < 127.36 || // 최소 경도
+      Number(newLongitude) > 127.38 // 최대 경도
+    ) {
+      newErrors.newLongitude = "Longitude is out of KAIST";
+    }
+
+    const buildingNumRegex = /^(E|N|W)\d+(\-\d+)?$/;
+
+    if (!buildingNumRegex.test(newBuildingNum)) {
+      if (!newBuildingNum.match(/^(E|N|W)/)) {
+        newErrors.newBuildingNum =
+          "BuildingNum must start with 'E', 'N', or 'W'";
+      } else if (!newBuildingNum.match(/^([ENW\d-])+$/)) {
+        newErrors.newBuildingNum =
+          "BuildingNum must consist of 'E', 'N', 'W', numbers, or '-' only";
+      } else if (!newBuildingNum.match(/\d/)) {
+        newErrors.newBuildingNum = "BuildingNum must contain a number";
+      } else if (newBuildingNum.indexOf(" ") !== -1) {
+        newErrors.newBuildingNum = "BuildingNum must not contain spaces";
+      } else {
+        newErrors.newBuildingNum = "BuildingNum is invalid";
+      }
+    }
+    if (newBuildingNum.length > 5) {
+      newErrors.newBuildingNum = "BuildingNum is too long";
+    }
+    // Set errors state
+    setErrors(newErrors);
+
+    // Return true if no errors, false otherwise
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
@@ -168,30 +218,45 @@ function EditInfo(props) {
             style={styles.materialStackedLabelTextbox}
             setValue={setNewName}
           ></MaterialStackedLabelTextbox>
+          {errors.newName && (
+            <Text style={styles.errorText}>{errors.newName}</Text>
+          )}
           <MaterialStackedLabelTextbox
             label="Building name"
             value={newEnglishName}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewEnglishName}
           ></MaterialStackedLabelTextbox>
+          {errors.newEnglishName && (
+            <Text style={styles.errorText}>{errors.newEnglishName}</Text>
+          )}
           <MaterialStackedLabelTextbox
             label="Building number"
             value={newBuildingNum}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewBuildingNum}
           ></MaterialStackedLabelTextbox>
+          {errors.newBuildingNum && (
+            <Text style={styles.errorText}>{errors.newBuildingNum}</Text>
+          )}
           <MaterialStackedLabelTextbox
             label="Latitude"
             value={newLatitude.toString()}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewLatitude}
           ></MaterialStackedLabelTextbox>
+          {errors.newLatitude && (
+            <Text style={styles.errorText}>{errors.newLatitude}</Text>
+          )}
           <MaterialStackedLabelTextbox
             label="Longitude"
             value={newLongitude.toString()}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewLongitude}
           ></MaterialStackedLabelTextbox>
+          {errors.newLongitude && (
+            <Text style={styles.errorText}>{errors.newLongitude}</Text>
+          )}
           <MaterialStackedLabelTextbox
             label="Tags"
             value={newTags}
@@ -246,6 +311,12 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 20,
     alignSelf: "center",
+  },
+  errorText: {
+    ...GlobalStyles.body2,
+    color: "rgba(255,0,0,0.5)",
+    marginTop: -15,
+    marginBottom: 20,
   },
 });
 
