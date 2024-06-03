@@ -85,6 +85,12 @@ function Select(props) {
   const params = props.route.params;
 
   const [searchText, setSearchText] = useState(""); // 검색어 상태
+  useEffect(() => {
+    if (params.searchText !== undefined) {
+      setSearchText(params.searchText);
+    }
+  }, [params]);
+  // console.log(params.searchText, searchText);
 
   const [recentData, setRecentData] = useState([]);
 

@@ -46,6 +46,9 @@ const tagItem = ({ item }) => (
       icon={item.icon}
       caption={item.caption}
       style={{ height: 40 }}
+      onPress={() => {
+        navigation.navigate("Select", { searchText: item.caption });
+      }}
     ></MaterialButtonWithShadow>
   </View>
 );
@@ -232,7 +235,32 @@ function SelectMap(props) {
                     data={tags.filter((tag) =>
                       closest?.tags.includes(tag.caption)
                     )}
-                    renderItem={tagItem}
+                    renderItem={({ item }) => (
+                      <View style={GlobalStyles.listItemRow}>
+                        <MaterialButtonWithShadow
+                          icon={item.icon}
+                          caption={item.caption}
+                          style={{ height: 40 }}
+                          onPress={() => {
+                            if (params.type === "Departure") {
+                              props.navigation.navigate("Select", {
+                                searchText: item.caption,
+                                type: params.type,
+                                startId: -1,
+                                endId: params.endId,
+                              });
+                            } else {
+                              props.navigation.navigate("Select", {
+                                searchText: item.caption,
+                                type: params.type,
+                                startId: params.startId,
+                                endId: -1,
+                              });
+                            }
+                          }}
+                        ></MaterialButtonWithShadow>
+                      </View>
+                    )}
                     keyExtractor={(item) => item.id}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
