@@ -24,6 +24,7 @@ import {
   removeData,
 } from "../utils/storage";
 import Loading from "../components/Loading";
+import Toast from "react-native-toast-message";
 
 function Result(props) {
   const params = props.route.params;
@@ -40,6 +41,24 @@ function Result(props) {
     startId: params?.startId ?? -1,
     endId: params?.endId ?? -1,
   });
+
+  useEffect(() => {
+    if (params?.startId === params?.endId) {
+      Toast.show({
+        type: "success",
+        text1: "Warning",
+        text2: "Start and end locations cannot be same",
+        visibilityTime: 2000, // 2 seconds
+        autoHide: true,
+        topOffset: 50,
+        bottomOffset: 100,
+      });
+      props.navigation.navigate("SettingStack", {
+        startId: params?.startId,
+        endId: -1,
+      });
+    }
+  }, []);
 
   const viewShotRef = useRef();
 
