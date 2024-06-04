@@ -107,6 +107,8 @@ export default function RootNavigator() {
         inactiveColor="gray"
         backBehavior="initialRoute"
         barStyle={{ backgroundColor: "white" }}
+        // sceneAnimationEnabled
+        sceneAnimationType="shifting"
         // tabBar={(props) => (
         //   <Animated.View
         //     entering={FadeInUp}
