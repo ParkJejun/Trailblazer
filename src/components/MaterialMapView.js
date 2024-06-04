@@ -16,20 +16,29 @@ function MaterialMapView(props) {
     return gradientColors[colorIndex];
   });
 
+  const animate = async () => {
+    if (mapViewRef?.current && props?.path) {
+      const minLat = Math.min(...props.path.map((point) => point.latitude));
+      const maxLat = Math.max(...props.path.map((point) => point.latitude));
+      const minLng = Math.min(...props.path.map((point) => point.longitude));
+      const maxLng = Math.max(...props.path.map((point) => point.longitude));
+
+      const latitudeDelta = maxLat - minLat;
+      const longitudeDelta = maxLng - minLng;
+
+      mapViewRef.current.animateToRegion(
+        {
+          latitude: (minLat + maxLat) / 2,
+          longitude: (minLng + maxLng) / 2,
+          latitudeDelta: latitudeDelta,
+          longitudeDelta: longitudeDelta + 0.005,
+        },
+        1000
+      );
+    }
+  };
+
   useEffect(() => {
-    const animate = async () => {
-      if (mapViewRef?.current && props?.path) {
-        mapViewRef.current.animateToRegion(
-          {
-            latitude: props.path[0].latitude,
-            longitude: props.path[0].longitude,
-            latitudeDelta: 0.01,
-            longitudeDelta: 0.01,
-          },
-          1000
-        );
-      }
-    };
     animate();
   }, [props?.path]);
 
