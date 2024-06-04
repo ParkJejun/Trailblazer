@@ -71,6 +71,7 @@ function Result(props) {
         await storeRecentPath(ids.startId, ids.endId);
       };
       store();
+      setRefresh(refresh + 1);
     }
   }, [ids?.startId, ids?.endId]);
 
