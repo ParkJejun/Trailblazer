@@ -20,24 +20,20 @@ import { getData, removeData } from "../utils/storage";
 import { getCurrentPosition } from "../utils/location";
 
 const ListItem = ({ item }) => (
-  <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
-    <View>
-      <View
-        style={{
-          flexDirection: "row",
-          flex: 1,
-          alignItems: "center",
-        }}
-      >
-        <EntypoIcon
-          name="location-pin"
-          style={GlobalStyles.colorIcon}
-        ></EntypoIcon>
-        <View style={{ marginLeft: 10 }}>
-          <Text style={GlobalStyles.listText}>
-            {item.num + " " + item.text}
-          </Text>
-        </View>
+  <TouchableOpacity
+    onPress={item.handlePress}
+    style={{ ...GlobalStyles.listItemRow, height: 40 }}
+  >
+    <EntypoIcon name="location-pin" style={GlobalStyles.colorIcon}></EntypoIcon>
+    <View
+      style={{
+        flexDirection: "row",
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
+      <View style={{ marginLeft: 10, width: "95%" }}>
+        <Text style={GlobalStyles.listText}>{item.num + " " + item.text}</Text>
       </View>
     </View>
     <View
