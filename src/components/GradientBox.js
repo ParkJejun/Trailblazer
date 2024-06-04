@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from "expo-linear-gradient";
 import { Border } from "../utils/styles";
 
 const GradientBox = ({ children, height }) => {
   return (
     <LinearGradient
       colors={[
-        'rgba(136, 211, 206,1)',
-        'rgba(135, 210, 206,1)',
-        'rgba(79, 172, 254,1)',
-        'rgba(110, 69, 226,1)'
+        "rgba(136, 211, 206,1)",
+        "rgba(135, 210, 206,1)",
+        "rgba(79, 172, 254,1)",
+        "rgba(131, 94, 235,1)",
       ]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
