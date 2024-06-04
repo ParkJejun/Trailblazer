@@ -197,7 +197,16 @@ function Select(props) {
   const getFilteredData = () => {
     if (searchText.trim() === "") {
       // 검색어가 없는 경우 recentData 반환
-      return recentData;
+      return recentData.length > 0
+        ? recentData
+        : places.map((item) => ({
+            id: item.id,
+            num: item.buildingNum,
+            text: item.englishName,
+            handlePress: () => {
+              handlePress(item.id);
+            },
+          }));
     } else {
       // 검색어가 있는 경우 matchingData에서 검색어를 포함하는 결과 반환
       const matchingData = [];
@@ -278,7 +287,9 @@ function Select(props) {
         />
       </View>
       <Text style={{ ...GlobalStyles.body2, marginLeft: 35, marginBottom: 10 }}>
-        {searchText.trim() === "" ? "Recent Searches" : "Matching Results"}
+        {searchText.trim() === "" && recentData.length > 0
+          ? "Recent Searches"
+          : "Matching Results"}
       </Text>
       {searchText.trim() !== "" && getFilteredData().length === 0 ? (
         <Text style={{ ...GlobalStyles.listContainer, textAlign: "center" }}>
