@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, ImageBackground } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { Border } from "../utils/styles";
 
 const TransparentGradientBox = ({
@@ -8,13 +9,20 @@ const TransparentGradientBox = ({
   borderRadius = Border.br_base,
 }) => {
   return (
-    <ImageBackground
+    <LinearGradient
+      colors={[
+        "rgba(136, 211, 206,0.7)",
+        "rgba(135, 210, 206,0.7)",
+        "rgba(79, 172, 254,0.7)",
+        "rgba(110, 69, 226,0.7)",
+      ]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      locations={[0.0764, 0.0764, 0.3014, 0.8534]} // 각 색상의 위치를 나타내는 배열
       style={[styles.rect1, { height: height, borderRadius: borderRadius }]}
-      imageStyle={styles.rect1_imageStyle}
-      source={require("../assets/images/Gradient_kykNqTa.png")}
     >
       {children}
-    </ImageBackground>
+    </LinearGradient>
   );
 };
 
@@ -23,10 +31,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-  },
-  rect1_imageStyle: {
-    resizeMode: "stretch",
-    opacity: 0.7,
   },
 });
 

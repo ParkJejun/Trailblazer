@@ -1,16 +1,24 @@
 import React from "react";
-import { StyleSheet, ImageBackground } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import { Border } from "../utils/styles";
 
 const GradientBox = ({ children, height }) => {
   return (
-    <ImageBackground
-      style={[styles.rect1, { height: height }]} // height prop을 사용하여 동적으로 설정
-      imageStyle={styles.rect1_imageStyle}
-      source={require("../assets/images/Gradient_kykNqTa.png")}
+    <LinearGradient
+      colors={[
+        'rgba(136, 211, 206,1)',
+        'rgba(135, 210, 206,1)',
+        'rgba(79, 172, 254,1)',
+        'rgba(110, 69, 226,1)'
+      ]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      locations={[0.0764, 0.0764, 0.4066, 0.8534]} // 각 색상의 위치를 나타내는 배열
+      style={[styles.rect1, { height: height }]}
     >
       {children}
-    </ImageBackground>
+    </LinearGradient>
   );
 };
 
@@ -23,7 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  rect1_imageStyle: { resizeMode: "stretch" },
 });
 
 export default GradientBox;
