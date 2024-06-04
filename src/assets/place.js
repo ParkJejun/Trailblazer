@@ -12,7 +12,9 @@
 // 카페 (Cafe)
 // 잡화점 (Variety Store)
 // 기숙사 (Dormitory)
-// 학습공간 (Study) (추가예정)
+// 학습공간 (Study Space) (추가예정)
+// 프린터 (Printer) (추가예정)
+// (ATM) (추가예정)
 
 export const places = [
   {
