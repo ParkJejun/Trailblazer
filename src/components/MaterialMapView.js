@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
+import { Color } from "../utils/styles";
 
 function MaterialMapView(props) {
+  const gradientColors = [Color.lightBlue, Color.blue, Color.purple];
+
+  const totalPoints = props.path?.length;
+  const colorsPerSection = gradientColors.length; // 색상 그라데이션 간격 계산
+
+  const strokeColors = props.path?.map((point, index) => {
+    const colorIndex = Math.floor((index / totalPoints) * colorsPerSection);
+    return gradientColors[colorIndex];
+  });
+
   return (
     <View style={[styles.container, props.style]}>
       <MapView
@@ -36,14 +47,7 @@ function MaterialMapView(props) {
           <Polyline
             coordinates={props.path}
             strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
-            strokeColors={[
-              "#7F0000",
-              "#00000000", // no color, creates a "long" gradient between the previous and next coordinate
-              "#B24112",
-              "#E5845C",
-              "#238C23",
-              "#7F0000",
-            ]}
+            strokeColors={strokeColors}
             strokeWidth={4}
           />
         ) : null}
