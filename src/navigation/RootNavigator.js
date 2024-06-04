@@ -105,6 +105,7 @@ export default function RootNavigator() {
         initialRouteName="Search"
         activeColor={Color.purple}
         inactiveColor="gray"
+        backBehavior="initialRoute"
         barStyle={{ backgroundColor: "white" }}
         // tabBar={(props) => (
         //   <Animated.View
