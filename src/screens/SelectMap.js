@@ -77,7 +77,7 @@ function SelectMap(props) {
         setWhiteBoxHeight(height);
       });
     }
-    console.log(whiteBoxHeight);
+    // console.log(whiteBoxHeight);
   };
 
   useEffect(() => {

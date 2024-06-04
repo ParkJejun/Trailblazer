@@ -12,7 +12,7 @@ function EditInfo(props) {
   const { id, name, englishName, buildingNum, latitude, longitude, tags } =
     props.route.params;
 
-  console.log(props.route.params);
+  // console.log(props.route.params);
 
   const { places, updatePlace } = usePlaces();
 
@@ -26,14 +26,14 @@ function EditInfo(props) {
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
   const [errors, setErrors] = useState({});
 
-  console.log(
-    newName,
-    newEnglishName,
-    newBuildingNum,
-    newLatitude,
-    newLongitude,
-    newTags
-  );
+  // console.log(
+  //   newName,
+  //   newEnglishName,
+  //   newBuildingNum,
+  //   newLatitude,
+  //   newLongitude,
+  //   newTags
+  // );
 
   useEffect(() => {
     setNewName(name);

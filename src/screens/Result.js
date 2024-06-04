@@ -43,7 +43,14 @@ function Result(props) {
   });
 
   useEffect(() => {
-    if (params?.startId === params?.endId) {
+    setIds({
+      startId: params?.startId ?? -1,
+      endId: params?.endId ?? -1,
+    });
+  }, [params?.startId, params?.endId]);
+
+  useEffect(() => {
+    if (ids?.startId === ids?.endId) {
       Toast.show({
         type: "success",
         text1: "Warning",
@@ -54,14 +61,10 @@ function Result(props) {
         bottomOffset: 100,
       });
       props.navigation.navigate("SettingStack", {
-        startId: params?.startId,
+        startId: ids?.startId,
         endId: -1,
       });
     } else {
-      setIds({
-        startId: params?.startId ?? -1,
-        endId: params?.endId ?? -1,
-      });
       const store = async () => {
         await storeRecentPlace(ids.startId);
         await storeRecentPlace(ids.endId);
@@ -69,7 +72,7 @@ function Result(props) {
       };
       store();
     }
-  }, []);
+  }, [ids?.startId, ids?.endId]);
 
   const viewShotRef = useRef();
 
