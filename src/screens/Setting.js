@@ -23,24 +23,27 @@ import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
   <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
-    <View>
-      <View
-        style={{
-          flexDirection: "row",
-          flex: 1,
-          alignItems: "center",
-        }}
-      >
-        <EntypoIcon
-          name="back-in-time"
-          style={GlobalStyles.colorIcon}
-        ></EntypoIcon>
-        <View style={{ marginLeft: 10 }}>
+    <EntypoIcon name="back-in-time" style={GlobalStyles.colorIcon}></EntypoIcon>
+    <View
+      style={{
+        flexDirection: "row",
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
+      <View style={{ marginLeft: 10, width: "90%" }}>
+        <Text style={GlobalStyles.listText}>
+          {item.departureId + " " + item.departure}
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "flex-start",
+          }}
+        >
+          <Text style={GlobalStyles.listText}>{" →   "}</Text>
           <Text style={GlobalStyles.listText}>
-            {item.departureId + " " + item.departure}
-          </Text>
-          <Text style={GlobalStyles.listText}>
-            {" →   " + item.destinationId + " " + item.destination}
+            {item.destinationId + " " + item.destination}
           </Text>
         </View>
       </View>

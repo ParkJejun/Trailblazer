@@ -98,7 +98,6 @@ export const GlobalStyles = StyleSheet.create({
     flex: 1,
   },
   listItemRow: {
-    height: 40,
     flexDirection: "row",
     flex: 1,
     justifyContent: "space-between",
@@ -109,8 +108,9 @@ export const GlobalStyles = StyleSheet.create({
     color: Color.darkGray,
     fontFamily: FontFamily.robotoRegular,
     textAlign: "left",
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 3,
+    marginBottom: 3,
+    lineHeight: 20,
   },
   listContainer: {
     margin: 20,

@@ -160,7 +160,7 @@ function EditInfo(props) {
       newErrors.newLatitude = "Latitude is not valid";
     } else if (
       Number(newLatitude) < 36.365 || // 최소 위도
-      Number(newLatitude) > 36.3706 // 최대 위도
+      Number(newLatitude) > 36.376 // 최대 위도
     ) {
       newErrors.newLatitude = "Latitude is out of KAIST";
     }
@@ -171,8 +171,8 @@ function EditInfo(props) {
     ) {
       newErrors.newLongitude = "Longitude is not valid";
     } else if (
-      Number(newLongitude) < 127.36 || // 최소 경도
-      Number(newLongitude) > 127.38 // 최대 경도
+      Number(newLongitude) < 127.355 || // 최소 경도
+      Number(newLongitude) > 127.37 // 최대 경도
     ) {
       newErrors.newLongitude = "Longitude is out of KAIST";
     }

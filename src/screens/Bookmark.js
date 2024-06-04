@@ -10,13 +10,21 @@ import { getData, removeData } from "../utils/storage";
 
 const ListItem = ({ item }) => (
   <TouchableOpacity onPress={item.handlePress} style={GlobalStyles.listItemRow}>
-    <View>
+    <View width="80%">
       <Text style={GlobalStyles.listText}>
         {item.departureId + " " + item.departure}
       </Text>
-      <Text style={GlobalStyles.listText}>
-        {" →   " + item.destinationId + " " + item.destination}
-      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "flex-start",
+        }}
+      >
+        <Text style={GlobalStyles.listText}>{" →   "}</Text>
+        <Text style={GlobalStyles.listText}>
+          {item.destinationId + " " + item.destination}
+        </Text>
+      </View>
     </View>
     <TouchableOpacity onPress={item.handleStarPress}>
       <FontAwesomeIcon name="star" style={styles.icon}></FontAwesomeIcon>

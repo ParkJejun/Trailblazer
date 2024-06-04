@@ -14,7 +14,10 @@ import { GlobalStyles } from "../utils/styles";
 import { usePlaces } from "../hooks/usePlaces";
 
 const ListItem = ({ item, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={GlobalStyles.listItemRow}>
+  <TouchableOpacity
+    onPress={onPress}
+    style={{ ...GlobalStyles.listItemRow, height: 40 }}
+  >
     <View
       style={{
         flexDirection: "row",
@@ -26,7 +29,7 @@ const ListItem = ({ item, onPress }) => (
         name="location-pin"
         style={GlobalStyles.colorIcon}
       ></EntypoIcon>
-      <View style={{ marginLeft: 10 }}>
+      <View style={{ marginLeft: 10, width: "90%" }}>
         <Text style={GlobalStyles.listText}>{item.num + " " + item.text}</Text>
       </View>
     </View>
