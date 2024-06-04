@@ -17,6 +17,8 @@ const WhiteBox = ({ children, height }) => {
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         margin: 10,
+        justifyContent: 'center',
+        alignContent: 'center'
       }}
     >
       {children}

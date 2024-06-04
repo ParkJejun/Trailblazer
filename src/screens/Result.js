@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
   iconGroup: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "95%",
+    width: "87%",
     margin: 20,
     marginTop: 5,
     marginBottom: 35,
@@ -334,22 +334,7 @@ const styles = StyleSheet.create({
   },
   iconRow: {
     flexDirection: "row",
-    flex: 1,
     alignItems: "center",
-  },
-  icon1: {
-    top: 368,
-    left: 249,
-    position: "absolute",
-    color: "#b82c44",
-    fontSize: 70,
-  },
-  icon2: {
-    top: 257,
-    left: 64,
-    position: "absolute",
-    color: "rgba(68,186,179,1)",
-    fontSize: 70,
   },
 });
 
