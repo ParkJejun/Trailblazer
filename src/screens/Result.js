@@ -261,7 +261,7 @@ function Result(props) {
                       style={styles.smallIcon}
                     />
                     <Text style={GlobalStyles.h3}>
-                      {((path?.distance * 3) / 1000).toFixed(1)} kcal
+                      {(path?.duration * 3.5).toFixed(1)} kcal
                     </Text>
                   </View>
                 </View>
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
   iconGroup: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
+    width: "95%",
     margin: 20,
     marginTop: 5,
     marginBottom: 35,
