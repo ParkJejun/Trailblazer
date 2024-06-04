@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { Color } from "../utils/styles";
 
 function MaterialMapView(props) {
+  const mapViewRef = useRef(null);
+
   const gradientColors = [Color.lightBlue, Color.blue, Color.purple];
 
   const totalPoints = props.path?.length;
@@ -14,9 +16,27 @@ function MaterialMapView(props) {
     return gradientColors[colorIndex];
   });
 
+  useEffect(() => {
+    const animate = async () => {
+      if (mapViewRef?.current && props?.path) {
+        mapViewRef.current.animateToRegion(
+          {
+            latitude: props.path[0].latitude,
+            longitude: props.path[0].longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          },
+          1000
+        );
+      }
+    };
+    animate();
+  }, [props?.path]);
+
   return (
     <View style={[styles.container, props.style]}>
       <MapView
+        ref={mapViewRef}
         style={styles.MapView1}
         initialRegion={{
           latitude: props.path ? props.path[0].latitude : 36.3703,

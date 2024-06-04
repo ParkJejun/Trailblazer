@@ -142,27 +142,6 @@ function SelectMap(props) {
     }
   };
 
-  const handleCurrentLocation = async () => {
-    // TODO: getCurrentPosition loading
-    const current = await getCurrentPosition();
-
-    if (!current || places.length === 0) return;
-
-    let temp = places[0];
-
-    for (let i = 1; i < places.length; i++) {
-      if (
-        Math.abs(current.latitude - places[i].latitude) +
-          Math.abs(current.longitude - places[i].longitude) <
-        Math.abs(current.latitude - temp.latitude) +
-          Math.abs(current.longitude - temp.longitude)
-      ) {
-        temp = places[i];
-      }
-    }
-    handlePress(temp.id);
-  };
-
   return (
     <View style={GlobalStyles.background}>
       <View>
