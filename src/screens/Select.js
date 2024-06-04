@@ -75,6 +75,22 @@ const tags = [
     icon: "store",
     caption: "Store",
   },
+  {
+    id: "5",
+    icon: "home-city",
+    caption: "Dormitory",
+  },
+
+  {
+    id: "6",
+    icon: "book-open-variant",
+    caption: "Study Place",
+  },
+  {
+    id: "7",
+    icon: "cash-multiple",
+    caption: "ATM",
+  },
 ];
 
 function Select(props) {

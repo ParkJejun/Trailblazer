@@ -117,159 +117,167 @@ function Result(props) {
 
   return (
     <View style={GlobalStyles.background}>
-      <View>
-        <ViewShot
-          ref={viewShotRef}
-          options={{ fileName: "shared", format: "png", quality: 1 }}
-        >
+      <ViewShot
+        ref={viewShotRef}
+        options={{ fileName: "shared", format: "png", quality: 1 }}
+      >
+        <View>
           <MaterialMapView
             style={{ height: "100%", width: "100%" }}
             loading={loading}
             path={path?.path}
           ></MaterialMapView>
-        </ViewShot>
-        <View style={styles.wrap}>
-          <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
-            <View style={{ marginTop: 20 }}>
-              <MaterialSearchBar
-                type="Departure"
-                placeholder={
-                  ids.startId > 0
-                    ? places[ids.startId - 1]?.buildingNum +
-                        " " +
-                        places[ids.startId - 1]?.englishName ?? "Departure"
-                    : "Departure"
-                }
-                onSearchPress={() => handleSearchPress("Departure")}
-              />
-              <MaterialSearchBar
-                type="Destination"
-                placeholder={
-                  ids.endId > 0
-                    ? places[ids.endId - 1]?.buildingNum +
-                        " " +
-                        places[ids.endId - 1]?.englishName ?? "Destination"
-                    : "Destination"
-                }
-                onSearchPress={() => handleSearchPress("Destination")}
-              />
-            </View>
 
-            <View style={styles.button}>
-              <RoundImageButton
-                onPress={() =>
-                  setIds({ startId: ids.endId, endId: ids.startId })
-                }
-                imageSource={require("../assets/images/자산_2switch_icon.png")}
-              />
-            </View>
-          </TransparentGradientBox>
-
-          <View style={{ flex: 1 }} />
-
-          <WhiteBox height={160}>
-            {loading ? (
-              <View
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Loading />
+          <View style={styles.wrap}>
+            <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
+              <View style={{ marginTop: 20 }}>
+                <MaterialSearchBar
+                  type="Departure"
+                  placeholder={
+                    ids.startId > 0
+                      ? places[ids.startId - 1]?.buildingNum +
+                          " " +
+                          places[ids.startId - 1]?.englishName ?? "Departure"
+                      : "Departure"
+                  }
+                  onSearchPress={() => handleSearchPress("Departure")}
+                />
+                <MaterialSearchBar
+                  type="Destination"
+                  placeholder={
+                    ids.endId > 0
+                      ? places[ids.endId - 1]?.buildingNum +
+                          " " +
+                          places[ids.endId - 1]?.englishName ?? "Destination"
+                      : "Destination"
+                  }
+                  onSearchPress={() => handleSearchPress("Destination")}
+                />
               </View>
-            ) : (
-              <View>
-                <View style={styles.upperGroup}>
-                  <View style={styles.textRow}>
-                    <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
-                      {path?.duration}
-                    </Text>
-                    <Text style={GlobalStyles.h2}>min</Text>
-                  </View>
-                  <View style={styles.buttonRow}>
-                    <RoundIconButton
-                      icon={
-                        bookmarkIndex < 0 ? (
-                          <FontAwesomeIcon
-                            name="star-o"
-                            style={styles.bigIcon}
-                          />
-                        ) : (
-                          <FontAwesomeIcon name="star" style={styles.bigIcon} />
-                        )
-                      }
-                      onPress={async () => {
-                        if (bookmarkIndex < 0) {
-                          await storeBookmark(ids.startId, ids.endId);
-                          Toast.show({
-                            type: "success",
-                            text1: "Success",
-                            text2: "This path is successfully bookmarked",
-                            visibilityTime: 2000, // 2 seconds
-                            autoHide: true,
-                            topOffset: 50,
-                            bottomOffset: 100,
-                            position: "bottom",
-                          });
-                        } else {
-                          await removeData("Bookmark", bookmarkIndex);
+
+              <View style={styles.button}>
+                <RoundImageButton
+                  onPress={() =>
+                    setIds({ startId: ids.endId, endId: ids.startId })
+                  }
+                  imageSource={require("../assets/images/자산_2switch_icon.png")}
+                />
+              </View>
+            </TransparentGradientBox>
+
+            <View style={{ flex: 1 }} />
+
+            <WhiteBox height={160}>
+              {loading ? (
+                <View
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Loading />
+                </View>
+              ) : (
+                <View>
+                  <View style={styles.upperGroup}>
+                    <View style={styles.textRow}>
+                      <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
+                        {path?.duration}
+                      </Text>
+                      <Text style={GlobalStyles.h2}>min</Text>
+                    </View>
+                    <View style={styles.buttonRow}>
+                      <RoundIconButton
+                        icon={
+                          bookmarkIndex < 0 ? (
+                            <FontAwesomeIcon
+                              name="star-o"
+                              style={styles.bigIcon}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              name="star"
+                              style={styles.bigIcon}
+                            />
+                          )
                         }
-                        setRefresh(refresh + 1);
-                      }}
-                      backgroundColor="transparent"
-                    />
-                    <RoundIconButton
-                      icon={<EntypoIcon name="share" style={styles.bigIcon} />}
-                      backgroundColor="transparent"
-                      onPress={async () => {
-                        const uri = await viewShotRef.current
-                          .capture()
-                          .catch((err) => console.log(err));
-                        await shareAsync(
-                          Platform.OS === "ios" ? `file://${uri}` : uri,
-                          {
-                            mimeType: "image/png",
-                            dialogTitle: "공유하기",
-                            UTI: "image/png",
+                        onPress={async () => {
+                          if (bookmarkIndex < 0) {
+                            await storeBookmark(ids.startId, ids.endId);
+                            Toast.show({
+                              type: "success",
+                              text1: "Success",
+                              text2: "This path is successfully bookmarked",
+                              visibilityTime: 2000, // 2 seconds
+                              autoHide: true,
+                              topOffset: 50,
+                              bottomOffset: 100,
+                              position: "bottom",
+                            });
+                          } else {
+                            await removeData("Bookmark", bookmarkIndex);
                           }
-                        );
-                      }}
-                      // onPress={onCapture}
-                    />
+                          setRefresh(refresh + 1);
+                        }}
+                        backgroundColor="transparent"
+                      />
+                      <RoundIconButton
+                        icon={
+                          <EntypoIcon name="share" style={styles.bigIcon} />
+                        }
+                        backgroundColor="transparent"
+                        onPress={async () => {
+                          const uri = await viewShotRef.current
+                            .capture()
+                            .catch((err) => console.log(err));
+                          await shareAsync(
+                            Platform.OS === "ios" ? `file://${uri}` : uri,
+                            {
+                              mimeType: "image/png",
+                              dialogTitle: "공유하기",
+                              UTI: "image/png",
+                              message: `Path: ${
+                                places[ids.startId].englishName
+                              } to ${places[ids.endId].englishName}`,
+                            }
+                          );
+                        }}
+                      />
+                    </View>
                   </View>
-                </View>
 
-                <View style={styles.iconGroup}>
-                  <View style={styles.iconRow}>
-                    <MaterialCommunityIconsIcon
-                      name="map-marker-distance"
-                      style={styles.smallIcon}
-                    />
-                    <Text style={GlobalStyles.h3}>{path?.distance} m</Text>
-                  </View>
-                  <View style={styles.iconRow}>
-                    <IoniconsIcon name="footsteps" style={styles.smallIcon} />
-                    <Text style={GlobalStyles.h3}>
-                      {Math.floor(path?.distance / 0.75)} steps
-                    </Text>
-                  </View>
-                  <View style={styles.iconRow}>
-                    <MaterialCommunityIconsIcon
-                      name="fire"
-                      style={styles.smallIcon}
-                    />
-                    <Text style={GlobalStyles.h3}>
-                      {(path?.duration * 3.5).toFixed(1)} kcal
-                    </Text>
+                  <View style={styles.iconGroup}>
+                    <View style={styles.iconRow}>
+                      <MaterialCommunityIconsIcon
+                        name="map-marker-distance"
+                        style={styles.smallIcon}
+                      />
+                      <Text style={GlobalStyles.h3}>{path?.distance} m</Text>
+                    </View>
+                    <View style={styles.iconRow}>
+                      <IoniconsIcon name="footsteps" style={styles.smallIcon} />
+                      <Text style={GlobalStyles.h3}>
+                        {Math.floor(path?.distance / 0.75)} steps
+                      </Text>
+                    </View>
+                    <View style={styles.iconRow}>
+                      <MaterialCommunityIconsIcon
+                        name="fire"
+                        style={styles.smallIcon}
+                      />
+                      <Text style={GlobalStyles.h3}>
+                        {(path?.duration * 3.5).toFixed(1)} kcal
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            )}
-          </WhiteBox>
+              )}
+            </WhiteBox>
+          </View>
         </View>
-      </View>
+      </ViewShot>
     </View>
   );
 }
