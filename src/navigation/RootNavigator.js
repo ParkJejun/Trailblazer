@@ -107,20 +107,7 @@ export default function RootNavigator() {
         inactiveColor="gray"
         backBehavior="initialRoute"
         barStyle={{ backgroundColor: "white" }}
-        // sceneAnimationEnabled
         sceneAnimationType="shifting"
-        // tabBar={(props) => (
-        //   <Animated.View
-        //     entering={FadeInUp}
-        //     exiting={FadeOutDown}
-        //     layout={Layout.duration(100)}
-        //     style={{
-        //       height: tabBarVisible ? 80 : 0,
-        //     }}
-        //   >
-        //     <BottomTabBar {...props} />
-        //   </Animated.View>
-        // )}
       >
         <Tab.Screen
           name="Bookmark"
