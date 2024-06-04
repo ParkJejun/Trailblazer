@@ -19,6 +19,7 @@ function MaterialSearchBar(props) {
               : Color.black
           }
           style={styles.inputStyle}
+          onPress={props.onSearchPress}
         ></TextInput>
       </View>
     </TouchableOpacity>
