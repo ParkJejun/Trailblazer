@@ -75,7 +75,7 @@ function Result(props) {
     }
   }, [ids?.startId, ids?.endId]);
 
-  const viewShotRef = useRef();
+  const mapViewRef = useRef();
 
   const handleSearchPress = (type) => {
     props.navigation.navigate("Select", {
@@ -115,6 +115,29 @@ function Result(props) {
     fetch();
   }, [refresh]);
 
+  const viewShotRef = useRef();
+
+  const handleShare = async () => {
+    if (mapViewRef?.current) {
+      mapViewRef.current.animateToRegion(); // animateToRegion 호출
+
+      // animateToRegion이 완료될 때까지 기다리는 시간 (여기서는 1초)
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const uri = await viewShotRef.current
+        .capture()
+        .catch((err) => console.log(err));
+      await shareAsync(Platform.OS === "ios" ? `file://${uri}` : uri, {
+        mimeType: "image/png",
+        dialogTitle: "Share",
+        UTI: "image/png",
+        message: `Path: ${places[ids.startId].englishName} to ${
+          places[ids.endId].englishName
+        }`,
+      });
+    }
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <ViewShot
@@ -123,6 +146,7 @@ function Result(props) {
       >
         <View>
           <MaterialMapView
+            ref={mapViewRef}
             style={{ height: "100%", width: "100%" }}
             loading={loading}
             path={path?.path}
@@ -228,22 +252,7 @@ function Result(props) {
                           <EntypoIcon name="share" style={styles.bigIcon} />
                         }
                         backgroundColor="transparent"
-                        onPress={async () => {
-                          const uri = await viewShotRef.current
-                            .capture()
-                            .catch((err) => console.log(err));
-                          await shareAsync(
-                            Platform.OS === "ios" ? `file://${uri}` : uri,
-                            {
-                              mimeType: "image/png",
-                              dialogTitle: "공유하기",
-                              UTI: "image/png",
-                              message: `Path: ${
-                                places[ids.startId].englishName
-                              } to ${places[ids.endId].englishName}`,
-                            }
-                          );
-                        }}
+                        onPress={handleShare}
                       />
                     </View>
                   </View>

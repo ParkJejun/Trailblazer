@@ -1,9 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { Color } from "../utils/styles";
 
-function MaterialMapView(props) {
+const MaterialMapView = forwardRef((props, ref) => {
   const mapViewRef = useRef(null);
 
   const gradientColors = [Color.lightBlue, Color.blue, Color.purple];
@@ -33,7 +38,7 @@ function MaterialMapView(props) {
           latitudeDelta: latitudeDelta,
           longitudeDelta: longitudeDelta + 0.005,
         },
-        1000
+        500
       );
     }
   };
@@ -41,6 +46,13 @@ function MaterialMapView(props) {
   useEffect(() => {
     animate();
   }, [props?.path]);
+
+  // 부모 컴포넌트로부터 ref로 받은 메서드 제공
+  useImperativeHandle(ref, () => ({
+    animateToRegion: async () => {
+      await animate();
+    },
+  }));
 
   return (
     <View style={[styles.container, props.style]}>
@@ -83,7 +95,7 @@ function MaterialMapView(props) {
       </MapView>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
