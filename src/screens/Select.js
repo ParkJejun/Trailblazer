@@ -325,11 +325,6 @@ function Select(props) {
 }
 
 const styles = StyleSheet.create({
-  materialSearchBar1: {
-    height: 56,
-    width: 375,
-    marginTop: 63,
-  },
   buttonRow: {
     height: 50,
     width: 350,
