@@ -56,19 +56,6 @@ const tags = [
   },
 ];
 
-const tagItem = ({ item }) => (
-  <View style={GlobalStyles.listItemRow}>
-    <MaterialButtonWithShadow
-      icon={item.icon}
-      caption={item.caption}
-      style={{ height: 40 }}
-      onPress={() => {
-        navigation.navigate("Select", { searchText: item.caption });
-      }}
-    ></MaterialButtonWithShadow>
-  </View>
-);
-
 function SelectMap(props) {
   const params = props.route.params;
 
