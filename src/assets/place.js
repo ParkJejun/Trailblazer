@@ -1,21 +1,3 @@
-// id: unique id of the place
-// name: Korean name of the place
-// englishName: English name of the place
-// buildingNum: building number of the place
-// latitude: latitude of the place
-// longitude: longitude of the place
-// tags: tags for the place
-
-// Types of tags:
-// 식당 (Restaurant)
-// 매점 (Store)
-// 카페 (Cafe)
-// 잡화점 (Variety Store)
-// 기숙사 (Dormitory)
-// 학습공간 (Study Space) (추가예정)
-// 프린터 (Printer) (추가예정)
-// (ATM) (추가예정)
-
 export const places = [
   {
     id: 1,
@@ -25,6 +7,7 @@ export const places = [
     latitude: 36.365748,
     longitude: 127.3637,
     tags: "",
+    description: "The main entrance to KAIST, serving as a symbolic entry point."
   },
   {
     id: 2,
@@ -33,7 +16,8 @@ export const places = [
     buildingNum: "E2",
     latitude: 36.36736,
     longitude: 127.36434,
-    tags: "",
+    tags: "ATM",
+    description: "Building for Industrial Engineering and Management studies."
   },
   {
     id: 3,
@@ -43,6 +27,7 @@ export const places = [
     latitude: 36.36719,
     longitude: 127.36453,
     tags: "",
+    description: "Mathematical Sciences department offering various advanced courses."
   },
   {
     id: 4,
@@ -52,6 +37,7 @@ export const places = [
     latitude: 36.36722,
     longitude: 127.36472,
     tags: "",
+    description: "Focuses on industrial and systems engineering studies and research."
   },
   {
     id: 5,
@@ -60,7 +46,8 @@ export const places = [
     buildingNum: "E3",
     latitude: 36.3682,
     longitude: 127.36494,
-    tags: "카페, 파스쿠치, CAFE PASCUCCI",
+    tags: "카페, ATM, 파스쿠치, 학습공간, Cafe, CAFE PASCUCCI, Study",
+    description: "A building with facilities for information and electronics studies."
   },
   {
     id: 6,
@@ -70,6 +57,7 @@ export const places = [
     latitude: 36.36811,
     longitude: 127.36583,
     tags: "",
+    description: "Main building for the School of Computing."
   },
   {
     id: 7,
@@ -79,6 +67,7 @@ export const places = [
     latitude: 36.36874,
     longitude: 127.36558,
     tags: "",
+    description: "Dedicated to the study and research of electrical engineering."
   },
   {
     id: 8,
@@ -88,6 +77,7 @@ export const places = [
     latitude: 36.36894,
     longitude: 127.36638,
     tags: "",
+    description: "Facility focused on innovative device research."
   },
   {
     id: 9,
@@ -97,6 +87,7 @@ export const places = [
     latitude: 36.36923,
     longitude: 127.36636,
     tags: "",
+    description: "Additional space for academic activities."
   },
   {
     id: 10,
@@ -106,6 +97,7 @@ export const places = [
     latitude: 36.36752,
     longitude: 127.36531,
     tags: "",
+    description: "Named after the gaming company, used for research."
   },
   {
     id: 11,
@@ -114,7 +106,8 @@ export const places = [
     buildingNum: "E4",
     latitude: 36.36841,
     longitude: 127.36385,
-    tags: "카페, 그라지에, Cafe, Grazie",
+    tags: "카페, ATM, 그라지에, Cafe, Grazie",
+    description: "Building housing multiple KAIST research institutes."
   },
   {
     id: 12,
@@ -124,6 +117,7 @@ export const places = [
     latitude: 36.36916,
     longitude: 127.36373,
     tags: "식당, 매점, 동맛골, Restaurant, Store",
+    description: "A facility for faculty with dining and store options."
   },
   {
     id: 13,
@@ -132,7 +126,8 @@ export const places = [
     buildingNum: "E6",
     latitude: 36.3699,
     longitude: 127.3646,
-    tags: "카페, 캘리포니아, Cafe, California",
+    tags: "카페, ATM, 캘리포니아, Cafe, California",
+    description: "Dedicated to natural science studies with a cafe and ATM."
   },
   {
     id: 14,
@@ -142,6 +137,7 @@ export const places = [
     latitude: 36.3695,
     longitude: 127.36435,
     tags: "",
+    description: "Additional building for the Mathematical Sciences department."
   },
   {
     id: 15,
@@ -151,6 +147,7 @@ export const places = [
     latitude: 36.36989,
     longitude: 127.36422,
     tags: "",
+    description: "Focuses on physics research and education."
   },
   {
     id: 16,
@@ -160,6 +157,7 @@ export const places = [
     latitude: 36.37008,
     longitude: 127.36492,
     tags: "",
+    description: "Home to the biological sciences department."
   },
   {
     id: 17,
@@ -169,6 +167,7 @@ export const places = [
     latitude: 36.37039,
     longitude: 127.36445,
     tags: "",
+    description: "Dedicated to chemistry research and education."
   },
   {
     id: 18,
@@ -178,6 +177,7 @@ export const places = [
     latitude: 36.37044,
     longitude: 127.36371,
     tags: "",
+    description: "Facility for experimental research and development."
   },
   {
     id: 19,
@@ -187,6 +187,7 @@ export const places = [
     latitude: 36.37084,
     longitude: 127.36481,
     tags: "",
+    description: "Supports basic science research and academic activities."
   },
   {
     id: 20,
@@ -196,6 +197,7 @@ export const places = [
     latitude: 36.3704,
     longitude: 127.36547,
     tags: "",
+    description: "Focuses on biomedical research and advancements."
   },
   {
     id: 21,
@@ -205,6 +207,7 @@ export const places = [
     latitude: 36.37123,
     longitude: 127.36715,
     tags: "매점, Store",
+    description: "Offers various facilities including a store for students."
   },
   {
     id: 22,
@@ -213,7 +216,8 @@ export const places = [
     buildingNum: "E9",
     latitude: 36.36933,
     longitude: 127.36277,
-    tags: "카페, 오가다, Cafe, Ogada",
+    tags: "카페, 복사실, 복사기, 오가다, 학습공간, Copying Room, Copying Machine, Cafe, Ogada, Study",
+    description: "A multipurpose complex with cafes, study spaces, and copying facilities."
   },
   {
     id: 23,
@@ -223,6 +227,7 @@ export const places = [
     latitude: 36.37131,
     longitude: 127.36541,
     tags: "",
+    description: "Central storage facility for campus needs."
   },
   {
     id: 24,
@@ -232,6 +237,7 @@ export const places = [
     latitude: 36.3716,
     longitude: 127.36559,
     tags: "",
+    description: "Supports research involving animal models."
   },
   {
     id: 25,
@@ -240,7 +246,8 @@ export const places = [
     buildingNum: "E11",
     latitude: 36.37036,
     longitude: 127.36248,
-    tags: "",
+    tags: "ATM",
+    description: "A space designed for creative learning and innovation."
   },
   {
     id: 26,
@@ -250,6 +257,7 @@ export const places = [
     latitude: 36.37133,
     longitude: 127.36464,
     tags: "",
+    description: "Central mechanical facility for energy management."
   },
   {
     id: 27,
@@ -259,6 +267,7 @@ export const places = [
     latitude: 36.37258,
     longitude: 127.36612,
     tags: "",
+    description: "Research center for satellite technology."
   },
   {
     id: 28,
@@ -267,7 +276,8 @@ export const places = [
     buildingNum: "E14",
     latitude: 36.37052,
     longitude: 127.36151,
-    tags: "",
+    tags: "ATM",
+    description: "Main administrative building with ATM facilities."
   },
   {
     id: 29,
@@ -277,6 +287,7 @@ export const places = [
     latitude: 36.37214,
     longitude: 127.36296,
     tags: "",
+    description: "Auditorium used for large gatherings and events."
   },
   {
     id: 30,
@@ -285,7 +296,8 @@ export const places = [
     buildingNum: "E16",
     latitude: 36.37162,
     longitude: 127.36177,
-    tags: "",
+    tags: "ATM",
+    description: "Building named after Chung Moon-Soul, supporting various academic activities."
   },
   {
     id: 31,
@@ -295,6 +307,7 @@ export const places = [
     latitude: 36.37111,
     longitude: 127.36236,
     tags: "식당, 서브웨이, Restaurant, SUBWAY",
+    description: "Building with a restaurant named Subway, offering dining options."
   },
   {
     id: 32,
@@ -304,6 +317,7 @@ export const places = [
     latitude: 36.36977,
     longitude: 127.3684,
     tags: "",
+    description: "Main sports field for outdoor activities and events."
   },
   {
     id: 33,
@@ -313,6 +327,7 @@ export const places = [
     latitude: 36.36825,
     longitude: 127.36779,
     tags: "",
+    description: "Research center for disease-model animals."
   },
   {
     id: 34,
@@ -322,6 +337,7 @@ export const places = [
     latitude: 36.36856,
     longitude: 127.368,
     tags: "",
+    description: "Bio Model System Park for biological research."
   },
   {
     id: 35,
@@ -330,7 +346,8 @@ export const places = [
     buildingNum: "E19",
     latitude: 36.36852,
     longitude: 127.36826,
-    tags: "",
+    tags: "ATM",
+    description: "National Nano Fab Center with ATM facilities."
   },
   {
     id: 36,
@@ -340,6 +357,7 @@ export const places = [
     latitude: 36.37251,
     longitude: 127.36709,
     tags: "",
+    description: "Kyeryong Hall used for various academic purposes."
   },
   {
     id: 37,
@@ -348,7 +366,8 @@ export const places = [
     buildingNum: "E21",
     latitude: 36.36939,
     longitude: 127.36982,
-    tags: "",
+    tags: "ATM",
+    description: "Medical clinic providing health services to KAIST members."
   },
   {
     id: 38,
@@ -358,6 +377,7 @@ export const places = [
     latitude: 36.36979,
     longitude: 127.36641,
     tags: "",
+    description: "Institute for Basic Science research."
   },
   {
     id: 39,
@@ -366,7 +386,8 @@ export const places = [
     buildingNum: "W1",
     latitude: 36.36939,
     longitude: 127.36982,
-    tags: "카페, 스무디킹, Cafe, Smoothie king",
+    tags: "카페, 스무디킹, ATM, Cafe, Smoothie king",
+    description: "Applied Engineering Building with a cafe and ATM."
   },
   {
     id: 40,
@@ -376,6 +397,7 @@ export const places = [
     latitude: 36.36536,
     longitude: 127.36125,
     tags: "",
+    description: "Building for Materials Science and Engineering."
   },
   {
     id: 41,
@@ -385,6 +407,7 @@ export const places = [
     latitude: 36.36579,
     longitude: 127.36161,
     tags: "",
+    description: "Department of Civil and Environmental Engineering."
   },
   {
     id: 42,
@@ -394,6 +417,7 @@ export const places = [
     latitude: 36.36618,
     longitude: 127.36132,
     tags: "",
+    description: "Department of Chemical and Biomolecular Engineering."
   },
   {
     id: 43,
@@ -402,7 +426,8 @@ export const places = [
     buildingNum: "W2",
     latitude: 36.36717,
     longitude: 127.36089,
-    tags: "식당, 더큰도시락, 대덕동네피자, 서맛골, BBQ, Restaurant",
+    tags: "식당, ATM, 더큰도시락, 대덕동네피자, 서맛골, BBQ, Restaurant",
+    description: "Student center with dining options and ATMs."
   },
   {
     id: 44,
@@ -412,6 +437,7 @@ export const places = [
     latitude: 36.36751,
     longitude: 127.36012,
     tags: "카페, 잇, Cafe",
+    description: "International Center with a cafe."
   },
   {
     id: 45,
@@ -421,6 +447,7 @@ export const places = [
     latitude: 36.36757,
     longitude: 127.35811,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 46,
@@ -430,6 +457,7 @@ export const places = [
     latitude: 36.36745,
     longitude: 127.35717,
     tags: "매점, Store",
+    description: "West Dormitory Support Center with a store."
   },
   {
     id: 47,
@@ -439,6 +467,7 @@ export const places = [
     latitude: 36.36689,
     longitude: 127.35753,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 48,
@@ -448,6 +477,7 @@ export const places = [
     latitude: 36.3671,
     longitude: 127.35728,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 49,
@@ -457,6 +487,7 @@ export const places = [
     latitude: 36.36809,
     longitude: 127.35715,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 50,
@@ -465,7 +496,8 @@ export const places = [
     buildingNum: "W4-4",
     latitude: 36.36846,
     longitude: 127.3569,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 학습공간, Dormitory, Study",
+    description: "Dormitory with study spaces."
   },
   {
     id: 51,
@@ -475,6 +507,7 @@ export const places = [
     latitude: 36.36909,
     longitude: 127.35671,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 52,
@@ -484,6 +517,7 @@ export const places = [
     latitude: 36.36917,
     longitude: 127.3561,
     tags: "",
+    description: "Space for startup initiatives."
   },
   {
     id: 53,
@@ -493,6 +527,7 @@ export const places = [
     latitude: 36.36949,
     longitude: 127.35643,
     tags: "",
+    description: "International dormitory."
   },
   {
     id: 54,
@@ -502,6 +537,7 @@ export const places = [
     latitude: 36.3697,
     longitude: 127.35567,
     tags: "",
+    description: "International dormitory."
   },
   {
     id: 55,
@@ -511,6 +547,7 @@ export const places = [
     latitude: 36.36998,
     longitude: 127.35617,
     tags: "",
+    description: "International dormitory."
   },
   {
     id: 56,
@@ -520,6 +557,7 @@ export const places = [
     latitude: 36.37043,
     longitude: 127.35566,
     tags: "기숙사, 매점, Dormitory, Store",
+    description: "Dormitory with a store."
   },
   {
     id: 57,
@@ -529,6 +567,7 @@ export const places = [
     latitude: 36.37119,
     longitude: 127.35579,
     tags: "",
+    description: "Dormitory for students."
   },
   {
     id: 58,
@@ -537,7 +576,8 @@ export const places = [
     buildingNum: "W8",
     latitude: 36.3701,
     longitude: 127.3599,
-    tags: "카페, 드롭탑, Cafe, Droptop",
+    tags: "카페, 드롭탑, 학습공간, Cafe, Droptop, Study",
+    description: "Educational Support Building with a cafe and study spaces."
   },
   {
     id: 59,
@@ -547,6 +587,7 @@ export const places = [
     latitude: 36.37052,
     longitude: 127.3593,
     tags: "",
+    description: "Analysis Center for Research Advancement."
   },
   {
     id: 60,
@@ -556,6 +597,7 @@ export const places = [
     latitude: 36.36962,
     longitude: 127.36073,
     tags: "",
+    description: "Support facility for KAIST members."
   },
   {
     id: 61,
@@ -565,6 +607,7 @@ export const places = [
     latitude: 36.37081,
     longitude: 127.35816,
     tags: "",
+    description: "Outdoor theater for performances and events."
   },
   {
     id: 62,
@@ -574,6 +617,7 @@ export const places = [
     latitude: 36.37134,
     longitude: 127.35692,
     tags: "",
+    description: "Wind tunnel laboratory for research."
   },
   {
     id: 63,
@@ -583,6 +627,7 @@ export const places = [
     latitude: 36.37194,
     longitude: 127.35638,
     tags: "",
+    description: "Apartments for international faculty."
   },
   {
     id: 64,
@@ -592,6 +637,7 @@ export const places = [
     latitude: 36.36873,
     longitude: 127.35718,
     tags: "",
+    description: "West Energy Plant."
   },
   {
     id: 65,
@@ -601,6 +647,7 @@ export const places = [
     latitude: 36.36632,
     longitude: 127.36033,
     tags: "",
+    description: "Meta Convergence Building for interdisciplinary research."
   },
   {
     id: 66,
@@ -610,6 +657,7 @@ export const places = [
     latitude: 36.36591,
     longitude: 127.36219,
     tags: "",
+    description: "Smart City Engineering Center."
   },
   {
     id: 67,
@@ -619,6 +667,7 @@ export const places = [
     latitude: 36.36557,
     longitude: 127.36234,
     tags: "",
+    description: "Geotechnical Centrifuge Testing Center."
   },
   {
     id: 68,
@@ -628,6 +677,7 @@ export const places = [
     latitude: 36.3736,
     longitude: 127.36664,
     tags: "",
+    description: "East Gate of the campus."
   },
   {
     id: 69,
@@ -636,7 +686,8 @@ export const places = [
     buildingNum: "N1",
     latitude: 36.37428,
     longitude: 127.36499,
-    tags: "카페, 탐앤탐스, Cafe, TOM N TOMS",
+    tags: "카페, 탐앤탐스, ATM, Cafe, TOM N TOMS",
+    description: "ITC Building with a cafe and ATM."
   },
   {
     id: 70,
@@ -646,6 +697,7 @@ export const places = [
     latitude: 36.3736,
     longitude: 127.36664,
     tags: "",
+    description: "Branch Administration Building."
   },
   {
     id: 71,
@@ -655,16 +707,17 @@ export const places = [
     latitude: 36.37272,
     longitude: 127.36152,
     tags: "",
+    description: "Sports Complex."
   },
   {
     id: 72,
     name: "디지털인문사회과학부동",
-    englishName:
-      "School of Digital Humanities & Computational Social Sciences B/D",
+    englishName: "School of Digital Humanities & Computational Social Sciences B/D",
     buildingNum: "N4",
     latitude: 36.37331,
     longitude: 127.3626,
     tags: "",
+    description: "School of Digital Humanities & Computational Social Sciences."
   },
   {
     id: 73,
@@ -674,6 +727,7 @@ export const places = [
     latitude: 36.37388,
     longitude: 127.36394,
     tags: "",
+    description: "Convergence Research Building."
   },
   {
     id: 74,
@@ -683,6 +737,7 @@ export const places = [
     latitude: 36.37463,
     longitude: 127.36479,
     tags: "식당, 교수회관, Restaurant",
+    description: "Faculty Hall with a restaurant."
   },
   {
     id: 75,
@@ -691,7 +746,8 @@ export const places = [
     buildingNum: "N7",
     latitude: 36.37233,
     longitude: 127.35874,
-    tags: "카페, 카페드림, Cafe",
+    tags: "카페, 학습공간, ATM, 카페드림, Cafe, Study",
+    description: "Mechanical Engineering Building with a cafe and study spaces."
   },
   {
     id: 76,
@@ -701,6 +757,7 @@ export const places = [
     latitude: 36.37195,
     longitude: 127.35887,
     tags: "식당, 오샐러드, Restaurant",
+    description: "Building with a restaurant named O'Salad."
   },
   {
     id: 77,
@@ -710,6 +767,7 @@ export const places = [
     latitude: 36.37215,
     longitude: 127.35847,
     tags: "",
+    description: "Department of Aerospace Engineering."
   },
   {
     id: 78,
@@ -719,6 +777,7 @@ export const places = [
     latitude: 36.37283,
     longitude: 127.3589,
     tags: "",
+    description: "Department of Mechanical Engineering."
   },
   {
     id: 79,
@@ -728,6 +787,7 @@ export const places = [
     latitude: 36.3732,
     longitude: 127.35783,
     tags: "",
+    description: "Automobile Technology Laboratory Building."
   },
   {
     id: 80,
@@ -737,6 +797,7 @@ export const places = [
     latitude: 36.37426,
     longitude: 127.36148,
     tags: "",
+    description: "Practice Building."
   },
   {
     id: 81,
@@ -745,7 +806,8 @@ export const places = [
     buildingNum: "N10",
     latitude: 36.3743,
     longitude: 127.36041,
-    tags: "",
+    tags: "복사실, 복사기, 학습공간, Copying Room, Copying Machine, Study",
+    description: "Undergraduate Branch Library with study spaces."
   },
   {
     id: 82,
@@ -755,6 +817,7 @@ export const places = [
     latitude: 36.37374,
     longitude: 127.3592,
     tags: "식당, 카페, 카이마루, 쥬스킹, 오늘도든든, 휴김밥전문점, 리틀하노이, 캠토, 웰차이, Restaurant, Cafe, KAIMARU, JUICEKING, Little Hanoi, Camto",
+    description: "Cafeteria with multiple dining options."
   },
   {
     id: 83,
@@ -764,6 +827,7 @@ export const places = [
     latitude: 36.37412,
     longitude: 127.35985,
     tags: "식당, 매점, 풀빛마루, Restaurant, Store",
+    description: "Student center with dining and store options."
   },
   {
     id: 84,
@@ -773,6 +837,7 @@ export const places = [
     latitude: 36.37397,
     longitude: 127.3597,
     tags: "",
+    description: "North Dormitory Support Center."
   },
   {
     id: 85,
@@ -781,7 +846,8 @@ export const places = [
     buildingNum: "N13",
     latitude: 36.37309,
     longitude: 127.36007,
-    tags: "식당, 잡화점, 인생설렁탕, 제순식당, 역전우동, Restaurant, Variety store",
+    tags: "식당, 잡화점, ATM, 인생설렁탕, 제순식당, 역전우동, Restaurant, Variety store",
+    description: "Dormitory with dining and variety store options."
   },
   {
     id: 86,
@@ -791,6 +857,7 @@ export const places = [
     latitude: 36.37318,
     longitude: 127.36045,
     tags: "식당, 카페, 퀴즈노스, 엔제리너스, Restaurant, Cafe, Quiznos, ANGELINUS ",
+    description: "Student center with dining and cafes."
   },
   {
     id: 87,
@@ -799,7 +866,8 @@ export const places = [
     buildingNum: "N14",
     latitude: 36.37368,
     longitude: 127.35837,
-    tags: "",
+    tags: "기숙사, 복사기, 학습 장소, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities and study spaces."
   },
   {
     id: 88,
@@ -809,6 +877,7 @@ export const places = [
     latitude: 36.37488,
     longitude: 127.35997,
     tags: "",
+    description: "Staff accommodation."
   },
   {
     id: 89,
@@ -818,6 +887,7 @@ export const places = [
     latitude: 36.37372,
     longitude: 127.35759,
     tags: "기숙사, Dormitory",
+    description: "Dormitory for students."
   },
   {
     id: 90,
@@ -826,7 +896,8 @@ export const places = [
     buildingNum: "N17",
     latitude: 36.3742,
     longitude: 127.35872,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 복사기, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities."
   },
   {
     id: 91,
@@ -835,7 +906,8 @@ export const places = [
     buildingNum: "N18",
     latitude: 36.37467,
     longitude: 127.35917,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 복사기, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities."
   },
   {
     id: 92,
@@ -844,7 +916,8 @@ export const places = [
     buildingNum: "N19",
     latitude: 36.37403,
     longitude: 127.35703,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 복사기, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities."
   },
   {
     id: 93,
@@ -853,7 +926,8 @@ export const places = [
     buildingNum: "N20",
     latitude: 36.37522,
     longitude: 127.35904,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 복사기, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities."
   },
   {
     id: 94,
@@ -862,7 +936,8 @@ export const places = [
     buildingNum: "N21",
     latitude: 36.37588,
     longitude: 127.35863,
-    tags: "기숙사, Dormitory",
+    tags: "기숙사, 복사기, Dormitory, Copying Machine",
+    description: "Dormitory with copying facilities."
   },
   {
     id: 95,
@@ -872,6 +947,7 @@ export const places = [
     latitude: 36.37481,
     longitude: 127.36426,
     tags: "",
+    description: "Alumni Venture Hall."
   },
   {
     id: 96,
@@ -881,6 +957,7 @@ export const places = [
     latitude: 36.37541,
     longitude: 127.36411,
     tags: "",
+    description: "fMRI Center for brain research."
   },
   {
     id: 97,
@@ -890,6 +967,7 @@ export const places = [
     latitude: 36.37544,
     longitude: 127.36346,
     tags: "",
+    description: "LG Innovation Hall."
   },
   {
     id: 98,
@@ -898,16 +976,18 @@ export const places = [
     buildingNum: "N25",
     latitude: 36.37548,
     longitude: 127.3616,
-    tags: "",
+    tags: "ATM",
+    description: "Dept. of Industrial Design B/D with ATM."
   },
   {
     id: 99,
     name: "고성능집적시스템연구센터",
-    englishName: "Center for High-Performance Integrated Syetems",
+    englishName: "Center for High-Performance Integrated Systems",
     buildingNum: "N26",
     latitude: 36.37544,
     longitude: 127.36158,
     tags: "",
+    description: "Center for High-Performance Integrated Systems."
   },
   {
     id: 100,
@@ -917,6 +997,7 @@ export const places = [
     latitude: 36.3755,
     longitude: 127.3609,
     tags: "",
+    description: "Eureka Hall."
   },
   {
     id: 101,
@@ -926,5 +1007,6 @@ export const places = [
     latitude: 36.37547,
     longitude: 127.36245,
     tags: "",
+    description: "Energy & Environment Research Center."
   },
 ];
