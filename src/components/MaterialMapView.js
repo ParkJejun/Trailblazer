@@ -5,7 +5,7 @@ import React, {
   forwardRef,
 } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from "react-native-maps";
 import { Color } from "../utils/styles";
 
 const MaterialMapView = forwardRef((props, ref) => {
@@ -65,6 +65,7 @@ const MaterialMapView = forwardRef((props, ref) => {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
+        provider={PROVIDER_GOOGLE}
       >
         {!props.loading && props.path ? (
           <Marker

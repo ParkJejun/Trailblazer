@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { getCurrentPosition } from "../utils/location";
 
 function MaterialMapViewSelect(props) {
@@ -42,6 +42,7 @@ function MaterialMapViewSelect(props) {
           longitudeDelta: 0.01,
         }}
         onRegionChangeComplete={handleRegionChangeComplete}
+        provider={PROVIDER_GOOGLE}
       ></MapView>
     </View>
   );

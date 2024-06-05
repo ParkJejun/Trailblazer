@@ -1,13 +1,19 @@
+import "react-native-gesture-handler";
+
 import "./global";
 import React, { useCallback } from "react";
 import { useFonts } from "expo-font";
 import RootNavigator from "./src/navigation/RootNavigator";
 import { Web3ContextProvider } from "./src/contexts/Web3Context";
 import { RefreshContextProvider } from "./src/contexts/RefreshContext";
-import Splash from "./src/screens/Splash";
+// import Splash from "./src/screens/Splash";
 import Toast from "react-native-toast-message";
 import { Color, GlobalStyles } from "./src/utils/styles";
 import { View, Text } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+
+SplashScreen.preventAutoHideAsync();
 
 const toastConfig = {
   success: ({ text1, text2 }) => (
@@ -36,8 +42,14 @@ export default function App() {
     "Roboto-Light": require("./src/assets/fonts/Roboto-Light.ttf"),
   });
 
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
   if (!fontsLoaded && !fontError) {
-    return <Splash />;
+    return null;
   }
 
   return (
@@ -45,6 +57,8 @@ export default function App() {
       <Web3ContextProvider>
         <RootNavigator />
         <Toast config={toastConfig} />
+        <View onLayout={onLayoutRootView} />
+        <StatusBar translucent={true} />
       </Web3ContextProvider>
     </RefreshContextProvider>
   );
