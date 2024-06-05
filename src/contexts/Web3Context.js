@@ -19,7 +19,7 @@ export const Web3ContextProvider = ({ children }) => {
   const contract = useMemo(() => {
     return new web3.eth.Contract(
       abi,
-      "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b"
+      "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C"
     );
   }, []);
 
@@ -36,7 +36,15 @@ export const Web3ContextProvider = ({ children }) => {
   }, []);
 
   const addPlace = useCallback(
-    async (name, englishName, buildingNum, latitude, longitude, tags) => {
+    async (
+      name,
+      englishName,
+      buildingNum,
+      latitude,
+      longitude,
+      tags,
+      description
+    ) => {
       try {
         const tx = contract.methods.addPlace(
           name,
@@ -44,12 +52,13 @@ export const Web3ContextProvider = ({ children }) => {
           buildingNum,
           web3.utils.toWei(latitude, "micro"),
           web3.utils.toWei(longitude, "micro"),
-          tags
+          tags,
+          description
         );
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
             from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-            to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
+            to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
@@ -73,7 +82,7 @@ export const Web3ContextProvider = ({ children }) => {
       const createTransaction = await web3.eth.accounts.signTransaction(
         {
           from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-          to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
+          to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
           data: tx.encodeABI(),
           gas: await tx.estimateGas(),
           maxFeePerGas: 250000000000,
@@ -90,7 +99,16 @@ export const Web3ContextProvider = ({ children }) => {
   }, []);
 
   const updatePlace = useCallback(
-    async (id, name, englishName, buildingNum, latitude, longitude, tags) => {
+    async (
+      id,
+      name,
+      englishName,
+      buildingNum,
+      latitude,
+      longitude,
+      tags,
+      description
+    ) => {
       try {
         const tx = contract.methods.updatePlace(
           id,
@@ -99,12 +117,13 @@ export const Web3ContextProvider = ({ children }) => {
           buildingNum,
           web3.utils.toWei(latitude, "micro"),
           web3.utils.toWei(longitude, "micro"),
-          tags
+          tags,
+          description
         );
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
             from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-            to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
+            to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
@@ -136,6 +155,7 @@ export const Web3ContextProvider = ({ children }) => {
           latitude: Number(web3.utils.fromWei(result[4][i], "micro")),
           longitude: Number(web3.utils.fromWei(result[5][i], "micro")),
           tags: result[6][i],
+          description: result[7][i],
         });
       }
       setPlaces(newPlaces);
@@ -183,6 +203,11 @@ const abi = [
       {
         internalType: "string",
         name: "_tags",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
         type: "string",
       },
     ],
@@ -243,6 +268,11 @@ const abi = [
         name: "",
         type: "string[]",
       },
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
     ],
     stateMutability: "view",
     type: "function",
@@ -290,6 +320,11 @@ const abi = [
       {
         internalType: "string",
         name: "tags",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "description",
         type: "string",
       },
     ],
@@ -344,6 +379,11 @@ const abi = [
       {
         internalType: "string",
         name: "_tags",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
         type: "string",
       },
     ],

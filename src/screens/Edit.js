@@ -89,6 +89,7 @@ function Edit(props) {
       latitude: places[id - 1].latitude,
       longitude: places[id - 1].longitude,
       tags: places[id - 1].tags,
+      description: places[id - 1].description,
     });
   };
 

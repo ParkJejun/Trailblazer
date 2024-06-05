@@ -9,8 +9,16 @@ import Toast from "react-native-toast-message";
 import Loading from "../components/Loading";
 
 function EditInfo(props) {
-  const { id, name, englishName, buildingNum, latitude, longitude, tags } =
-    props.route.params;
+  const {
+    id,
+    name,
+    englishName,
+    buildingNum,
+    latitude,
+    longitude,
+    tags,
+    description,
+  } = props.route.params;
 
   // console.log(props.route.params);
 
@@ -22,6 +30,7 @@ function EditInfo(props) {
   const [newLatitude, setNewLatitude] = useState(latitude);
   const [newLongitude, setNewLongitude] = useState(longitude);
   const [newTags, setNewTags] = useState(tags);
+  const [newDescription, setNewDescription] = useState(description);
 
   const [loading, setLoading] = useState(false); // 로딩 상태 추가
   const [errors, setErrors] = useState({});
@@ -42,7 +51,8 @@ function EditInfo(props) {
     setNewLatitude(latitude);
     setNewLongitude(longitude);
     setNewTags(tags);
-  }, [name, englishName, buildingNum, latitude, longitude, tags]);
+    setNewDescription(description);
+  }, [name, englishName, buildingNum, latitude, longitude, tags, description]);
 
   // useEffect(() => {
   //   const unsubscribe = props.navigation.addListener("beforeRemove", (e) => {
@@ -103,7 +113,8 @@ function EditInfo(props) {
       places[id - 1].buildingNum !== newBuildingNum ||
       places[id - 1].latitude != newLatitude ||
       places[id - 1].longitude != newLongitude ||
-      places[id - 1].tags !== newTags
+      places[id - 1].tags !== newTags ||
+      places[id - 1].description !== newDescription
     ) {
       const isValid = validateForm();
 
@@ -117,7 +128,8 @@ function EditInfo(props) {
           newBuildingNum,
           newLatitude,
           newLongitude,
-          newTags
+          newTags,
+          newDescription
         );
         setLoading(false);
         // Show toast message for successful save
@@ -262,6 +274,12 @@ function EditInfo(props) {
             value={newTags}
             style={styles.materialStackedLabelTextbox}
             setValue={setNewTags}
+          ></MaterialStackedLabelTextbox>
+          <MaterialStackedLabelTextbox
+            label="Description"
+            value={newDescription}
+            style={styles.materialStackedLabelTextbox}
+            setValue={setNewDescription}
           ></MaterialStackedLabelTextbox>
         </View>
       </View>

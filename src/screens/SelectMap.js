@@ -208,7 +208,7 @@ function SelectMap(props) {
                     marginRight: 20,
                   }}
                 >
-                  {closest?.tags}
+                  {closest?.description}
                 </Text>
               </View>
               <View
