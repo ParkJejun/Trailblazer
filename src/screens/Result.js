@@ -153,7 +153,10 @@ function Result(props) {
           ></MaterialMapView>
 
           <View style={styles.wrap}>
-            <TransparentGradientBox height={200} borderRadius={Border.br_xl}>
+            <TransparentGradientBox
+              height={200}
+              borderRadius={[0, Border.br_xl]}
+            >
               <View style={{ marginTop: 20 }}>
                 <MaterialSearchBar
                   type="Departure"

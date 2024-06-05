@@ -6,7 +6,7 @@ import { Border } from "../utils/styles";
 const TransparentGradientBox = ({
   children,
   height = 100,
-  borderRadius = Border.br_base,
+  borderRadius = [Border.br_base, Border.br_base],
 }) => {
   return (
     <LinearGradient
@@ -19,7 +19,16 @@ const TransparentGradientBox = ({
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       locations={[0.0764, 0.0764, 0.3014, 0.8534]} // 각 색상의 위치를 나타내는 배열
-      style={[styles.rect1, { height: height, borderRadius: borderRadius }]}
+      style={[
+        styles.rect1,
+        {
+          height: height,
+          borderTopLeftRadius: borderRadius[0],
+          borderTopRightRadius: borderRadius[0],
+          borderBottomLeftRadius: borderRadius[1],
+          borderBottomRightRadius: borderRadius[1],
+        },
+      ]}
     >
       {children}
     </LinearGradient>
