@@ -5,7 +5,6 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { ADDRESS, PRIVATE_KEY } from "@env";
 import "react-native-get-random-values";
 
 export const Web3Context = createContext();
@@ -49,14 +48,14 @@ export const Web3ContextProvider = ({ children }) => {
         );
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
-            from: ADDRESS,
+            from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
             to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
             maxPriorityFeePerGas: 250000000000,
           },
-          PRIVATE_KEY
+          "0xdbc98d53eb2ff695194ec841d8fc4cd63e42abc98d901f94237780548aeaf453"
         );
         await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
       } catch (error) {
@@ -73,14 +72,14 @@ export const Web3ContextProvider = ({ children }) => {
       const tx = contract.methods.deletePlace(id);
       const createTransaction = await web3.eth.accounts.signTransaction(
         {
-          from: ADDRESS,
+          from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
           to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
           data: tx.encodeABI(),
           gas: await tx.estimateGas(),
           maxFeePerGas: 250000000000,
           maxPriorityFeePerGas: 250000000000,
         },
-        PRIVATE_KEY
+        "0xdbc98d53eb2ff695194ec841d8fc4cd63e42abc98d901f94237780548aeaf453"
       );
       await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
     } catch (error) {
@@ -104,14 +103,14 @@ export const Web3ContextProvider = ({ children }) => {
         );
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
-            from: ADDRESS,
+            from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
             to: "0x9180cD5dc2c1041A0EDA86c45C66fbc07974c68b",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
             maxPriorityFeePerGas: 250000000000,
           },
-          PRIVATE_KEY
+          "0xdbc98d53eb2ff695194ec841d8fc4cd63e42abc98d901f94237780548aeaf453"
         );
         await web3.eth.sendSignedTransaction(createTransaction.rawTransaction);
       } catch (error) {

@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { API_KEY } from "@env";
 import axios from "axios";
 
 export const usePath = () => {
@@ -10,7 +9,7 @@ export const usePath = () => {
 
     try {
       const response = await axios({
-        url: `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=${API_KEY}&start=${start.longitude},${start.latitude}&end=${end.longitude},${end.latitude}`,
+        url: `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf62489f48b391e3974812871880f14baceeed&start=${start.longitude},${start.latitude}&end=${end.longitude},${end.latitude}`,
         method: "GET",
         headers: {
           Accept:

@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, View } from "react-native";
-import loading from "../../assets/loading.gif";
+import loading from "../assets/images/loading.gif";
 
 const Loading = () => {
   return (
