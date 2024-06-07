@@ -3,14 +3,18 @@ import React, {
   useRef,
   useImperativeHandle,
   forwardRef,
+  useState,
 } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from "react-native-maps";
 import { Color } from "../utils/styles";
+import { getCurrentPosition } from "../utils/location";
+
+import Foundation from "react-native-vector-icons/Foundation";
 
 const MaterialMapView = forwardRef((props, ref) => {
   const mapViewRef = useRef(null);
-
+  const [currentLocation, setCurrentLocation] = useState(null);
   const gradientColors = [Color.lightBlue, Color.blue, Color.purple];
 
   const totalPoints = props.path?.length;
@@ -46,6 +50,17 @@ const MaterialMapView = forwardRef((props, ref) => {
   useEffect(() => {
     animate();
   }, [props?.path]);
+
+  useEffect(() => {
+    const fetchCurrentLocation = async () => {
+      const location = await getCurrentPosition();
+      if (location) {
+        setCurrentLocation(location);
+      }
+    };
+
+    fetchCurrentLocation();
+  }, []);
 
   // 부모 컴포넌트로부터 ref로 받은 메서드 제공
   useImperativeHandle(ref, () => ({
@@ -92,6 +107,14 @@ const MaterialMapView = forwardRef((props, ref) => {
             strokeColors={strokeColors}
             strokeWidth={4}
           />
+        ) : null}
+
+        {!props.loading && currentLocation ? (
+          <Marker coordinate={currentLocation} title="Current Location">
+            <View style={styles.currentLocationMarker}>
+              <Foundation name="target-two" size={30} color={Color.purple} />
+            </View>
+          </Marker>
         ) : null}
       </MapView>
     </View>
