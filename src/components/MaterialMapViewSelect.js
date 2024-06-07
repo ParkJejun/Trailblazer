@@ -1,14 +1,30 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { getCurrentPosition } from "../utils/location";
+import { Marker } from "react-native-maps";
+import Foundation from "react-native-vector-icons/Foundation";
+import { Color } from "../utils/styles";
 
 function MaterialMapViewSelect(props) {
   const mapViewRef = useRef(null);
 
+  const [currentLocation, setCurrentLocation] = useState(null);
+
   const handleRegionChangeComplete = (region) => {
     props.setRegion(region);
   };
+
+  useEffect(() => {
+    const fetchCurrentLocation = async () => {
+      const location = await getCurrentPosition();
+      if (location) {
+        setCurrentLocation(location);
+      }
+    };
+
+    fetchCurrentLocation();
+  }, []);
 
   useEffect(() => {
     const animate = async () => {
@@ -43,7 +59,15 @@ function MaterialMapViewSelect(props) {
         }}
         onRegionChangeComplete={handleRegionChangeComplete}
         provider={PROVIDER_GOOGLE}
-      ></MapView>
+      >
+        {!props.loading && currentLocation ? (
+          <Marker coordinate={currentLocation} title="Current Location">
+            <View style={styles.currentLocationMarker}>
+              <Foundation name="target-two" size={30} color={Color.purple} />
+            </View>
+          </Marker>
+        ) : null}
+      </MapView>
     </View>
   );
 }
