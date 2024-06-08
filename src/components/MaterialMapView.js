@@ -47,6 +47,23 @@ const MaterialMapView = forwardRef((props, ref) => {
     }
   };
 
+  const animateToCurrent = async () => {
+    if (mapViewRef?.current) {
+      const current = await getCurrentPosition();
+      if (!current) return;
+
+      mapViewRef.current.animateToRegion(
+        {
+          latitude: current.latitude,
+          longitude: current.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        1000
+      );
+    }
+  };
+
   useEffect(() => {
     animate();
   }, [props?.path]);
@@ -66,6 +83,9 @@ const MaterialMapView = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     animateToRegion: async () => {
       await animate();
+    },
+    animateToCurrent: async () => {
+      await animateToCurrent();
     },
   }));
 

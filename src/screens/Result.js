@@ -1,5 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Platform, StyleSheet, View, Text } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableHighlight,
+} from "react-native";
 import MaterialMapView from "../components/MaterialMapView";
 import MaterialSearchBar from "../components/MaterialSearchBar";
 import EntypoIcon from "react-native-vector-icons/Entypo";
@@ -25,12 +32,15 @@ import {
 } from "../utils/storage";
 import Loading from "../components/Loading";
 import Toast from "react-native-toast-message";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function Result(props) {
   const params = props.route.params;
   const { refresh, setRefresh } = useRefresh();
 
   const { loading, findPath } = usePath();
+
+  const mapViewRef = useRef();
 
   const [path, setPath] = useState();
   const [bookmarkIndex, setBookmarkIndex] = useState(-1);
@@ -74,8 +84,6 @@ function Result(props) {
       setRefresh(refresh + 1);
     }
   }, [ids?.startId, ids?.endId]);
-
-  const mapViewRef = useRef();
 
   const handleSearchPress = (type) => {
     props.navigation.navigate("Select", {
@@ -138,6 +146,12 @@ function Result(props) {
     }
   };
 
+  const handleCurrent = async () => {
+    if (mapViewRef?.current) {
+      await mapViewRef.current.animateToCurrent(); // animateToRegion 호출
+    }
+  };
+
   return (
     <View style={GlobalStyles.background}>
       <ViewShot
@@ -193,6 +207,24 @@ function Result(props) {
             </TransparentGradientBox>
 
             <View style={{ flex: 1 }} />
+            <View
+              style={{
+                position: "absolute",
+                right: 30,
+                bottom: 190,
+              }}
+            >
+              <RoundIconButton
+                onPress={handleCurrent}
+                icon={
+                  <MaterialCommunityIcons
+                    name="target"
+                    style={styles.bigIcon}
+                  />
+                }
+                backgroundColor="white"
+              />
+            </View>
 
             <WhiteBox height={160}>
               {loading ? (
@@ -209,12 +241,19 @@ function Result(props) {
               ) : (
                 <View>
                   <View style={styles.upperGroup}>
-                    <View style={styles.textRow}>
+                    <TouchableOpacity
+                      style={styles.textRow}
+                      onPress={async () => {
+                        if (mapViewRef?.current) {
+                          await mapViewRef.current.animateToRegion(); // animateToRegion 호출
+                        }
+                      }}
+                    >
                       <Text style={{ ...GlobalStyles.h1, marginRight: 10 }}>
                         {path?.duration}
                       </Text>
                       <Text style={GlobalStyles.h2}>min</Text>
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.buttonRow}>
                       <RoundIconButton
                         icon={
