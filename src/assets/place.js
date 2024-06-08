@@ -121,7 +121,7 @@ export const places = [
     buildingNum: "E5",
     latitude: 36.36916,
     longitude: 127.36373,
-    tags: "식당, 매점, 동맛골, Restaurant, Store",
+    tags: "식당, 매점, 동맛골, Restaurant, Store, East Cafeteria",
     description: "A facility for faculty with dining and store options.",
   },
   {
@@ -435,7 +435,7 @@ export const places = [
     buildingNum: "W2",
     latitude: 36.36717,
     longitude: 127.36089,
-    tags: "식당, ATM, 더큰도시락, 대덕동네피자, 서맛골, BBQ, Restaurant",
+    tags: "식당, ATM, 더큰도시락, 대덕동네피자, 서맛골, BBQ, Restaurant, West Cafeteria, Durken Dosirak, DDDN Pizza, Seomatgol",
     description: "Student center with dining options and ATMs.",
   },
   {
@@ -768,7 +768,7 @@ export const places = [
     buildingNum: "N7-1",
     latitude: 36.37195,
     longitude: 127.35887,
-    tags: "식당, 오샐러드, Restaurant",
+    tags: "식당, 오샐러드, Restaurant, Ohhsalad",
     description: "Building with a restaurant named O'Salad.",
   },
   {
@@ -828,7 +828,7 @@ export const places = [
     buildingNum: "N11",
     latitude: 36.37374,
     longitude: 127.3592,
-    tags: "식당, 카페, 카이마루, 쥬스킹, 오늘도든든, 휴김밥전문점, 리틀하노이, 캠토, 웰차이, Restaurant, Cafe, KAIMARU, JUICEKING, Little Hanoi, Camto",
+    tags: "식당, 카페, 카이마루, 쥬스킹, 오늘도든든, 휴김밥전문점, 리틀하노이, 캠토, 웰차이, Restaurant, North Cafeteria, Cafe, KAIMARU, JUICEKING, A Happy Tummy Everyday, Hue Gimbap, Little Hanoi, Camto, WellChai",
     description: "Cafeteria with multiple dining options.",
   },
   {
@@ -838,7 +838,7 @@ export const places = [
     buildingNum: "N12",
     latitude: 36.37412,
     longitude: 127.35985,
-    tags: "식당, 매점, 풀빛마루, Restaurant, Store",
+    tags: "식당, 매점, 풀빛마루, Restaurant, Store, Pulbitmaru",
     description: "Student center with dining and store options.",
   },
   {
@@ -858,7 +858,7 @@ export const places = [
     buildingNum: "N13",
     latitude: 36.37309,
     longitude: 127.36007,
-    tags: "식당, 잡화점, ATM, 인생설렁탕, 제순식당, 역전우동, Restaurant, Variety store",
+    tags: "식당, 잡화점, ATM, 인생설렁탕, 제순식당, 역전우동, Restaurant, Variety store, Jesun Restaurant, Ox bone soup, Udon Corner",
     description: "Dormitory with dining and variety store options.",
   },
   {
