@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Alert,
+  Text,
+  KeyboardAvoidingView,
+  ScrollView,
+} from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import MaterialStackedLabelTextbox from "../components/MaterialStackedLabelTextbox";
 import MaterialButtonViolet1 from "../components/MaterialButtonViolet1";
@@ -217,83 +224,87 @@ function EditInfo(props) {
   };
 
   return (
-    <View style={GlobalStyles.background}>
-      <View style={styles.row}>
-        <MaterialCommunityIconsIcon
-          name="office-building"
-          style={styles.icon}
-        ></MaterialCommunityIconsIcon>
-        <View>
-          <MaterialStackedLabelTextbox
-            label="Building name"
-            value={newName}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewName}
-          ></MaterialStackedLabelTextbox>
-          {errors.newName && (
-            <Text style={styles.errorText}>{errors.newName}</Text>
+    <ScrollView>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <View style={GlobalStyles.background}>
+          <View style={styles.row}>
+            <MaterialCommunityIconsIcon
+              name="office-building"
+              style={styles.icon}
+            ></MaterialCommunityIconsIcon>
+            <View>
+              <MaterialStackedLabelTextbox
+                label="Building name"
+                value={newName}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewName}
+              ></MaterialStackedLabelTextbox>
+              {errors.newName && (
+                <Text style={styles.errorText}>{errors.newName}</Text>
+              )}
+              <MaterialStackedLabelTextbox
+                label="Building name"
+                value={newEnglishName}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewEnglishName}
+              ></MaterialStackedLabelTextbox>
+              {errors.newEnglishName && (
+                <Text style={styles.errorText}>{errors.newEnglishName}</Text>
+              )}
+              <MaterialStackedLabelTextbox
+                label="Building number"
+                value={newBuildingNum}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewBuildingNum}
+              ></MaterialStackedLabelTextbox>
+              {errors.newBuildingNum && (
+                <Text style={styles.errorText}>{errors.newBuildingNum}</Text>
+              )}
+              <MaterialStackedLabelTextbox
+                label="Latitude"
+                value={newLatitude.toString()}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewLatitude}
+              ></MaterialStackedLabelTextbox>
+              {errors.newLatitude && (
+                <Text style={styles.errorText}>{errors.newLatitude}</Text>
+              )}
+              <MaterialStackedLabelTextbox
+                label="Longitude"
+                value={newLongitude.toString()}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewLongitude}
+              ></MaterialStackedLabelTextbox>
+              {errors.newLongitude && (
+                <Text style={styles.errorText}>{errors.newLongitude}</Text>
+              )}
+              <MaterialStackedLabelTextbox
+                label="Tags"
+                value={newTags}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewTags}
+              ></MaterialStackedLabelTextbox>
+              <MaterialStackedLabelTextbox
+                label="Description"
+                value={newDescription}
+                style={styles.materialStackedLabelTextbox}
+                setValue={setNewDescription}
+              ></MaterialStackedLabelTextbox>
+            </View>
+          </View>
+          <MaterialButtonViolet1
+            caption="Save"
+            style={styles.materialButtonViolet1}
+            onPress={handlePress}
+          ></MaterialButtonViolet1>
+          {loading && (
+            <View style={styles.overlay}>
+              <Loading />
+            </View>
           )}
-          <MaterialStackedLabelTextbox
-            label="Building name"
-            value={newEnglishName}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewEnglishName}
-          ></MaterialStackedLabelTextbox>
-          {errors.newEnglishName && (
-            <Text style={styles.errorText}>{errors.newEnglishName}</Text>
-          )}
-          <MaterialStackedLabelTextbox
-            label="Building number"
-            value={newBuildingNum}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewBuildingNum}
-          ></MaterialStackedLabelTextbox>
-          {errors.newBuildingNum && (
-            <Text style={styles.errorText}>{errors.newBuildingNum}</Text>
-          )}
-          <MaterialStackedLabelTextbox
-            label="Latitude"
-            value={newLatitude.toString()}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewLatitude}
-          ></MaterialStackedLabelTextbox>
-          {errors.newLatitude && (
-            <Text style={styles.errorText}>{errors.newLatitude}</Text>
-          )}
-          <MaterialStackedLabelTextbox
-            label="Longitude"
-            value={newLongitude.toString()}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewLongitude}
-          ></MaterialStackedLabelTextbox>
-          {errors.newLongitude && (
-            <Text style={styles.errorText}>{errors.newLongitude}</Text>
-          )}
-          <MaterialStackedLabelTextbox
-            label="Tags"
-            value={newTags}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewTags}
-          ></MaterialStackedLabelTextbox>
-          <MaterialStackedLabelTextbox
-            label="Description"
-            value={newDescription}
-            style={styles.materialStackedLabelTextbox}
-            setValue={setNewDescription}
-          ></MaterialStackedLabelTextbox>
         </View>
-      </View>
-      <MaterialButtonViolet1
-        caption="Save"
-        style={styles.materialButtonViolet1}
-        onPress={handlePress}
-      ></MaterialButtonViolet1>
-      {loading && (
-        <View style={styles.overlay}>
-          <Loading />
-        </View>
-      )}
-    </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 

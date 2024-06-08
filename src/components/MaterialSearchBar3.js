@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import MaterialCommunityIconsIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -27,6 +27,7 @@ function MaterialSearchBar3(props) {
           placeholderTextColor={Color.lightGray}
           style={styles.inputStyle}
           value={searchText}
+          autoFocus={true}
           onChangeText={handleChangeText}
         />
         <TouchableOpacity
