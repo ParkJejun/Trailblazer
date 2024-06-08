@@ -68,7 +68,7 @@ const tags = [
   {
     id: "3",
     icon: "printer",
-    caption: "Copying Machine",
+    caption: "Printer",
   },
   {
     id: "4",
