@@ -31,7 +31,7 @@ const tags = [
   {
     id: "3",
     icon: "printer",
-    caption: "Printer",
+    caption: "Copying Machine",
   },
   {
     id: "4",
@@ -47,7 +47,7 @@ const tags = [
   {
     id: "6",
     icon: "book-open-variant",
-    caption: "Study Place",
+    caption: "Study",
   },
   {
     id: "7",
