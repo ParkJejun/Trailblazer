@@ -19,7 +19,7 @@ export const Web3ContextProvider = ({ children }) => {
   const contract = useMemo(() => {
     return new web3.eth.Contract(
       abi,
-      "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C"
+      "0xb7a7ea95d27E1f5Deb120a681d6F7730Cb9C0263"
     );
   }, []);
 
@@ -58,7 +58,7 @@ export const Web3ContextProvider = ({ children }) => {
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
             from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-            to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
+            to: "0xb7a7ea95d27E1f5Deb120a681d6F7730Cb9C0263",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
@@ -82,7 +82,7 @@ export const Web3ContextProvider = ({ children }) => {
       const createTransaction = await web3.eth.accounts.signTransaction(
         {
           from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-          to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
+          to: "0xb7a7ea95d27E1f5Deb120a681d6F7730Cb9C0263",
           data: tx.encodeABI(),
           gas: await tx.estimateGas(),
           maxFeePerGas: 250000000000,
@@ -123,7 +123,7 @@ export const Web3ContextProvider = ({ children }) => {
         const createTransaction = await web3.eth.accounts.signTransaction(
           {
             from: "0xac96b49103f579b1862fc44b688a35ceb0dc58a2",
-            to: "0x6C8F818E510bCF9a898756C4B2dD782DF9B6D03C",
+            to: "0xb7a7ea95d27E1f5Deb120a681d6F7730Cb9C0263",
             data: tx.encodeABI(),
             gas: await tx.estimateGas(),
             maxFeePerGas: 250000000000,
